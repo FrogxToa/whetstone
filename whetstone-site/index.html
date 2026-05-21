@@ -7,7 +7,7 @@
 <meta name="description" content="An unofficial periodical of field guides, dossiers, and verified notes for MapleStory R: Evolution." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -41,6 +41,8 @@
         <span><strong>House voice</strong> Skeptical, formal, verified</span>
       </div>
     </div>
+  <!-- Mushroom silhouette -->
+  <div aria-hidden="true" style="pointer-events:none;position:relative;height:36px;overflow:hidden;opacity:0.14;font-size:24px;display:flex;align-items:flex-end;padding:0 20px;gap:14px;user-select:none;background:linear-gradient(transparent,var(--bg))">🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿🍄🌿</div>
   </header>
 
   <!-- ============================ FEATURED ============================ -->
@@ -457,5 +459,25 @@
     </div>
   </footer>
 
+<script>
+(function(){
+  function drop(){
+    var el=document.createElement('span');
+    var size=10+Math.random()*14;
+    var dur=7+Math.random()*7;
+    var delay=Math.random()*2;
+    el.textContent='🍁';
+    el.setAttribute('aria-hidden','true');
+    el.style.cssText='position:fixed;top:0;left:'+(Math.random()*110-5)+'vw;font-size:'+size+'px;pointer-events:none;z-index:1;animation:fallLeaf '+dur+'s ease-in '+delay+'s forwards;';
+    document.body.appendChild(el);
+    setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},( dur+delay+0.5)*1000);
+  }
+  // First leaf after 2s, then one every ~3s
+  setTimeout(function(){
+    drop();
+    setInterval(drop,3000);
+  },2000);
+})();
+</script>
 </body>
 </html>
