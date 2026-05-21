@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pets · Whetstone</title>
+<meta name="description" content="Dossier 08: Full EXR compendium, optimal PvP/PvE/Dojo lineups, bond system, EXR stats progression, pull copy targets, and UR swell table." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .toc{border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:28px}
+  .toc h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+  .toc ol{margin:0;padding:0 0 0 18px}
+  .toc li{font-size:14px;color:var(--ink-soft);margin:5px 0}
+  .toc a{color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--amber)}
+
+  /* Role badges */
+  .role{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor}
+  .role-pvp{color:var(--ember)}
+  .role-pve{color:var(--teal)}
+  .role-both{color:var(--amber)}
+  .role-essential{color:var(--green)}
+  .role::before{content:'';width:5px;height:5px;background:currentColor;border-radius:50%}
+
+  /* EXR cards */
+  .exr-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.exr-grid{grid-template-columns:1fr}}
+  .exr-card{border:1px solid var(--line);background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:12px}
+  .exr-card .exr-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .exr-card .exr-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--ink-mute)}
+  .exr-card h4{font-family:'Fraunces',serif;font-size:20px;margin:6px 0 0;color:var(--paper);letter-spacing:-.01em;line-height:1.1}
+  .exr-card .exr-skill{background:var(--bg-2);border:1px solid var(--line-soft);padding:12px 14px;font-size:13px;color:var(--ink);line-height:1.55}
+  .exr-card .exr-skill .sk-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:6px}
+  .exr-card .exr-thresholds{font-size:12px;color:var(--ink-soft)}
+  .exr-card .exr-thresholds strong{color:var(--paper);display:block;margin-bottom:4px;font-size:13px}
+  .exr-card .exr-replace{font-size:12px;color:var(--ink-mute);padding-top:10px;border-top:1px dashed var(--line-soft)}
+  .exr-card .exr-replace strong{color:var(--ink-soft)}
+
+  /* Lineup display */
+  .lineup{border:1px solid var(--line)}
+  .lineup-header{padding:14px 18px;background:var(--bg-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .lineup-header h4{font-family:'Fraunces',serif;font-size:20px;margin:0;color:var(--paper)}
+  .lineup-header .ldate{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute)}
+  .lineup-pets{padding:14px 18px;display:flex;flex-wrap:wrap;gap:8px}
+  .pet-tag{border:1px solid var(--line);background:var(--surface);padding:7px 12px;font-size:13px;display:flex;flex-direction:column;gap:2px}
+  .pet-tag .pname{color:var(--paper);font-weight:600}
+  .pet-tag .pnote{font-size:11px;color:var(--ink-mute)}
+  .pet-tag.essential{border-color:var(--amber);background:rgba(232,158,61,.05)}
+  .pet-tag.essential .pname{color:var(--amber)}
+  .pet-tag.situational{opacity:.7;border-style:dashed}
+  .lineup-note{padding:10px 18px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--ink-mute);font-style:italic}
+
+  /* Stats table */
+  .stats-table{width:100%;border-collapse:collapse;font-size:13px}
+  .stats-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:center;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .stats-table thead th:first-child{text-align:left}
+  .stats-table tbody td{padding:9px 12px;border-bottom:1px solid var(--line-soft);text-align:center;font-family:'JetBrains Mono',monospace;color:var(--ink)}
+  .stats-table tbody td:first-child{text-align:left;color:var(--amber);font-weight:600}
+  .stats-table tbody tr:last-child td{border-bottom:none}
+  .stats-table tbody tr:hover td{background:rgba(232,158,61,.03)}
+  .stats-table .milestone td{background:rgba(111,168,106,.06)}
+  .stats-table .milestone td:first-child{color:var(--green)}
+
+  /* Swell table */
+  .swell-table{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:600px){.swell-table{grid-template-columns:repeat(4,1fr)}}
+  .swell-cell{background:var(--surface);padding:14px 8px;text-align:center}
+  .swell-cell .sc-star{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-mute);margin-bottom:4px}
+  .swell-cell .sc-ur{font-family:'Fraunces',serif;font-style:italic;font-size:28px;color:var(--amber);line-height:1}
+
+  /* Banner table */
+  .banner-table{width:100%;border-collapse:collapse;font-size:13px}
+  .banner-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .banner-table tbody td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-size:13px;vertical-align:top}
+  .banner-table tbody tr:last-child td{border-bottom:none}
+  .banner-table .new-exr{color:var(--amber);font-weight:600}
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Pets</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 08</div>
+      <h1>Pet <em>Compendium</em></h1>
+      <p class="deck">All seven EXR pets with exact skills, optimal PvP and PvE lineups at two points in time, the bond system, EXR stats progression from +0 to +13, pull copy targets, and the UR swell table.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #pets</span>
+        <span><strong>EXR skills credits</strong> @Kim</span>
+        <span><strong>Stats credits</strong> @xRev, @Elian4245</span>
+        <span><strong>Swell credits</strong> @the cutest Heet</span>
+        <span><strong>Period</strong> Sep–Dec 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <p>The pet system in MapleStory R evolves quickly. UR pets dominate early, then EXR pets start replacing specific slots as they release. The question is always the same: which slot does a new pet take, and is the copy investment worth it before the next banner? This dossier compiles the complete EXR skill reference, two lineup snapshots as the meta evolved, and the mechanical rules that govern pulling and progression.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      Two critical facts to internalize before anything else: <strong>EXR pets still use Moonstones</strong> — not a separate currency. And <strong>UR banners and EXR limited banners do not share pity count</strong>. Both were common points of confusion in the source channel. Lineups are snapshots from Sep 2023 and Dec 2023. The meta will have continued to shift; treat these as a baseline, not current truth.
+    </div>
+
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">01</span><span class="t"><strong>Seruf and Viking</strong> are essential UR cores until Birk replaces them at end-game.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t">Pull EXR to <strong>+4 minimum</strong> (3 copies) to activate bonds. Pull 1 copy = wasted pull.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t"><strong>EXR pity carries over</strong> between banners. UR and EXR banners do NOT share pity.</span></div>
+      <div class="tldr-cell"><span class="n">04</span><span class="t">Bonds add <strong>directly to pet stats</strong>. +7 UR bonds matter — activate them with +4 EXR.</span></div>
+      <div class="tldr-cell"><span class="n">05</span><span class="t">EXR Swell only activates <strong>from +41 stars onwards</strong>. Do not dump copies early.</span></div>
+    </div>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#banners">Banner history</a></li>
+        <li><a href="#exr">EXR compendium</a></li>
+        <li><a href="#lineups">Optimal lineups</a></li>
+        <li><a href="#bonds">Bond system</a></li>
+        <li><a href="#stats">EXR stats progression (+0 to +13)</a></li>
+        <li><a href="#pulling">Pull guidance and copy targets</a></li>
+        <li><a href="#swell">UR swell table</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: BANNERS -->
+    <section class="guide-section" id="banners">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Banner <em>history</em></h2>
+        <div class="section-tag">Each banner lasts 1 week</div>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="banner-table">
+          <thead><tr><th>Run</th><th>UR pets available</th><th>EXR introduced</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Initial</td>
+              <td>Bubble Fish / Seruf, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate / Spirit Viking, Bone Fish</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>1st Rerun</td>
+              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
+              <td><span class="new-exr">EXR Soul Teddy, EXR Deep Buffoon, EXR Green Cornian</span></td>
+            </tr>
+            <tr>
+              <td>2nd Rerun</td>
+              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
+              <td><span class="new-exr">EXR Hobi, EXR Blue Dragon Turtle</span></td>
+            </tr>
+            <tr>
+              <td>3rd Rerun</td>
+              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
+              <td><span class="new-exr">EXR Red Kentaurus, EXR Birk</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 2: EXR COMPENDIUM -->
+    <section class="guide-section" id="exr">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">EXR <em>compendium</em></h2>
+        <div class="section-tag">All 7 EXR · skills · replacements</div>
+      </div>
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Release order 1–7. Skill descriptions are from Ulam's compiled list (Oct 2023), which is more precise than the original narrative posts.</p>
+
+      <div class="exr-grid">
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 01</div>
+              <h4>Soul Teddy</h4>
+            </div>
+            <span class="role role-pvp">PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Skill 2</span>
+            Lower enemy ATK by 35%, reduce enemy petrify/stun/freeze resistance by 50% for 4 seconds. CD 6s.
+          </div>
+          <div class="exr-replace"><strong>Replaces in PvP:</strong> Skull Commander or Flying Fish. <strong>In PvE:</strong> Dyle (Dyle is defense-stat based; Soul Teddy's debuff is more useful).</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 02</div>
+              <h4>Gatekeeper</h4>
+            </div>
+            <span class="role role-pvp">PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Passive</span>
+            +30% HP shield at battle start. Recover 3% shield every 3 seconds. Shield cap 30%.
+          </div>
+          <div class="exr-replace"><strong>Replaces in PvP:</strong> Flying Fish (Flying Fish still usable in rage lock situations). <strong>Warriors:</strong> can replace Bone Fish instead.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 03</div>
+              <h4>Dark Cornian</h4>
+            </div>
+            <span class="role role-both">PvE + PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Skill 4</span>
+            100% chance to create a maple leaf zone for 3s. CD 8s. Grants +1 rage per second and +12% ATK while in zone.
+          </div>
+          <div class="exr-thresholds">
+            <strong>Leap thresholds (zone duration):</strong>
+            +4 = 1 rage/s for 2s · +9 = 1 rage/s for 3s
+          </div>
+          <div class="exr-replace"><strong>Note:</strong> Thief class has reduced synergy due to dash mechanic. <strong>PvE (non-rage-reduction bosses):</strong> replaces Eliza or Bone Fish. <strong>PvP:</strong> remove Eliza. <strong>Daily PvE:</strong> remove Dyle.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 04</div>
+              <h4>Hobgoblin</h4>
+            </div>
+            <span class="role role-pvp">PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">On Rage Skill</span>
+            Summon 2 ice totems. Each totem: freeze 3.4s, deal 134% ATK damage. CD 10s.
+          </div>
+          <div class="exr-replace"><strong>Replaces in PvP:</strong> Bone Fish — unless you want both stun (Bone Fish) and freeze (Hobgoblin). Otherwise swap any UR except Seruf or Viking.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 05</div>
+              <h4>Blue Dragon Turtle</h4>
+            </div>
+            <span class="role role-pvp">PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Skill 3</span>
+            400% ATK damage. Reduces target HP shield by 30% (cap: 100× ATK). Reduces self rage by 1. CD 6s.
+          </div>
+          <div class="exr-replace"><strong>Replaces:</strong> At this stage of the EXR lineup, swap out any other EXR or the weakest remaining UR.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 06</div>
+              <h4>Gryphon (Red Kentaurus)</h4>
+            </div>
+            <span class="role role-essential">Essential PvP</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Passive</span>
+            Start with 6 barrier layers. Each layer: +10% DEF, +1% ATK. Nullifies 1 CC (stun/petrify/freeze) per layer. +1 layer every 20s, cap 6.
+          </div>
+          <div class="exr-replace"><strong>Replaces:</strong> Dyle — Gryphon's barrier layers make Dyle's resistance contribution redundant immediately.</div>
+        </div>
+
+        <div class="exr-card" style="grid-column:1/-1;">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">EXR 07</div>
+              <h4>Birk</h4>
+            </div>
+            <span class="role role-essential">Essential PvE</span>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Passive + Rampage</span>
+            Activates at battle start. Every 20 seconds: +3 rage, +25% boss damage, auto skill deals +100% ATK as true damage for 10s.
+          </div>
+          <div class="exr-thresholds">
+            <strong>Why this replaces Seruf/Viking:</strong> Viking's Skill 4 has a 10s CD — providing +2 rage per 20s. Birk provides +3 rage per 20s at the same interval, plus boss damage and true damage. Once Birk is at max leap, both Seruf and Viking become replaceable.
+          </div>
+          <div class="exr-replace"><strong>Replaces:</strong> Seruf and/or Viking — but only at Birk's maximum leap level.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: LINEUPS -->
+    <section class="guide-section" id="lineups">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Optimal <em>lineups</em></h2>
+        <div class="section-tag">Two snapshots · Sep 2023 → Dec 2023</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 20px;">Two time-stamped lineup recommendations showing how the meta shifted as EXR pets released. Amber highlight = essential/core slot.</p>
+
+      <!-- Sep 2023 PvP -->
+      <div class="lineup" style="margin-bottom:14px;">
+        <div class="lineup-header">
+          <h4>PvP — Sep 2023</h4>
+          <span class="ldate">Ulam · Sep 22</span>
+        </div>
+        <div class="lineup-pets">
+          <div class="pet-tag essential"><span class="pname">Viking</span></div>
+          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
+          <div class="pet-tag essential"><span class="pname">Dyle</span><span class="pnote">CC resistance</span></div>
+          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
+          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
+          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun · Warriors too</span></div>
+          <div class="pet-tag"><span class="pname">Eliza</span><span class="pnote">Until Cornian</span></div>
+        </div>
+      </div>
+
+      <!-- Sep 2023 PvE -->
+      <div class="lineup" style="margin-bottom:14px;">
+        <div class="lineup-header">
+          <h4>PvE — Sep 2023</h4>
+          <span class="ldate">Ulam · Sep 22</span>
+        </div>
+        <div class="lineup-pets">
+          <div class="pet-tag essential"><span class="pname">Viking</span></div>
+          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
+          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
+          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
+          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun</span></div>
+          <div class="pet-tag situational"><span class="pname">Dyle</span><span class="pnote">If struggling to survive</span></div>
+          <div class="pet-tag situational"><span class="pname">Eliza / Flying Fish / Skull Monster</span><span class="pnote">Hex / Rage Block situations</span></div>
+        </div>
+      </div>
+
+      <!-- Dec 2023 PvP -->
+      <div class="lineup" style="margin-bottom:14px;">
+        <div class="lineup-header">
+          <h4>PvP — Dec 2023</h4>
+          <span class="ldate">Elian · Dec 13</span>
+        </div>
+        <div class="lineup-pets">
+          <div class="pet-tag essential"><span class="pname">Viking</span></div>
+          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
+          <div class="pet-tag essential"><span class="pname">Dyle</span><span class="pnote">CC resistance</span></div>
+          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
+          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
+          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun · Warriors too</span></div>
+          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
+          <div class="pet-tag"><span class="pname">Hobbi</span><span class="pnote">Debatable · can replace Bone Fish</span></div>
+        </div>
+      </div>
+
+      <!-- Dec 2023 PvE -->
+      <div class="lineup" style="margin-bottom:14px;">
+        <div class="lineup-header">
+          <h4>PvE — Dec 2023</h4>
+          <span class="ldate">Elian · Dec 13</span>
+        </div>
+        <div class="lineup-pets">
+          <div class="pet-tag essential"><span class="pname">Viking</span></div>
+          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
+          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
+          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
+          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun</span></div>
+          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
+          <div class="pet-tag essential"><span class="pname">Hobbi</span></div>
+          <div class="pet-tag situational"><span class="pname">Dyle</span><span class="pnote">Resistance · if struggling</span></div>
+          <div class="pet-tag situational"><span class="pname">Eliza / Flying Fish / Skull Monster</span><span class="pnote">Hex / Rage Block</span></div>
+        </div>
+      </div>
+
+      <!-- Dojo Oct 2023 -->
+      <div class="lineup">
+        <div class="lineup-header">
+          <h4>Dojo — Oct 2023</h4>
+          <span class="ldate">Ulam · Oct 5</span>
+        </div>
+        <div class="lineup-pets">
+          <div class="pet-tag essential"><span class="pname">Viking</span></div>
+          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
+          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Warriors: extra stun chance</span></div>
+          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
+          <div class="pet-tag"><span class="pname">Master Death Teddy</span></div>
+          <div class="pet-tag"><span class="pname">Skull Commander</span><span class="pnote">Good vs multiple enemies</span></div>
+          <div class="pet-tag"><span class="pname">Dyle</span><span class="pnote">Resistance reduction</span></div>
+          <div class="pet-tag"><span class="pname">Eliza</span><span class="pnote">MUST for rage reduction</span></div>
+          <div class="pet-tag"><span class="pname">Flying Fish</span><span class="pnote">MUST for rage block / hex</span></div>
+        </div>
+        <div class="lineup-note">Notable SRs that punch above their tier: Goby (Squid) at +13 performs on par with a +8 UR. Android.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: BONDS -->
+    <section class="guide-section" id="bonds">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Bond <em>system</em></h2>
+        <div class="section-tag">Why +7 UR and +4 EXR matter</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>What bonds do</h3>
+          <p class="lede">Bond stats are appended <strong>directly to the equipped pet's stats</strong> — automatically. They are not a separate passive; they stack onto the pet's attribute total. This makes UR bonds at +7 a meaningful stat multiplier rather than a cosmetic unlock.</p>
+        </div>
+        <div class="card">
+          <h3>Minimum EXR for bond activation</h3>
+          <p class="lede">To activate the bonds on your +7 UR pets (e.g. Bone Fish, Seruf), you need to pull an EXR to at least <strong>+4</strong>. That requires <strong>3 EXR copies</strong>. Pulling a single copy does not activate bonds — and cannot replace any slot — making a solo pull the worst possible use of Moonstones.</p>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Should you pull EXR if you cannot reach +13?</strong>
+        Yes — but target +4 at minimum. +4 activates bonds on your existing +7 UR pets. +6 unlocks Illustration. Only go all-in (toward +13) if the EXR is rated essential for your primary content (PvP or PvE). Budget for the <em>next</em> EXR before spending everything on the current one.
+      </div>
+    </section>
+
+    <!-- SECTION 5: STATS -->
+    <section class="guide-section" id="stats">
+      <div class="section-head">
+        <div class="section-num">§ 05</div>
+        <h2 class="section-title">EXR stats progression <em>+0 to +13</em></h2>
+        <div class="section-tag">Credits: @xRev, @Elian4245</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Two stats shown per enhancement level. The exact stat names were not specified in the source (likely ATK Power % and a secondary stat). Green rows mark the key pull targets: +4 (bond activation + 3 copies), +6 (Illustration + 4 copies), and +13 (maximum).</p>
+
+      <div class="card" style="padding:0">
+        <table class="stats-table">
+          <thead><tr><th>Level</th><th>Stat A</th><th>Stat B</th></tr></thead>
+          <tbody>
+            <tr><td>+0</td><td>9%</td><td>6%</td></tr>
+            <tr><td>+1</td><td>10%</td><td>7.5%</td></tr>
+            <tr><td>+2</td><td>11%</td><td>9%</td></tr>
+            <tr><td>+3</td><td>12%</td><td>10.5%</td></tr>
+            <tr class="milestone"><td>+4 ★ bond</td><td>13%</td><td>12%</td></tr>
+            <tr><td>+5</td><td>14%</td><td>13.5%</td></tr>
+            <tr class="milestone"><td>+6 ★ illus.</td><td>15%</td><td>15%</td></tr>
+            <tr><td>+7</td><td>16.5%</td><td>16%</td></tr>
+            <tr><td>+8</td><td>17.5%</td><td>17.5%</td></tr>
+            <tr><td>+9</td><td>19%</td><td>17.5%</td></tr>
+            <tr><td>+10</td><td>19%</td><td>19%</td></tr>
+            <tr><td>+11</td><td>20.5%</td><td>19%</td></tr>
+            <tr><td>+12</td><td>20.5%</td><td>20.5%</td></tr>
+            <tr class="milestone"><td>+13 ★ max</td><td>22%</td><td>20.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 6: PULLING -->
+    <section class="guide-section" id="pulling">
+      <div class="section-head">
+        <div class="section-num">§ 06</div>
+        <h2 class="section-title">Pull guidance <em>and copy targets</em></h2>
+        <div class="section-tag">EXR · Pity rules</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Do not pull 1 copy</h3>
+          <p class="lede">One copy cannot reach +1 enhancement and cannot replace any slot. It is a progression gatekeep. Commit to at least 3 copies (+4) or save entirely.</p>
+        </div>
+        <div class="card">
+          <h3>Copy targets</h3>
+          <p class="lede"><strong>+4 = 3 copies</strong> — bonds activate on existing +7 UR pets. Minimum viable pull.<br><br><strong>+6 = 4 copies</strong> — unlocks Illustration. Pull here if you can afford it without compromising the next EXR.<br><br><strong>+13 = all-in</strong> — only for essential EXR.</p>
+        </div>
+        <div class="card">
+          <h3>Viking pull target</h3>
+          <p class="lede">Viking is a key UR that remains in lineups until Birk at end-game.<br><br><strong>F2P:</strong> +8 for the stats leap if possible, +6 as a safe minimum.<br><strong>P2W:</strong> +9 minimum, +13 for full effect.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Pity rules</h3>
+        <ol class="steps">
+          <li><strong>EXR pity carries over between EXR banners.</strong> Confirmed in-game — pity count does not reset when a new EXR banner begins.</li>
+          <li><strong>UR banners and EXR limited banners are entirely separate pity pools.</strong> Pulls on a UR banner do not contribute to EXR pity, and vice versa.</li>
+          <li>EXR Swell only becomes useful from <strong>+41 stars onwards</strong>. Do not sacrifice copies for Swell early. Save the copies for enhancement targets first.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECTION 7: SWELL -->
+    <section class="guide-section" id="swell">
+      <div class="section-head">
+        <div class="section-num">§ 07</div>
+        <h2 class="section-title">UR swell <em>table</em></h2>
+        <div class="section-tag">Stars vs UR copies required · Credits: @the cutest Heet</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The UR Swell system feeds surplus +13 UR pets into a swell progression. The table shows how many UR copies are needed at each star level. Pet Devour (unlocked at level 168) also requires UR at +13 before surplus URs can be used.</p>
+
+      <div class="swell-table">
+        <div class="swell-cell"><div class="sc-star">★1</div><div class="sc-ur">1</div></div>
+        <div class="swell-cell"><div class="sc-star">★2</div><div class="sc-ur">1</div></div>
+        <div class="swell-cell"><div class="sc-star">★3</div><div class="sc-ur">2</div></div>
+        <div class="swell-cell"><div class="sc-star">★4</div><div class="sc-ur">2</div></div>
+        <div class="swell-cell"><div class="sc-star">★5</div><div class="sc-ur">2</div></div>
+        <div class="swell-cell"><div class="sc-star">★6</div><div class="sc-ur">3</div></div>
+        <div class="swell-cell"><div class="sc-star">★7</div><div class="sc-ur">3</div></div>
+        <div class="swell-cell"><div class="sc-star">★8</div><div class="sc-ur">3</div></div>
+        <div class="swell-cell"><div class="sc-star">★9</div><div class="sc-ur">3</div></div>
+        <div class="swell-cell"><div class="sc-star">★10</div><div class="sc-ur">3</div></div>
+        <div class="swell-cell"><div class="sc-star">★11</div><div class="sc-ur">4</div></div>
+        <div class="swell-cell"><div class="sc-star">★12</div><div class="sc-ur">4</div></div>
+        <div class="swell-cell"><div class="sc-star">★13</div><div class="sc-ur">4</div></div>
+        <div class="swell-cell"><div class="sc-star">★14</div><div class="sc-ur">4</div></div>
+        <div class="swell-cell"><div class="sc-star">★15</div><div class="sc-ur">4</div></div>
+        <div class="swell-cell"><div class="sc-star">★16</div><div class="sc-ur">5</div></div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Pet Devour (level 168)</strong>
+        Devour requires the base UR to be at +13 before any surplus copies can be fed in. Plan enhancement first; swell and devour are late-stage systems that reward having a fully enhanced base.
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="runes-abyss.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-07 · Runes and Abyss</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-09 · Coming soon <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Recent dossiers</h5>
+          <ul>
+            <li><a href="runes-abyss.html">D-07 · Runes and Abyss</a></li>
+            <li><a href="pets.html">D-08 · Pets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 08</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

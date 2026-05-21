@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Monster Cards · Whetstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.toc{border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:28px}
+.toc h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+.toc ol{margin:0;padding:0 0 0 18px}
+.toc li{font-size:14px;color:var(--ink-soft);margin:5px 0}
+.toc a{color:var(--ink-soft);text-decoration:none}
+.toc a:hover{color:var(--amber)}
+
+/* Soul table */
+.soul-table{width:100%;border-collapse:collapse;font-size:13px}
+.soul-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.soul-table tbody td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-size:13px;font-family:'JetBrains Mono',monospace}
+.soul-table tbody tr:last-child td{border-bottom:none}
+.soul-table .total-row td{background:rgba(232,158,61,.06);color:var(--amber);font-weight:600}
+.soul-table .orange-row td{background:rgba(210,76,42,.04)}
+
+/* Set bonus cards */
+.set-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:600px){.set-grid{grid-template-columns:1fr}}
+.set-card{border:1px solid var(--line);background:var(--surface);padding:18px}
+.set-card .set-num{font-family:'Fraunces',serif;font-style:italic;font-size:32px;color:var(--amber);line-height:1;margin-bottom:8px}
+.set-card h4{font-family:'Fraunces',serif;font-size:17px;margin:0 0 6px;color:var(--paper)}
+.set-card p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5}
+</style>
+</head>
+<body>
+<nav class="site-nav"><div class="wrap nav-inner"><a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a><div class="nav-links"><a href="index.html">Index</a><a href="index.html#catalog" class="active">Guides</a><a href="about.html">About</a></div></div></nav>
+
+<div class="wrap wrap-narrow"><div class="breadcrumb"><a href="index.html">Whetstone</a><span class="sep">/</span><a href="index.html#catalog">Guides</a><span class="sep">/</span><span>Monster Cards</span></div></div>
+
+<header class="article-head"><div class="wrap wrap-narrow">
+  <div class="dossier">Dossier No. 16</div>
+  <h1>Monster <em>Cards</em></h1>
+  <p class="deck">Card compositions, T1 vs T2 replacement threshold, Soul of Attack/Guard/Defense levelling costs and caps, set bonuses, and category selector mechanics.</p>
+  <div class="article-meta">
+    <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam, EvilHelen · Discord #monster-cards</span>
+    <span><strong>Credits</strong> @the cutest Heet (cap data)</span>
+    <span><strong>Compiled</strong> Sep–Oct 2023</span><span><strong>Filed</strong> 2026</span>
+  </div>
+</div></header>
+
+<article class="wrap wrap-narrow article-body">
+  <p>Monster cards are the most detailed sub-system in the game's character progression. ATK, Guard, and Def cards each have enhancement thresholds that unlock hidden stats. Tier 1 cards become available later and eventually outperform Tier 2 — but only past a specific total level threshold. The Soul of Attack/Guard/Defense system adds further depth on top.</p>
+
+  <div class="skeptic"><span class="label">Caveat</span>Sep–Oct 2023 data. The spreadsheet in the server (#bible, Monster Card sheet) provides live calculation; use it to confirm which card composition wins at your exact level.</div>
+
+  <div class="toc"><h4>Contents</h4><ol>
+    <li><a href="#compositions">Card compositions for ATK</a></li>
+    <li><a href="#t1threshold">T1 vs T2 replacement threshold</a></li>
+    <li><a href="#soul">Soul of Attack / Guard / Defense</a></li>
+    <li><a href="#setbonus">Set bonuses</a></li>
+    <li><a href="#levelling">Levelling priority and orange vs yellow</a></li>
+    <li><a href="#selector">Category selector mechanics</a></li>
+  </ol></div>
+
+  <!-- COMPOSITIONS -->
+  <section class="guide-section" id="compositions">
+    <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Card <em>compositions</em></h2><div class="section-tag">ATK slot options</div></div>
+    <div class="grid-3">
+      <div class="card"><h3>8× Seruf</h3><p class="lede">Pure Seruf ATK composition. Maximises Seruf's ATK contribution at the cost of Dyle's card-level scaling.</p></div>
+      <div class="card"><h3>5× Seruf + 3× Dyle</h3><p class="lede">Split composition. Commonly used compromise between ATK power and card-level scaling.</p></div>
+      <div class="card"><h3>8× Dyle</h3><p class="lede">Pure Dyle ATK composition. Scales with total card level. Recall Dyle scales off MC total level, not character level.</p></div>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">No forced combination</strong>Work with what the system gives you. The same flexibility applies to Def and Guard card slots. Note: reaching the point where Dyle/Robo/Darkgoo outperforms by character level requires reaching a grand total of 500 card level — a significant investment.</div>
+  </section>
+
+  <!-- T1 THRESHOLD -->
+  <section class="guide-section" id="t1threshold">
+    <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">T1 vs T2 <em>replacement threshold</em></h2><div class="section-tag">500 total MC level</div></div>
+    <div class="card">
+      <h3>Do not replace T2 with T1 before 500 total card level</h3>
+      <p class="lede">T1 cards give a fixed value of 20% for a 3-piece set. Below 500 total MC level, this does not outperform a well-levelled T2 set. Once you cross 500, the optimal composition shifts to <strong>5× T1 + Dyle or Seruf</strong> (whichever you have more of) for ATK slots.</p>
+      <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0;">Use the Monster Card sheet in the server spreadsheet to confirm exactly at which level the crossover happens for your build — it may be slightly earlier or later than 500 depending on specific card levels. Ulam recommends rechecking every 5 character levels.</p>
+    </div>
+    <div class="fact" style="margin-top:14px"><div class="num">500</div><div class="txt"><strong>Minimum total MC level to start replacing T2 with T1</strong><span>T1 cards enter the ANE Dust shop gradually. Wait for this threshold before committing to a swap.</span></div></div>
+  </section>
+
+  <!-- SOUL -->
+  <section class="guide-section" id="soul">
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Soul of Attack / Guard / Defense <em>levelling</em></h2><div class="section-tag">Extraction costs · Cap: level 50</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each Soul requires consuming cards from its own category. 12 purple cards of the category unlocks the first Soul. The effect: example Soul of Attack = +6.5% ATK for the first 10 seconds of battle. Levels 1–14 use purple and yellow cards; from level 15 upward, orange cards are required.</p>
+    <div class="card" style="padding:0;margin-bottom:14px">
+      <table class="soul-table">
+        <thead><tr><th>Level</th><th>Cards consumed</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>3 purple</td></tr>
+          <tr><td>2</td><td>3 purple</td></tr>
+          <tr><td>3</td><td>2 purple + 1 yellow</td></tr>
+          <tr><td>4</td><td>2 purple + 1 yellow</td></tr>
+          <tr><td>5</td><td>1 purple + 2 yellow</td></tr>
+          <tr><td>6</td><td>1 purple + 2 yellow</td></tr>
+          <tr><td>7–14</td><td>3 yellow per level</td></tr>
+          <tr class="total-row"><td>Total lv 1–14</td><td>12 purple + 30 yellow</td></tr>
+          <tr class="orange-row"><td>15+</td><td>2 yellow + 1 orange per level</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Keep 13 purple cards minimum</h3>
+        <p class="lede">Each Soul requires exactly 12 purples from its category. Keep at least 13 in case of errors or future changes. Do not spend purples on other purposes if you have not yet extracted the Soul for that category.</p>
+      </div>
+      <div class="card">
+        <h3>Level cap and balance rule</h3>
+        <p class="lede">Soul of Attack, Guard, and Defense are each capped at <strong>level 50</strong>. From level 15 onwards, the three Souls may not differ by more than 5 levels. Falling behind on one category prevents further extraction on others.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SET BONUSES -->
+  <section class="guide-section" id="setbonus">
+    <div class="section-head"><div class="section-num">§ 04</div><h2 class="section-title">Set <em>bonuses</em></h2><div class="section-tag">Translation: Ulam · Credits: EvilHelen</div></div>
+    <div class="set-grid">
+      <div class="set-card"><div class="set-num">2-set</div><h4>HP boost</h4><p>Increase HP of all cards in the category by <strong>80%</strong>.</p></div>
+      <div class="set-card"><div class="set-num">4-set</div><h4>Character level scaling</h4><p>For every 5 character levels, increase HP/ATK/DEF of all cards in the category by <strong>2%</strong>, up to a maximum of <strong>92%</strong>.</p></div>
+      <div class="set-card"><div class="set-num">6-set</div><h4>Monster card level scaling</h4><p>For every 20 monster card levels, increase HP/ATK/DEF of all cards in the category by <strong>2%</strong>, up to a maximum of <strong>144%</strong>.</p></div>
+      <div class="set-card"><div class="set-num">8-set</div><h4>Soul level scaling</h4><p>For each Soul of [Category] level, increase HP/ATK/DEF of all cards in the category by <strong>2.5%</strong>, up to a maximum of <strong>250%</strong>. The 8-set ceiling is the largest multiplier in the system.</p></div>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">Implication for Soul investment</strong>The 8-set bonus scales at 2.5% per Soul level up to 250%. This means a fully-levelled Soul (level 50) contributes 125% of the cap — effectively doubling the bonus for the whole category. Soul levelling has compound returns through the set bonus system.</div>
+  </section>
+
+  <!-- LEVELLING PRIORITY -->
+  <section class="guide-section" id="levelling">
+    <div class="section-head"><div class="section-num">§ 05</div><h2 class="section-title">Levelling priority <em>and card quality</em></h2><div class="section-tag">Orange vs yellow · ATK first</div></div>
+    <div class="card">
+      <ol class="steps">
+        <li><strong>Priority order: ATK &gt; Guard &gt; Defense.</strong> Guard beats Defense because Guard's base stat is ATK%, while Defense's base stat is HP%. This also applies to the hit bonus unlocks documented in the Dojo Tips dossier (D-11).</li>
+        <li><strong>Orange cards over yellow</strong> whenever possible. Orange naturally provides more base bonus per 5 levels than yellow. Always embed orange cards as the priority.</li>
+        <li><strong>Exception for low-level orange cards.</strong> If your orange card will only reach level 10 at best, a yellow card with a set bonus may have an edge. Calculate before swapping — do not automatically replace yellow with orange if the orange is too low-level to realise its advantage.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CATEGORY SELECTOR -->
+  <section class="guide-section" id="selector">
+    <div class="section-head"><div class="section-num">§ 06</div><h2 class="section-title">Category selector <em>mechanics</em></h2><div class="section-tag">Pity carries over</div></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Pity transfers when you change category</h3>
+        <p class="lede">When you change the category on the Monster Card Categorised Summoning banner, your existing pity count carries over to the new category. You do not lose progress by switching. Banners for each category share the pity pool.</p>
+      </div>
+      <div class="card">
+        <h3>Category selector unlocks</h3>
+        <p class="lede">Categorised Summoning unlocks once you hit the stated requirements, released alongside the choosable Limited Pet Banner. Available pets are based on days since server opening and unlock progressively.</p>
+      </div>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">License note</strong>The license for unlocking certain card features can be repurchased even after the displayed time limit appears to have expired — check the "Past License" tab in the License section. The time limit is misleading; the license remains available.</div>
+  </section>
+
+  <nav class="article-foot-nav">
+    <a class="prev" href="wings-cultivation.html"><div class="dir">← Previous</div><div class="title">D-15 · Wings Cultivation</div></a>
+    <a class="next" href="soul-orbs.html"><div class="dir">Next →</div><div class="title">D-17 · Soul Orbs</div></a>
+  </nav>
+</article>
+
+<footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span><span>Dossier No. 16</span></div></div></footer>
+</body></html>

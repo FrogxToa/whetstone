@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Land of Chaos and Totems · Whetstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.totem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:600px){.totem-grid{grid-template-columns:1fr}}
+.totem-card{border:1px solid var(--line);background:var(--surface);padding:20px}
+.totem-card h4{font-family:'Fraunces',serif;font-size:19px;margin:0 0 6px;color:var(--paper)}
+.totem-card .tc-effect{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--amber);display:block;margin-bottom:10px}
+.totem-card p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5}
+.totem-card.critical{border-color:rgba(232,158,61,.4);background:linear-gradient(180deg,rgba(232,158,61,.07),var(--surface) 60%)}
+.coin-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--line-soft);font-size:14px}
+.coin-row:last-child{border-bottom:none}
+.coin-row .cr-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber)}
+</style>
+</head>
+<body>
+<nav class="site-nav"><div class="wrap nav-inner"><a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a><div class="nav-links"><a href="index.html">Index</a><a href="index.html#catalog" class="active">Guides</a><a href="about.html">About</a></div></div></nav>
+
+<div class="wrap wrap-narrow"><div class="breadcrumb"><a href="index.html">Whetstone</a><span class="sep">/</span><a href="index.html#catalog">Guides</a><span class="sep">/</span><span>Land of Chaos and Totems</span></div></div>
+
+<header class="article-head"><div class="wrap wrap-narrow">
+  <div class="dossier">Dossier No. 12</div>
+  <h1>Land of Chaos <em>and Totems</em></h1>
+  <p class="deck">Totem spending priority, why Critical State is the key effect to target, and when to use guild coins versus farming totems from LOC directly.</p>
+  <div class="article-meta">
+    <span><strong>Source</strong> Elian (Top 50) · Discord #loc-totem-guide</span>
+    <span><strong>Compiled</strong> Sep 2023</span><span><strong>Filed</strong> 2026</span>
+  </div>
+</div></header>
+
+<article class="wrap wrap-narrow article-body">
+  <p>Land of Chaos is the primary source for most totems. The question is not whether to farm LOC — it is which totem effects are worth spending guild coins to acquire directly rather than waiting for LOC drops, and which effects are secondary enough to let come naturally.</p>
+
+  <div class="skeptic"><span class="label">Caveat</span>Sep 2023. Totem availability in LOC and guild shops may have changed with updates. Verify before planning a coin spend.</div>
+
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Spend priority: <em>gold totem first</em></h2><div class="section-tag">LOC coins</div></div>
+    <div class="card">
+      <h3>Finish gold totem resonance as the first priority</h3>
+      <p class="lede">Before diversifying into other totem types, complete the gold totem resonance track. The effects unlocked here provide the foundational stat base that all other totem investments build on.</p>
+    </div>
+  </section>
+
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">Totem effects: <em>what actually matters</em></h2><div class="section-tag">Critical State · Stability</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 18px;">Two specific effects are worth understanding before deciding where to spend. CP contribution alone is not the right filter.</p>
+
+    <div class="totem-grid">
+      <div class="totem-card critical">
+        <h4>Steak</h4>
+        <span class="tc-effect">Critical State</span>
+        <p>Critical State: when your HP would drop to 0, you instead survive at 1% HP for 0.6 seconds. This is a combat survival mechanic, not a raw stat. Steak is one of only two totems that carry it.</p>
+      </div>
+      <div class="totem-card critical">
+        <h4>Celebrity</h4>
+        <span class="tc-effect">Critical State</span>
+        <p>The second totem with Critical State. Same 0.6-second survival window. If you are building toward Critical State, both Steak and Celebrity are the targets.</p>
+      </div>
+      <div class="totem-card">
+        <h4>Stability totems</h4>
+        <span class="tc-effect">Knockback immunity</span>
+        <p>Stability should provide immunity to knockbacks. Important for Dojo and PvP, but secondary to Critical State. Acquire these from LOC drops rather than spending guild coins directly.</p>
+      </div>
+      <div class="totem-card">
+        <h4>Other totems</h4>
+        <span class="tc-effect">CP and stats</span>
+        <p>Most other totems contribute CP and raw stats. Valuable but not unique effects. Farm from LOC as they appear rather than prioritising coin purchases.</p>
+      </div>
+    </div>
+
+    <div class="caveat" style="margin-top:14px">
+      <strong class="lab">Why Steak despite low CP</strong>
+      Steak's CP contribution appears small. The reason to acquire it is Critical State — which does not show up in CP at all. A 0.6-second survival window at 1% HP can determine whether you clear or wipe on a boss stage. That is worth more than the CP number suggests.
+    </div>
+  </section>
+
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Guild coins: <em>when to spend</em></h2><div class="section-tag">Threshold guidance</div></div>
+    <div class="card" style="padding:0">
+      <div class="coin-row"><span>Farm Stability totems from LOC — do not buy with guild coins</span><span class="cr-val">Default</span></div>
+      <div class="coin-row"><span>Buy Stability totems with guild coins <em>only if</em> you reliably earn this much weekly</span><span class="cr-val">12,000+ coins/week</span></div>
+    </div>
+    <div class="caveat" style="margin-top:14px">
+      <strong class="lab">The reasoning</strong>
+      Guild coins are a limited weekly resource. Spending them on totems that drop naturally from LOC is inefficient unless you consistently generate surplus coins above the 12k/week threshold. Below that, let LOC supply the stability totems over time and spend guild coins on higher-priority items.
+    </div>
+  </section>
+
+  <nav class="article-foot-nav">
+    <a class="prev" href="dojo-tips.html"><div class="dir">← Previous</div><div class="title">D-11 · Dojo Tips</div></a>
+    <a class="next" href="devour.html"><div class="dir">Next →</div><div class="title">D-13 · Devour System</div></a>
+  </nav>
+</article>
+
+<footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span><span>Dossier No. 12</span></div></div></footer>
+</body></html>

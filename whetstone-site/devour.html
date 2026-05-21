@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Devour System · Whetstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.unlock-list{border:1px solid var(--line)}
+.unlock-row{display:grid;grid-template-columns:90px 90px 1fr;gap:0;border-bottom:1px solid var(--line-soft);align-items:stretch}
+.unlock-row:last-child{border-bottom:none}
+.unlock-row .ur-type{padding:14px 16px;background:var(--bg-2);border-right:1px solid var(--line-soft);font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--amber);display:flex;align-items:center}
+.unlock-row .ur-req{padding:14px 14px;border-right:1px solid var(--line-soft);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);display:flex;align-items:center}
+.unlock-row .ur-detail{padding:14px 16px;font-size:13px;color:var(--ink);display:flex;align-items:center}
+.devour-type{border:1px solid var(--line);background:var(--surface);padding:20px;margin-bottom:14px}
+.devour-type h4{font-family:'Fraunces',serif;font-size:19px;margin:0 0 8px;color:var(--paper)}
+.exp-row{display:flex;gap:20px;margin:10px 0}
+.exp-pill{font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 10px;border:1px solid var(--line);color:var(--ink-soft)}
+.exp-pill strong{color:var(--amber)}
+</style>
+</head>
+<body>
+<nav class="site-nav"><div class="wrap nav-inner"><a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a><div class="nav-links"><a href="index.html">Index</a><a href="index.html#catalog" class="active">Guides</a><a href="about.html">About</a></div></div></nav>
+
+<div class="wrap wrap-narrow"><div class="breadcrumb"><a href="index.html">Whetstone</a><span class="sep">/</span><a href="index.html#catalog">Guides</a><span class="sep">/</span><span>Devour System</span></div></div>
+
+<header class="article-head"><div class="wrap wrap-narrow">
+  <div class="dossier">Dossier No. 13</div>
+  <h1>Devour <em>System</em></h1>
+  <p class="deck">Unlock levels and server day requirements for each devour type, how the creature/devour mechanic works, and the two distinct devour categories for pets.</p>
+  <div class="article-meta">
+    <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #devour-for-everything</span>
+    <span><strong>Compiled</strong> Sep–Oct 2023</span><span><strong>Filed</strong> 2026</span>
+  </div>
+</div></header>
+
+<article class="wrap wrap-narrow article-body">
+  <p>Devour is the system for consuming surplus maxed copies of equipment and pets to gain permanent stats or creature EXP. Each devour category has its own level and server-day prerequisites. Understanding when each unlocks helps you plan which items to hold and which to feed in.</p>
+
+  <div class="skeptic"><span class="label">Caveat</span>Unlock levels and server day requirements from Sep 2023. Verify in-game before holding items in anticipation of a devour unlock.</div>
+
+  <div class="tldr">
+    <div class="tldr-cell"><span class="n">01</span><span class="t">Devour opens at <strong>level 160</strong>. All other devour types have additional server-day requirements.</span></div>
+    <div class="tldr-cell"><span class="n">02</span><span class="t">Only pets at <strong>+13 max advancement</strong> can have their duplicate copies devoured.</span></div>
+    <div class="tldr-cell"><span class="n">03</span><span class="t">Two pet devour pools: <strong>SSR/SR</strong> (creature EXP) and <strong>UR</strong> (skill bonuses).</span></div>
+    <div class="tldr-cell"><span class="n">04</span><span class="t">Soul orb devour unlocks at <strong>level 172, day 99</strong> — the latest requirement of all types.</span></div>
+    <div class="tldr-cell"><span class="n">05</span><span class="t">Max a pet to +13 <strong>first</strong>. You cannot devour dupes until the base is maxed.</span></div>
+  </div>
+
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Unlock <em>requirements</em></h2><div class="section-tag">Level and server day</div></div>
+
+    <div class="unlock-list">
+      <div class="unlock-row">
+        <div class="ur-type">Pets</div>
+        <div class="ur-req">Lv 160</div>
+        <div class="ur-detail">Base devour unlock. All pet devour available from here.</div>
+      </div>
+      <div class="unlock-row">
+        <div class="ur-type">Stigmata</div>
+        <div class="ur-req">Lv 150<br>Day 78</div>
+        <div class="ur-detail">Reconstruct: feed surplus stigmata fragments to gain stats. Requires both level 150 and server day 78.</div>
+      </div>
+      <div class="unlock-row">
+        <div class="ur-type">Wings</div>
+        <div class="ur-req">Lv 162<br>Day 71</div>
+        <div class="ur-detail">Firebird: consume extra wing fragments. Requires level 162 and server day 71.</div>
+      </div>
+      <div class="unlock-row">
+        <div class="ur-type">Soul Orbs</div>
+        <div class="ur-req">Lv 172<br>Day 99</div>
+        <div class="ur-detail">The latest unlock gate. Requires both level 172 and server reaching day 99.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">How pet devour <em>works</em></h2><div class="section-tag">Creature system</div></div>
+
+    <div class="card" style="margin-bottom:14px">
+      <h3>The prerequisite</h3>
+      <p class="lede">A pet must be at maximum advancement (+13) before any of its duplicate copies can be devoured. You cannot devour a +10 copy of a pet you have at +13 — the base pet must be fully maxed first.</p>
+      <p style="font-size:13px;color:var(--ink-soft);">This means devour planning is a late-stage activity. Build the base to +13, then accumulate surplus copies for feeding.</p>
+    </div>
+
+    <div class="devour-type">
+      <h4>SSR / SR devour pool</h4>
+      <p class="lede">Feeds into creature EXP. This is the general "sink" for extra SSR and SR pets once you have no further use for them as copies.</p>
+      <div class="exp-row">
+        <span class="exp-pill">SSR: <strong>50 EXP</strong> per copy</span>
+        <span class="exp-pill">SR: <strong>10 EXP</strong> per copy</span>
+      </div>
+    </div>
+
+    <div class="devour-type">
+      <h4>UR devour pool</h4>
+      <p class="lede">Separate pool from SSR/SR. UR devour unlocks skill bonuses — shields, stuns, ATK and DEF bonuses — at later stages of the creature system. This is the higher-value pool and the primary reason to save +13 UR surplus copies.</p>
+    </div>
+
+    <div class="caveat">
+      <strong class="lab">Both pools are distinct</strong>
+      SSR/SR EXP and UR skill bonuses do not mix. Feeding a UR into the SSR/SR pool (if even possible) would waste its higher potential value. Keep UR surpluses separate until you can confirm which pool accepts them.
+    </div>
+  </section>
+
+  <nav class="article-foot-nav">
+    <a class="prev" href="loc-totems.html"><div class="dir">← Previous</div><div class="title">D-12 · Land of Chaos and Totems</div></a>
+    <a class="next" href="class.html"><div class="dir">Next →</div><div class="title">D-14 · Class Guide</div></a>
+  </nav>
+</article>
+
+<footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span><span>Dossier No. 13</span></div></div></footer>
+</body></html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>EXR Cultivation Events · Whetstone</title>
+<meta name="description" content="Dossier 09: Moonstone income sources during EXR cultivation events, full spend breakdown, and pull outcome math from the Soul Teddy event." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Source breakdown */
+  .source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .source-grid { grid-template-columns: 1fr; } }
+
+  .source-card { border: 1px solid var(--line); background: var(--surface); padding: 20px; }
+  .source-card .sc-tier { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+  .sc-tier.free { color: var(--green); }
+  .sc-tier.low { color: var(--teal); }
+  .sc-tier.high { color: var(--violet); }
+  .source-card h4 { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 12px; color: var(--paper); }
+  .source-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line-soft); font-size: 13px; }
+  .source-row:first-child { border-top: none; }
+  .source-row .sr-name { color: var(--ink-soft); }
+  .source-row .sr-val { font-family: 'JetBrains Mono', monospace; color: var(--amber); white-space: nowrap; font-size: 12px; }
+
+  /* Moonstone total bar */
+  .ms-total { border: 1px solid var(--line); }
+  .ms-row { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+  .ms-row:last-child { border-bottom: none; }
+  .ms-row.total-row { background: linear-gradient(90deg, rgba(232,158,61,0.08), transparent); border-bottom: none; }
+  .ms-row .ms-source { color: var(--ink); }
+  .ms-row .ms-source small { display: block; font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .ms-row .ms-cd { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-mute); }
+  .ms-row .ms-ms { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--amber); }
+  .ms-row.total-row .ms-source { font-weight: 700; color: var(--paper); font-size: 15px; }
+  .ms-row.total-row .ms-ms { font-size: 18px; color: var(--amber); }
+
+  /* Pull math */
+  .pull-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (max-width: 600px) { .pull-grid { grid-template-columns: 1fr; } }
+  .pull-cell { background: var(--surface); padding: 22px 18px; }
+  .pull-cell .pc-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 8px; }
+  .pull-cell .pc-val { font-family: 'Fraunces', serif; font-style: italic; font-size: 44px; color: var(--paper); line-height: 1; }
+  .pull-cell .pc-desc { font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>EXR Cultivation Events</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 09</div>
+      <h1>EXR Cultivation <em>Events</em></h1>
+      <p class="deck">How to maximize moonstone income during an EXR cultivation event, the full spend breakdown, and pull outcome math — documented from the Soul Teddy cultivation event.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50) · Discord #exr-cultivation-guide</span>
+        <span><strong>Event</strong> EXR Soul Teddy cultivation · Sep 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 4 min</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <p>EXR cultivation events run for seven days and coincide with a new EXR pet banner. They are the most efficient window to accumulate moonstones because multiple parallel income streams are active simultaneously: daily prestige top-ups, event task milestones, event shop coins, and CD packs all contribute. This dossier breaks down every source from the Soul Teddy event in September 2023 and shows the pull math for a full spend scenario.</p>
+
+    <div class="skeptic">
+      <span class="label">Two caveats before you read</span>
+      This analysis is from one specific event (EXR Soul Teddy, Sep 2023). Specific rewards from the Rainbow Run event and coin rates may differ in future events. Additionally, there is an arithmetic inconsistency in the original grand total — see the Math Discrepancy note in Section 2.
+    </div>
+
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">01</span><span class="t">Completing event tasks through the final milestone yields roughly <strong>127 moonstones</strong> in free/prestige rewards.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t">The 26 CD pop-up pack yields <strong>35 moonstones</strong> — high value per CD spent.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t">At full spend (702 CD), expect roughly <strong>12 EXR copies</strong> from pulls and event shop combined.</span></div>
+    </div>
+
+    <!-- SECTION 1: SOURCES -->
+    <section class="guide-section" id="sources">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Moonstone sources <em>during an event</em></h2>
+        <div class="section-tag">Free · Low spend · High spend</div>
+      </div>
+
+      <div class="source-grid">
+
+        <div class="source-card">
+          <span class="sc-tier free">Free / Task-based</span>
+          <h4>Event task milestones</h4>
+          <div class="source-row"><span class="sr-name">Base event completion</span><span class="sr-val">10 MS</span></div>
+          <div class="source-row"><span class="sr-name">Event coin first unlock</span><span class="sr-val">5 MS</span></div>
+          <div class="source-row"><span class="sr-name">Event coin second unlock</span><span class="sr-val">5 MS</span></div>
+          <div class="source-row"><span class="sr-name">Event chests (20 chests) + luck</span><span class="sr-val">15–20 MS + 6k reds</span></div>
+        </div>
+
+        <div class="source-card">
+          <span class="sc-tier low">Event coins</span>
+          <h4>Daily coin income</h4>
+          <div class="source-row"><span class="sr-name">Daily task coins</span><span class="sr-val">20 coins / day</span></div>
+          <div class="source-row"><span class="sr-name">S-grade on Rainbow Run</span><span class="sr-val">25 coins / day</span></div>
+          <div class="source-row"><span class="sr-name">Total per day</span><span class="sr-val">45 coins / day</span></div>
+        </div>
+
+        <div class="source-card">
+          <span class="sc-tier low">Prestige system</span>
+          <h4>Accumulative top-up</h4>
+          <div class="source-row"><span class="sr-name">5-day daily top-up (600 prestige)</span><span class="sr-val">25 MS + 3k reds</span></div>
+          <div class="source-row"><span class="sr-name">3,000 accumulative prestige milestone</span><span class="sr-val">57 MS + 1.5k reds</span></div>
+          <div class="source-row"><span class="sr-name">Total from prestige</span><span class="sr-val">82 MS + 4.5k reds</span></div>
+        </div>
+
+        <div class="source-card">
+          <span class="sc-tier high">CD packs</span>
+          <h4>Direct CD purchases</h4>
+          <div class="source-row"><span class="sr-name">26 CD pop-up pack</span><span class="sr-val">35 MS</span></div>
+          <div class="source-row"><span class="sr-name">676 CD — sweep all packs (blue dias → MS)</span><span class="sr-val">43.8k blues → 162 MS</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: TOTAL -->
+    <section class="guide-section" id="total">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Moonstone <em>total breakdown</em></h2>
+        <div class="section-tag">Source · CD cost · Moonstones</div>
+      </div>
+
+      <div class="ms-total">
+        <div class="ms-row">
+          <div class="ms-source">Prestige system (daily + accumulative)<small>5 days at 600 prestige + 3k milestone</small></div>
+          <span class="ms-cd">~CD spend</span>
+          <span class="ms-ms">82 MS</span>
+        </div>
+        <div class="ms-row">
+          <div class="ms-source">Event task completion through final milestone<small>Includes base, event coins, chests, and prestige above</small></div>
+          <span class="ms-cd">—</span>
+          <span class="ms-ms">127 MS</span>
+        </div>
+        <div class="ms-row">
+          <div class="ms-source">26 CD pop-up pack<small>Best single-pack value per CD</small></div>
+          <span class="ms-cd">26 CD</span>
+          <span class="ms-ms">35 MS</span>
+        </div>
+        <div class="ms-row">
+          <div class="ms-source">676 CD sweep (→ 43,800 blue dias → moonstones)<small>Full spend on remaining event packs</small></div>
+          <span class="ms-cd">676 CD</span>
+          <span class="ms-ms">162 MS</span>
+        </div>
+        <div class="ms-row total-row">
+          <div class="ms-source">Grand total (as stated in source)</div>
+          <span class="ms-cd">702 CD total</span>
+          <span class="ms-ms">406 MS</span>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">Math discrepancy — read before using this number</strong>
+        The stated grand total of 406 moonstones does not reconcile cleanly. Adding the four line items: 127 + 35 + 162 = 324, not 406. The original post also lists "82 moonstones" from the prestige system separately before presenting the 127, but the 127 itself is broken down as 10 + 82 + 15 + 20 — meaning the 82 from prestige is already contained within the 127. Adding them again produces 406, but this appears to double-count the prestige moonstones. The defensible figure is <strong>324 moonstones</strong> from the documented sources. Track your own event moonstones rather than relying on the 406 total.
+      </div>
+    </section>
+
+    <!-- SECTION 3: PULL MATH -->
+    <section class="guide-section" id="pulls">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Pull outcome <em>math</em></h2>
+        <div class="section-tag">702 CD full spend · Soul Teddy event</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">The following is the documented pull outcome from spending 702 CD during the Soul Teddy cultivation event. It combines banner pulls, event shop exchanges, and rank prizes.</p>
+
+      <div class="pull-grid">
+        <div class="pull-cell">
+          <span class="pc-label">CD spent</span>
+          <div class="pc-val">702</div>
+          <div class="pc-desc">Total Coloured Diamonds. 26 CD pop-up pack + 676 CD sweep of remaining packs.</div>
+        </div>
+        <div class="pull-cell">
+          <span class="pc-label">Banner pulls</span>
+          <div class="pc-val">525</div>
+          <div class="pc-desc">Total summons from moonstones. 0 pre-existing pities carried in.</div>
+        </div>
+        <div class="pull-cell">
+          <span class="pc-label">EXR copies total</span>
+          <div class="pc-val">12</div>
+          <div class="pc-desc">7 from banner pulls + 4 from event shop (480 fragments) + 1 from winning event rank 1.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Where the 12 EXR came from</h3>
+        <ol class="steps">
+          <li><strong>7 copies</strong> from 525 banner pulls (702 CD worth of moonstones).</li>
+          <li><strong>4 copies</strong> from exchanging 480 fragments in the Rainbow Escape event shop.</li>
+          <li><strong>1 copy</strong> from winning Event Rank 1.</li>
+        </ol>
+        <p style="font-size:13px;color:var(--ink-soft);margin-top:12px;">12 copies exceeds the +13 target (which requires 14 copies: 1 base + 13 enhancements). A second full-spend event would push toward a maximally enhanced EXR. This outcome was achieved starting from 0 pre-pities.</p>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Event rank 1 is not reliable</strong>
+        The +1 EXR from ranking first is not a guaranteed outcome. Competition for top rank is server-dependent and heavily P2W. Do not factor rank prizes into minimum planning targets.
+      </div>
+    </section>
+
+    <!-- SECTION 4: FRAMEWORK -->
+    <section class="guide-section" id="framework">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Applying this to <em>future events</em></h2>
+        <div class="section-tag">General principles</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Always hit the task milestone</h3>
+          <p class="lede">Regardless of spend tier, completing event tasks through the final milestone is the highest-priority action during any cultivation event. The free moonstone yield (estimated 10–20 MS from tasks alone) is accessible to all players and does not require CD spending.</p>
+        </div>
+        <div class="card">
+          <h3>The 26 CD pack is the best value entry</h3>
+          <p class="lede">35 moonstones for 26 CD works out to approximately 1.35 moonstones per CD — significantly better than converting CD to blue diamonds and buying moonstones that way. If only one paid pack is accessible, the pop-up pack is the one to prioritize.</p>
+        </div>
+        <div class="card">
+          <h3>Event shop fragments compound the outcome</h3>
+          <p class="lede">The 4 copies from the event shop (480 fragments) were a major contributor to the 12-copy total. Actively farming event-specific fragments during cultivation weeks adds EXR copies at no additional CD cost beyond what the event itself provides.</p>
+        </div>
+        <div class="card">
+          <h3>Prestige top-up timing matters</h3>
+          <p class="lede">The prestige reward requires hitting 600 prestige per day for 5 days and reaching 3,000 accumulative — best executed during an event week when the moonstone return justifies the CD spend. Outside of events, the same prestige spend returns fewer high-value rewards.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="pets.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-08 · Pet Compendium</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-10 · Coming soon <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Recent dossiers</h5>
+          <ul>
+            <li><a href="pets.html">D-08 · Pet Compendium</a></li>
+            <li><a href="exr-cultivation.html">D-09 · EXR Cultivation Events</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 09</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

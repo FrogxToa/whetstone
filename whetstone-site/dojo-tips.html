@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dojo Tips and Tricks · Whetstone</title>
+<meta name="description" content="Dossier 11: S1 jump cancel, 4-rage prerequisites, card hit rate tuning, multi-boss positioning, Birk rage potion timing, and mobile boss strategies." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .toc{border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:28px}
+  .toc h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+  .toc ol{margin:0;padding:0 0 0 18px}
+  .toc li{font-size:14px;color:var(--ink-soft);margin:5px 0}
+  .toc a{color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--amber)}
+
+  /* Class tag */
+  .class-tag{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor;margin-bottom:12px}
+  .ct-thief{color:var(--violet)}
+  .ct-all{color:var(--amber)}
+  .ct-warrior{color:var(--teal)}
+  .class-tag::before{content:'';width:5px;height:5px;background:currentColor;border-radius:50%}
+
+  /* Technique steps */
+  .technique{border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:14px}
+  .technique h4{font-family:'Fraunces',serif;font-size:20px;margin:0 0 14px;color:var(--paper)}
+  .technique p{font-size:14px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55}
+  .code-block{background:var(--bg-2);border:1px solid var(--line-soft);padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);margin:10px 0}
+  .code-block .cb-label{display:block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:6px}
+  .code-block .cb-good{color:var(--green)}
+  .code-block .cb-bad{color:var(--ember)}
+
+  /* Hit rate table */
+  .hit-table{width:100%;border-collapse:collapse;font-size:13px}
+  .hit-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .hit-table tbody td{padding:10px 14px;border-bottom:1px solid var(--line-soft);color:var(--ink)}
+  .hit-table tbody tr:last-child td{border-bottom:none}
+  .hit-table .hl{color:var(--green);font-weight:700}
+  .hit-table .note{font-size:11px;color:var(--ink-mute)}
+
+  /* Boss tip cards */
+  .boss-card{border:1px solid var(--line);background:var(--surface);padding:20px;margin-bottom:14px}
+  .boss-card .boss-name{font-family:'Fraunces',serif;font-size:20px;color:var(--paper);margin:0 0 8px}
+  .boss-card p{font-size:14px;color:var(--ink-soft);margin:0 0 8px;line-height:1.55}
+  .boss-card p:last-child{margin:0}
+  .boss-card .mech{font-size:12px;background:var(--bg-2);border:1px solid var(--line-soft);padding:10px 12px;margin:10px 0;color:var(--ink)}
+
+  /* Principle strip */
+  .principle-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:14px}
+  @media(max-width:600px){.principle-strip{grid-template-columns:1fr}}
+  .ps-cell{background:var(--surface);padding:20px 18px}
+  .ps-cell .psc-n{font-family:'Fraunces',serif;font-style:italic;font-size:36px;color:var(--amber);line-height:1;margin-bottom:8px}
+  .ps-cell h4{font-family:'Fraunces',serif;font-size:17px;margin:0 0 6px;color:var(--paper)}
+  .ps-cell p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5}
+
+  /* Source attribution note */
+  .source-note{border:1px solid var(--line);background:var(--bg-2);padding:16px 20px;margin-bottom:28px;font-size:13px;color:var(--ink-soft);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .source-note .sn-icon{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute);padding-top:2px}
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Dojo Tips and Tricks</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 11</div>
+      <h1>Dojo Tips <em>and Tricks</em></h1>
+      <p class="deck">S1 jump cancel, 4-rage prerequisites, card hit rate tuning, multi-boss positioning, Birk rage potion timing, and strategies for mobile bosses and hex-locked stages.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Community discussion · Discord #dojo-tips-and-tricks</span>
+        <span><strong>Key contributors</strong> Firefighter Ulam, Onmde, CCCC, xRev, xuan</span>
+        <span><strong>Period</strong> Sep–Nov 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 6 min</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <div class="source-note">
+      <span class="sn-icon">Source</span>
+      <span>This channel is a community discussion forum with 919 messages, not a curated notes channel. Tips here are extracted from Q&A exchanges rather than a single author's structured guide. Attribution is to the specific contributor where identifiable. Some tips emerged collaboratively. Apply them with that context in mind.</span>
+    </div>
+
+    <p>Dojo improvement comes down to two distinct problems: DPS gating and mechanics gating. The tips below address both. The S1 jump cancel and 4-rage prerequisites are execution techniques. Card hit rate tuning and boss positioning are strategic decisions. Understanding which problem you actually have on a given floor determines which category of fix applies.</p>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#principles">Core principles</a></li>
+        <li><a href="#s1cancel">S1 jump cancel technique (thief)</a></li>
+        <li><a href="#4rage">4-rage prerequisites (thief)</a></li>
+        <li><a href="#hitrate">Card hit rate tuning</a></li>
+        <li><a href="#positioning">Positioning: multi-boss and mobile</a></li>
+        <li><a href="#bossspecific">Boss-specific notes</a></li>
+      </ol>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <section class="guide-section" id="principles">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Core <em>principles</em></h2>
+        <div class="section-tag">Diagnose before fixing</div>
+      </div>
+
+      <div class="principle-strip">
+        <div class="ps-cell">
+          <div class="psc-n">I.</div>
+          <h4>Time is everything</h4>
+          <p>Every second is either damage dealt or damage not dealt. Animation cancels, positioning, and rage timing all exist to eliminate wasted seconds. Identifying where your run loses time is the first diagnostic step.</p>
+        </div>
+        <div class="ps-cell">
+          <div class="psc-n">II.</div>
+          <h4>DPS gate vs mechanics gate</h4>
+          <p>If you can dodge everything and still cannot clear — it is a damage issue, not a technique issue. If you are getting hit by avoidable mechanics — fix the mechanics first, then measure your damage. Do not optimize execution on a DPS-gated floor.</p>
+        </div>
+        <div class="ps-cell">
+          <div class="psc-n">III.</div>
+          <h4>Every mob has weaknesses</h4>
+          <p>Positioning matters for individual mobs, not just bosses. Getting behind hex-locked mobs or hitting multiple targets simultaneously with AoE skills are both examples of exploiting mob-specific vulnerabilities.</p>
+        </div>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">When asking for help on a floor</strong>
+        Per Ulam's pinned note in the channel: always state your <strong>class</strong>, <strong>floor number</strong>, and which <strong>boss you are stuck on</strong>. A screenshot helps — "octopus" and "Darkgoo" are not the same mob, and naming conventions vary between players.
+      </div>
+    </section>
+
+    <!-- S1 JUMP CANCEL -->
+    <section class="guide-section" id="s1cancel">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">S1 jump cancel <em>technique</em></h2>
+        <div class="section-tag">Thief · Source: Ulam</div>
+      </div>
+
+      <span class="class-tag ct-thief">Thief-specific</span>
+
+      <div class="technique">
+        <h4>Why it works</h4>
+        <p>When Thief casts S1, the skill propels you backward a considerable distance from the target. Returning to attack range costs roughly <strong>0.5 seconds per S1 cast</strong>. Across a full Dojo run with multiple S1 uses, those half-seconds compound into several lost auto attacks and rage building opportunities.</p>
+        <p>The jump cancel reduces the backward movement while still registering the S1 cast and generating rage — you get the skill effect without the full displacement penalty.</p>
+
+        <div class="code-block">
+          <span class="cb-label">Correct order</span>
+          <span class="cb-good">S1 → Jump</span> — jump the moment you see S1 casted
+        </div>
+        <div class="code-block">
+          <span class="cb-label">Less consistent order</span>
+          <span class="cb-bad">Jump → S1</span> — if S4 or Rage Skill animations delay S1, the jump fires as a normal double jump with no cancel
+        </div>
+
+        <p>The [S1 → Jump] order is more reliable because you are reacting to what you see (S1 firing) rather than predicting when S1 will be available (which fails when other skill animations are mid-cast).</p>
+      </div>
+
+      <div class="card" style="margin-bottom:14px;">
+        <h3>When NOT to use S1 jump cancel</h3>
+        <ol class="steps">
+          <li>Against <strong>large mobs</strong> (Darkgoo, Seruf) where S1's displacement will not push you out of range regardless.</li>
+          <li>When you need S1 to <strong>hit multiple targets</strong> — the cancel also reduces S1's travel, so you want the full movement for AoE situations.</li>
+        </ol>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">Teddy stages (Dojo Thief)</strong>
+        EXR Soul Teddy invokes Palsy on the player, which disables jump cancelling S1. Teddy stages are consequently harder for Thieves specifically. Account for the lost DPS when assessing whether you are DPS-gated or mechanics-gated on those floors.
+      </div>
+    </section>
+
+    <!-- 4 RAGE PREREQUISITES -->
+    <section class="guide-section" id="4rage">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">4-rage <em>prerequisites</em></h2>
+        <div class="section-tag">Thief · Source: Ulam</div>
+      </div>
+
+      <span class="class-tag ct-thief">Thief-specific</span>
+
+      <div class="card">
+        <p class="lede" style="margin:0 0 14px;">Four rages per run is the target for maximising Dojo DPS output. Ulam noted the exact prerequisites are not fully confirmed, but the three enabling conditions on Thief are:</p>
+        <ol class="steps">
+          <li><strong>Sufficient cooldown reduction from runes.</strong> Cooldown runes are not optional — they directly gate whether S4 fires often enough to charge four rages within the Dojo timer.</li>
+          <li><strong>Animation cancelling S1.</strong> Without the jump cancel, lost attack time compounds into insufficient rage generation.</li>
+          <li><strong>Casting S4 as soon as it is off cooldown</strong>, including the moment battle starts. Delaying S4 by even a few seconds at the start of a run costs a rage charge late in the timer.</li>
+        </ol>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">Other classes</strong>
+        Players with +3 initial rage can sometimes reach 4 rages with strong cooldown runes and Viking proc timing, though it is inconsistent. At +4 initial rage (e.g. with Exo Wings) the pathway to 4 rages is more reliable. The specific prerequisites above are Thief-documented only.
+      </div>
+    </section>
+
+    <!-- HIT RATE TUNING -->
+    <section class="guide-section" id="hitrate">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Card hit rate <em>tuning</em></h2>
+        <div class="section-tag">All classes · Source: Ulam, CCCC</div>
+      </div>
+
+      <span class="class-tag ct-all">All classes</span>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Hit rate is the most overlooked stat on monster cards. ATK cards, Guard cards, and Def cards all unlock hidden hit bonuses at specific enhancement levels. Missing attacks is a silent DPS loss that raw ATK investment cannot fix.</p>
+
+      <div class="card" style="padding:0; margin-bottom:14px;">
+        <table class="hit-table">
+          <thead>
+            <tr><th>Card type</th><th>Hit bonus unlocks at</th><th>Hit bonus amount</th><th>Base stat</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ATK cards</td>
+              <td class="hl">+15</td>
+              <td>Hit bonus granted</td>
+              <td>ATK %</td>
+            </tr>
+            <tr>
+              <td>Guard cards</td>
+              <td class="hl">+20</td>
+              <td class="hl">6% Hit</td>
+              <td>ATK % <span class="note">(priority over Def)</span></td>
+            </tr>
+            <tr>
+              <td>Def cards</td>
+              <td class="hl">+20</td>
+              <td class="hl">6% Hit</td>
+              <td>HP %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Upgrade priority: Guard before Defense</h3>
+        <p class="lede">Both Guard and Def cards give the same 6% Hit at +20. However, Guard's base stat is ATK%, while Defense's base stat is HP%. For offensive builds, upgrading Guard to +20 first gives you the hit bonus plus ATK contribution, making it the higher-value investment per diamond spent.</p>
+        <ol class="steps">
+          <li>Push Guard cards to +20 first.</li>
+          <li>Then push Def cards to +20.</li>
+          <li>If still missing after both — reduce some ATK cards from +20 to +15 and redistribute the diamonds toward more Guard or Def cards at +20. The hit gain typically outweighs the ATK loss.</li>
+          <li>Once misses disappear, stop adjusting. There is no benefit to over-investing in hit rate beyond the point where all attacks connect.</li>
+        </ol>
+        <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0;">Hit rate also matters in Land of Chaos, not just Dojo. The same card optimization applies to both.</p>
+      </div>
+    </section>
+
+    <!-- POSITIONING -->
+    <section class="guide-section" id="positioning">
+      <div class="section-head">
+        <div class="section-num">§ 05</div>
+        <h2 class="section-title">Positioning: multi-boss <em>and mobile</em></h2>
+        <div class="section-tag">All classes · Source: Ulam</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="class-tag ct-all">Multi-boss stages</span>
+          <h3>Hit all bosses simultaneously</h3>
+          <p class="lede">When a stage contains multiple bosses, positioning yourself so your skills hit all of them makes a noticeable difference in clearability. Single-target DPS on a multi-boss stage is effectively a DPS cut. Find the position where your AoE or skill reach covers both, then stay there.</p>
+        </div>
+        <div class="card">
+          <span class="class-tag ct-all">Mobile / dashing bosses</span>
+          <h3>Corner strategy</h3>
+          <p class="lede">Mobile bosses that dash around waste your time chasing them. The corner strategy: do not try to force the boss into a corner actively. Instead, let the boss's knockback gradually push you into a corner. Once you are against the wall, the boss will stop dashing around and remain in range consistently. Never sacrifice DPS to set this up — let it happen passively.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Hex-locked stages</h3>
+        <ol class="steps">
+          <li>The primary counter to a hex-locked mob is to <strong>position yourself behind it</strong>. Many hex attacks are directional — getting behind the mob avoids the hex entirely.</li>
+          <li>If you are avoiding all hits and still cannot clear — it is a <strong>DPS issue</strong>, not a positioning issue. No amount of better positioning will fix insufficient damage output.</li>
+          <li>Equip <strong>Eliza</strong> for hex reduction (reduces rage loss duration). Hex reduction costumes also help.</li>
+          <li>Leveling up naturally reduces the level deficit against the boss, improving your effective damage even without spending on gear.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- BOSS SPECIFIC -->
+    <section class="guide-section" id="bossspecific">
+      <div class="section-head">
+        <div class="section-num">§ 06</div>
+        <h2 class="section-title">Boss-specific <em>notes</em></h2>
+        <div class="section-tag">Sep–Oct 2023 · Community sourced</div>
+      </div>
+
+      <div class="boss-card">
+        <div class="boss-name">Birk</div>
+        <span class="class-tag ct-all" style="margin-bottom:12px;">Rage potion timing</span>
+        <p>Birk spams flame charge when his HP drops low. Using a rage potion at the start of the fight triggers this phase early and causes it to overlap with your damage window, frequently resulting in only 3 rages instead of 4.</p>
+        <div class="mech">Strategy: Save the rage potion and use it just before your 4th rage. This keeps Birk's aggro patterns predictable through the first three rages and maximises the 4th rage output.</div>
+        <p>This strategy is only necessary on Birk's last stage. Using it on earlier stages means spending multiple rage potions across the run. Source: Onmde.</p>
+      </div>
+
+      <div class="boss-card">
+        <div class="boss-name">Trojan</div>
+        <span class="class-tag ct-all">Dashing boss</span>
+        <p>Trojan has no fixed dash pattern. He may randomly dash across the stage, wasting your DPS window. The corner strategy applies: let him gradually knock you toward a wall. Once cornered, he tends to stay in range consistently.</p>
+        <div class="mech">Do not spend time trying to set up the corner manually — you lose more time chasing than you save. Let it happen naturally during the run.</div>
+      </div>
+
+      <div class="boss-card">
+        <div class="boss-name">Darkgoo</div>
+        <span class="class-tag ct-all">Damage gate</span>
+        <p>Darkgoo is almost entirely damage-gated. There are no significant mechanics to exploit. If you cannot clear — the answer is more ATK, not better technique. Source: Ulam.</p>
+      </div>
+
+      <div class="boss-card">
+        <div class="boss-name">Clown Fish (contact hit)</div>
+        <span class="class-tag ct-warrior">Warrior confirmed</span>
+        <p>Contact hit mobs deal damage on touch. Strategy: jump, kite from behind, and use rage to burst clear. Warrior's double jump and ability to cast skills while moving provides natural advantages here. Source: Onmde.</p>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Pet stat scaling notes</h3>
+        <p class="lede" style="margin:0;">Two pet scaling mechanics clarified by Ulam:</p>
+        <ol class="steps" style="margin-top:10px;">
+          <li><strong>Seruf scales off character level.</strong> Higher character level = better Seruf contribution.</li>
+          <li><strong>Dyle scales off total monster card level.</strong> Upgrading cards increases Dyle's effectiveness, not character leveling.</li>
+        </ol>
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="stigmata.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-10 · Stigmata Reference</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-12 · Coming soon <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Recent dossiers</h5>
+          <ul>
+            <li><a href="stigmata.html">D-10 · Stigmata Reference</a></li>
+            <li><a href="dojo-tips.html">D-11 · Dojo Tips and Tricks</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 11</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

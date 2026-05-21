@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MapleRevolution Bible · Whetstone</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d0f18;color:#c5c8d8;font-family:'Manrope',sans-serif}
+  select option{background:#1c1f2e;color:#f0f2ff}
+  ::-webkit-scrollbar{width:6px;height:6px}
+  ::-webkit-scrollbar-track{background:#141621}
+  ::-webkit-scrollbar-thumb{background:#252840}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3f5c}
+  #loading{position:fixed;inset:0;background:#0d0f18;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:9999;transition:opacity 0.4s}
+  #loading.hidden{opacity:0;pointer-events:none}
+  .ld-mark{font-family:'Georgia',serif;font-style:italic;color:#f0a030;font-size:24px}
+  .ld-sub{font-family:monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#6b7280}
+</style>
+</head>
+<body>
+<div id="loading">
+  <div class="ld-mark">MapleRevolution Bible</div>
+  <div class="ld-sub">Loading…</div>
+</div>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo, useEffect } = React;
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const EXP_TABLE=[[116,375700],[117,398710],[118,422580],[119,447310],[120,472900],[121,500830],[122,528960],[123,558490],[124,589420],[125,621750],[126,655480],[127,690610],[128,727140],[129,765070],[130,804400],[131,845130],[132,887260],[133,930790],[134,975720],[135,1022050],[136,1069780],[137,1126910],[138,1190440],[139,1221370],[140,1326700],[141,1404430],[142,1483560],[143,1569090],[144,1656020],[145,1744350],[146,1834080],[147,1925210],[148,2017740],[149,2111670],[150,2177431],[151,2243191],[152,2308952],[153,2374712],[154,2440473],[155,2506233],[156,2571994],[157,2637754],[158,2703515],[159,2769275],[160,2835036],[161,2900797],[162,2966557],[163,3032318],[164,3098078],[165,3163839],[166,3229599],[167,3295360],[168,3361120],[169,3426881],[170,3492641],[171,3558402],[172,3624163],[173,3689923],[174,3755684],[175,4127160],[176,4198181],[177,4269202],[178,4340224],[179,4540224],[180,4739224],[181,4937224],[182,5134224],[183,5330224],[184,5525224],[185,5719224],[186,5912224],[187,6104224],[188,6295224],[189,6485224],[190,6674224],[191,6862224],[192,7049224],[193,7235224],[194,7420224],[195,7604224],[196,7787224],[197,7969224],[198,8150224],[199,8330224],[200,8509224],[201,8687224],[202,8864224],[203,9040224],[204,9215224],[205,9389224],[206,9562224],[207,9734224],[208,9905224],[209,10075224],[210,10244224],[211,10412224],[212,10579224],[242,14000224]];
+const EXP_MAP=Object.fromEntries(EXP_TABLE.map(([l,e])=>[l,e]));
+const MIN_LV=116,MAX_LV=242;
+
+const QUESTIONS=[{"q":"There are 30 Days in May","a":"WRONG"},{"q":"In Dimension Trail (Plot), the enemy leader of Maple island's anomaly is Butterfly Queen Ephenia","a":"WRONG"},{"q":"In Dimension Trail (Plot), the enemy leader of Victoria island's anomaly is Butterfly Queen Ephenia","a":"CORRECT"},{"q":"Socrates lived in what is today Iran.","a":"WRONG"},{"q":"Caterpillars turn into butterflies","a":"CORRECT"},{"q":"The Atlantic Ocean is the biggest ocean on Earth","a":"WRONG","note":"Don't be this guy >:("},{"q":"Mai is the adventurer guide","a":"CORRECT"},{"q":"Mai is not an adventurer guide","a":"WRONG"},{"q":"Despite having powerful legs, dragonflies cannot walk","a":"CORRECT"},{"q":"An ostrich's eye is bigger than it's brain","a":"CORRECT"},{"q":"Shanghai is the capital of China","a":"WRONG"},{"q":"Gravity keeps us on the ground in Earth","a":"CORRECT"},{"q":"No level limit to job advancement","a":"WRONG"},{"q":"Job Advancement can learn new skills","a":"CORRECT"},{"q":"Campagne, often used to celebrate victories, originated in Switzerland","a":"WRONG"},{"q":"South Africa has one capital","a":"WRONG"},{"q":"Manji is Chunji's younger brother","a":"WRONG"},{"q":"Manji is Chunji's Older Brother","a":"CORRECT"},{"q":"Chunji is Manji's younger brother","a":"CORRECT"},{"q":"Chunji is Manji's older brother","a":"WRONG"},{"q":"There are no seagulls in Hawaii","a":"CORRECT"},{"q":"Being idle \"can\" obtain idle earnings","a":"CORRECT"},{"q":"Being idle \"can't\" obtain idle earnings","a":"WRONG"},{"q":"After bond effects are activated, bond attributes can only be obtained when carrying corresponding pets","a":"CORRECT"},{"q":"Boogie is an intelligence agent for the Knights of Adventure","a":"CORRECT"},{"q":"Boogie is an intelligence knight for the Knights of Adventure","a":"CORRECT"},{"q":"Boogie is an intelligence officer for the Adventurer Guild","a":"WRONG"},{"q":"Claudine is the leader of the rebel group","a":"CORRECT"},{"q":"Anenometer is used for measuring wind speed","a":"CORRECT"},{"q":"Flour is the main ingredient of bread.","a":"CORRECT"},{"q":"Pepperoni is the most popular pizza topping in the US","a":"CORRECT"},{"q":"Reading the Adventure Book will help you comprehend the Maple Island better","a":"CORRECT"},{"q":"Checky is the leader of the Rebel Group","a":"WRONG"},{"q":"The Founder of KFC is a Colonel","a":"CORRECT"},{"q":"Albert Einstein came up with the theory of E=MC2.","a":"CORRECT"},{"q":"Hawaii Pizza came from Canada","a":"CORRECT"},{"q":"Each quick combat can earn you up to 200 minutes of Idle Earning","a":"CORRECT"},{"q":"Adventure Book can be obtained through being presented from friends.","a":"WRONG"},{"q":"Lady Syl is the leader of the Flying Flower","a":"CORRECT"},{"q":"Dark Lord is the leader of the Flying Flower","a":"WRONG"},{"q":"Air Condition was invented by the French (America)","a":"WRONG"},{"q":"Air conditioning was invented by the Americans","a":"CORRECT"},{"q":"Osteoporosis is mainly caused by the lack of vitamin B in the body","a":"WRONG"},{"q":"There are 50 cards in a pack of cards (not incl. jokers)","a":"WRONG"},{"q":"You have 100 free times of quick combat","a":"WRONG"},{"q":"Rune Wings can be dressed in the Fashion House","a":"CORRECT"},{"q":"Ephenia is the leader of the Snails","a":"WRONG"},{"q":"Ephenia is the leader of the Fairies","a":"CORRECT"},{"q":"Alfie is not \"afraid\" of bugs","a":"WRONG"},{"q":"Alfie is \"afraid\" of bugs","a":"CORRECT"},{"q":"Alfie \"likes\" snacks","a":"CORRECT"},{"q":"Alfie \"hates\" snacks","a":"WRONG"},{"q":"The earliest red-and-white machine game Super mario was produced by Nintendo","a":"CORRECT"},{"q":"Albert Einstein discovered the theory of relativity","a":"CORRECT"},{"q":"The heart is the largest internal organ in the body","a":"WRONG"},{"q":"There is water on moon","a":"CORRECT"},{"q":"Neil Armstrong said the famous words: ' That's one small step for man, one giant leap for mankind '.","a":"CORRECT"},{"q":"The famous cartoon characters Mickey Mouse has 5 Fingers","a":"WRONG"},{"q":"The Pyramid of the Sun is located in Mexico","a":"CORRECT"},{"q":"Monster Card can be gained through \"Summons\" and \"Expedition Force\"","a":"WRONG"},{"q":"Unlocking the Monster Card Slot requires levelling up the character","a":"CORRECT"},{"q":"Orchid's most beloved is Gelimer","a":"WRONG"},{"q":"Lotus's most beloved is Gelimer","a":"WRONG"},{"q":"Lotus's most beloved is Orchid","a":"CORRECT"},{"q":"Spider has ten legs (Eight)","a":"WRONG"},{"q":"The Sydney Opera House is a Sydney landmark building shaped like a sail","a":"CORRECT"},{"q":"Baseball is the national game of the USA","a":"CORRECT"},{"q":"The river Seine in Paris is longer than the river Thames in London","a":"CORRECT"},{"q":"You will fail as long as one of the Attacking Monsters escape","a":"WRONG"},{"q":"Don Hwang is a businessman","a":"CORRECT"},{"q":"Objects that can absorb all the seven colors of the sun appear white","a":"WRONG"},{"q":"Elephant is the second tallest animal in the world","a":"CORRECT"},{"q":"Alexander Graham Bell invented the telephone","a":"CORRECT"},{"q":"Consume tinder for Wing Nirvana","a":"CORRECT"},{"q":"Equipping different wings will change battle power","a":"WRONG"},{"q":"Shiki's Dream is to become a game guru","a":"CORRECT"},{"q":"Shiki doesn't like to play games","a":"WRONG"},{"q":"The Cactus Family can be found in Lith Harbor (Nihal Desert?)","a":"WRONG"},{"q":"Telescope is the instrument used to see stars","a":"CORRECT"},{"q":"Mars is the closest planet to Earth.","a":"WRONG"},{"q":"The capital of Germany is Munich (Berlin)","a":"WRONG"},{"q":"The capital of Germany is Berlin","a":"CORRECT"},{"q":"You have 2 free times to challenge the Attacking Monsters","a":"CORRECT"},{"q":"During the Great Arena battle, HP vials may be utilized","a":"WRONG"},{"q":"Goblins live in the Ellinia","a":"CORRECT"},{"q":"Henesys is the home of the bowman","a":"CORRECT"},{"q":"The United States hosted the first Olympic Games (Greece)","a":"WRONG"},{"q":"Paris is the capital of France","a":"CORRECT"},{"q":"Hawaii is the world's largest active volcano located. (Manual loa)","a":"CORRECT"},{"q":"Newton came up with the theory of E=MC2","a":"WRONG"},{"q":"Hydrogen is the lightest gas","a":"CORRECT"},{"q":"Nitrogen is the lightest gas","a":"WRONG"},{"q":"Oxygen is the lightest gas","a":"WRONG"},{"q":"Madonna's real name is Madonna","a":"CORRECT"},{"q":"Bee hummingbird smallest bird in the world","a":"CORRECT"},{"q":"Chinese new year is celebrated on same day every year.","a":"WRONG"},{"q":"You have 3 free tries to challenge the Monster Park","a":"WRONG"},{"q":"Lith Harbor is the land and water transportation hub for Victoria Island","a":"CORRECT"},{"q":"Hawaii has the world's largest volcano (Mauna Loa)","a":"CORRECT"},{"q":"There are 31 teams in the NBA (30)","a":"WRONG"},{"q":"Bananas are curved because they grow upwards towards the sun.","a":"CORRECT"},{"q":"Fish cannot blink","a":"CORRECT"},{"q":"Gold Beach is the home to all kinds of devos","a":"CORRECT"},{"q":"Perion is home of soldiers","a":"WRONG"},{"q":"New York City also referred to The Big Apple","a":"CORRECT"},{"q":"Failure to challenge the Dark Abyss or quitting halfway will consume the \"Abyss Pass\"","a":"WRONG"},{"q":"Failure to challenge the Lucid's Dream won't consume challenge times","a":"WRONG"},{"q":"Residents of Ludibrium are all toys","a":"WRONG"},{"q":"Kerning City is teeming with mushrooms","a":"WRONG"},{"q":"Mango is the national fruit of India","a":"CORRECT"},{"q":"The slogan of the 2008 Olympic Games One World One Dream","a":"CORRECT"},{"q":"Ducks are known to have waterproof feathers","a":"CORRECT"},{"q":"Buddha was a real person","a":"CORRECT"},{"q":"In the Land of Chaos, each challenge cycle lasts two days","a":"CORRECT"},{"q":"Kerning City is the territory of the Thieves","a":"CORRECT"},{"q":"The first country in the world to use the subway is the United States (UK, London)","a":"WRONG"},{"q":"The first country in the world to use the subway is France","a":"WRONG"},{"q":"The Arabian Desert is the largest desert in the world","a":"WRONG"},{"q":"Snow White is the Disney Princess who had 8 dwarfs as friends (7)","a":"WRONG"},{"q":"The Great Pyramid was one of the Seven Wonders of the Ancient World","a":"CORRECT"},{"q":"There are 9 players are there on a baseball team.","a":"CORRECT"},{"q":"There are 10 players are there on a baseball team.","a":"WRONG"},{"q":"In the 007 Series of movie, the name of the agent is Bond.","a":"CORRECT"},{"q":"The Harry Potter film, Chamber of the secrets, is the longest film of the Harry Potter movies.","a":"CORRECT"},{"q":"Tooth enamel is the hardest part of the body","a":"CORRECT"},{"q":"The Capital of Italy is Rome","a":"CORRECT"},{"q":"For the Trial of Alliance, the duration of the trial is 3 days","a":"CORRECT"},{"q":"Everyday the Adventure Training Field offers two free challenges","a":"CORRECT"},{"q":"The higher the opponent's rank in the Great Arena, the bigger the point gained after winning the challenge","a":"CORRECT"},{"q":"When a totem is replaced, it \"does not\" inherit enhancement and refinement levels.","a":"CORRECT"},{"q":"Maple Island is where the adventure begins","a":"CORRECT"},{"q":"Maple Island is not where the adventure begins","a":"WRONG"},{"q":"Perion is the home of Warriors","a":"CORRECT"},{"q":"The Nihal Desert is brimmed of cacti","a":"CORRECT"},{"q":"The capital of Japan is Osaka","a":"WRONG"},{"q":"China is the largest Country in the world based on the area. (Russia)","a":"WRONG"},{"q":"The city of Los Angeles is also know as the Big Apple","a":"WRONG"},{"q":"The temperature in the refrigerator is so low that all bacteria can be frozen to death","a":"WRONG"},{"q":"Michael Collins was the first man on the moon.","a":"WRONG"},{"q":"Pineapples grow on trees","a":"WRONG"},{"q":"Vanilla is the world's most expensive spice.","a":"WRONG"},{"q":"Taste buds can only be found on the tongue.","a":"WRONG"},{"q":"Most of the human brain is made of muscle.","a":"WRONG"},{"q":"The hardest part of the human body is the bones. (Teeth)","a":"WRONG"},{"q":"Don Hwang is a game guru","a":"WRONG"},{"q":"Battmond's body is a Fairy","a":"WRONG"},{"q":"Battmond's body is a Crimson Balrog","a":"CORRECT"},{"q":"Timer is looking for his lost \"snacks\"","a":"WRONG"},{"q":"The \"Progress Rewards\" in each cycle can be claimed multiple times in the land of chaos.","a":"WRONG"},{"q":"The number of \"Dusk Keys\" you have in Dusk Demesne will be reset to 1 the following days,\nregardless of how many you had the day before","a":"WRONG"},{"q":"Every day throughout the trial of Alliance, the last challenge point is recorded in the statistics.","a":"WRONG"},{"q":"The crazy mode in the Adventurer Training Field will only take effect on you after you purchase it","a":"WRONG"},{"q":"Goblins live in the Perion","a":"WRONG"},{"q":"Henesys is the home of warriors","a":"WRONG"},{"q":"The greater the Mu Lung Dojo's challenge layers, the better the daily award","a":"CORRECT"},{"q":"Consume Abyss Pass to challenge the Dark Abyss","a":"CORRECT"},{"q":"The Nihal Desert is home to all kinds of fresh seafood","a":"WRONG"},{"q":"Venus is the hottest planet in in our solar system","a":"CORRECT"},{"q":"Monster Park can obtain Equipment Star-up Materials","a":"CORRECT"},{"q":"Verne Mines is located in Edelstein","a":"CORRECT"},{"q":"There are 30 NFL teams.(32)","a":"WRONG"},{"q":"Fortune Cookies invented in China (San Francisco)","a":"WRONG"},{"q":"The Horntail has two dragon heads in the Dusk Demesne","a":"WRONG"},{"q":"World Boss Battle start from 12:00 - 20:00 every day","a":"CORRECT"},{"q":"Residents in Leafre are goblins","a":"WRONG"},{"q":"In Dimension Trial (Plot) the enemy leader of Victoria Island's Anomaly is Crimson Balrog Battmond","a":"WRONG"},{"q":"In Dimension Trail (Plot), the enemy leader of Maple island's anomaly is Crimson Balrog Battmond","a":"CORRECT"},{"q":"There are 40 dots on two dice (42)","a":"WRONG"},{"q":"Panda is the national animal of China","a":"CORRECT"},{"q":"There are only four different blood types in the world (Wrong, 4 Main but 8 Blood Groups)","a":"WRONG"},{"q":"Gold Beach is home to all kind of devos","a":"CORRECT"},{"q":"Melbourne is the biggest city in Australia","a":"WRONG"},{"q":"Lobster blood is red (Blue when exposed to light, else colourless)","a":"WRONG"},{"q":"Lobster blood is blue","a":"CORRECT"},{"q":"The five rings on the Olympic flag are interlocking","a":"CORRECT"},{"q":"Kung Fu was originated from China","a":"CORRECT"},{"q":"Kung Fu was originated from Japan","a":"WRONG"},{"q":"The speed of light is faster than the speed of sound","a":"CORRECT"},{"q":"Mars is known as the Red Planet","a":"CORRECT"},{"q":"When the two numbers on opposite sides of a dice are added together is always equals 7","a":"CORRECT"},{"q":"Strawberries is the only fruit with seeds on the outside","a":"CORRECT"},{"q":"The Trial of Alliance last three days for each term","a":"CORRECT"},{"q":"Henesys is teeming with mushrooms","a":"CORRECT"},{"q":"Dusk Demese \"allows\" One-On-One Challenge","a":"CORRECT"},{"q":"The black box in a plane is black.(Orange)","a":"WRONG"},{"q":"In the Victoria Island anomaly of Dimension Trail (Plot), Joey and the Ephenia are twin sisters","a":"WRONG"},{"q":"In the Victoria Island anomaly of Dimension Trail (Plot), Joey and Faie are twin sisters","a":"CORRECT"},{"q":"Gold beach and Gold beach are two different places","a":"WRONG"},{"q":"Timer is looking for his lost \"parts\"","a":"CORRECT"},{"q":"To participate in Duel Arena you \"must\" register","a":"CORRECT"},{"q":"From Monday through Saturday is World Boss Crusade Time","a":"WRONG"},{"q":"Muggle is a word from Harry Potter that is now included in the Oxford English Dictionary","a":"CORRECT"},{"q":"Dusk Demesne allows each new team member to contribute four openable Chests","a":"CORRECT"},{"q":"The player will immediately \"lose\" in the Duel Arena if they are not online","a":"WRONG"},{"q":"The World BOSS Auction ends at 22:00","a":"CORRECT"},{"q":"The World BOSS Auction begins at 20:00","a":"WRONG"},{"q":"In the Edelstein anomaly of Dimension Trial (Plot), Orchid dies to save Lotus","a":"WRONG"},{"q":"In the Edelstein anomaly of Dimension Trail (Plot), Lotus dies to save Orchid","a":"CORRECT"},{"q":"Leafre is positioned the Minar Forest","a":"CORRECT"},{"q":"The UK is located in the northern hemisphere","a":"CORRECT"},{"q":"Monaco is the smallest country in the world.","a":"WRONG"},{"q":"Mississippi River is the longest river in the world","a":"WRONG"},{"q":"The Amazon River is the longest river in the world.","a":"WRONG"},{"q":"Max Planck discovered the theory of relativity","a":"WRONG"},{"q":"If you fail a challenge or quitting halfway at the Mu Lung Dojo, \"the amount of challenges will not be removed\"","a":"WRONG"},{"q":"Every day, Lucid's Dream only offers three challenges","a":"CORRECT"},{"q":"Check Adventure Team Information in the Adventure Team Hall","a":"CORRECT"},{"q":"Neinheart is the Queen of Maple World","a":"WRONG"},{"q":"Chicago is the largest city in the United States.","a":"WRONG"},{"q":"Michael Jordan totally get 7 Champions in his career","a":"WRONG"},{"q":"In the Edelstein anomaly of Dimension Trial (Plot), Dark Lord Zhen and Lady Syl didn't resolve the misunderstanding","a":"WRONG"},{"q":"In the Edelstein anomaly of Dimension Trial (Plot), Dark Lord Zhen and Lady Syl finally resolved the misunderstanding","a":"CORRECT"},{"q":"Neinheart's position is \"Warrior\"","a":"WRONG"},{"q":"There are 366 days in a leap years.","a":"CORRECT"},{"q":"There are 367 days in a year.","a":"WRONG"},{"q":"Big Ben is the famous clock in London","a":"CORRECT"},{"q":"WWW stands for World Wide Web.","a":"CORRECT"},{"q":"The United States is located in the southern hemisphere","a":"WRONG"},{"q":"Tiger Woods is known for Golf.","a":"CORRECT"},{"q":"Every day, the Endless Hunting offers one free challenge","a":"CORRECT"},{"q":"In the Expedition Forces, Zakum's hands will all vanish, and he will enter the third stage","a":"CORRECT"},{"q":"In the expedition force, in the third stage you will see Zakum body being petrified.","a":"CORRECT"},{"q":"In the Expedition Forces, touching Vellum's Venom poisons","a":"CORRECT"},{"q":"In the Expedition Forces, touching Vellum's Venom stuns","a":"WRONG"},{"q":"Washington is the capital of the United States","a":"CORRECT"},{"q":"Excess Furniture cannot be dismantled","a":"WRONG"},{"q":"The adventurous team with the most points wins the Victoria Island Rivalry","a":"CORRECT"},{"q":"Michael Jordan is known for Basketball","a":"CORRECT"},{"q":"Charlie Chaplin insured his feet","a":"CORRECT"},{"q":"The skin color of polar bears are black","a":"CORRECT"},{"q":"Collect all pieces of furniture from the same series to obtain extra rewards such as walls and backdrop graphics.","a":"CORRECT"},{"q":"The capital of Italy is Milan. (Rome)","a":"WRONG"},{"q":"Thomas Edison discovered gravity. (Isaac Newton with his Apple Device)","a":"WRONG"},{"q":"Kyrin is the pirate instructor","a":"CORRECT"},{"q":"Kyrin is the Bowman Instructor","a":"WRONG"},{"q":"Helena is the bowman instructor","a":"CORRECT"},{"q":"There are 29 days in February every 5 years","a":"WRONG"},{"q":"In Finding nemo the protagonist is a pufferfish","a":"WRONG"},{"q":"You can only invite friends to your home visits","a":"WRONG"},{"q":"You can't resign after joining an adventure team","a":"WRONG"},{"q":"Make your home more comfortable so that you can host more visitors","a":"CORRECT"},{"q":"Endless Hunting requires a team to take on the challenge","a":"WRONG"},{"q":"Neinheart's position is \"Counselor\"","a":"CORRECT"},{"q":"Grendel the Really Old is into beautiful women","a":"WRONG"},{"q":"Helena is the Warrior Instructor","a":"WRONG"},{"q":"Snow White is the Disney Princess who had 7 dwarfs as friends","a":"CORRECT"},{"q":"There are 26 letters in the English Alphabet.","a":"CORRECT"},{"q":"The capital of UK is Manchester. (London)","a":"WRONG"},{"q":"The capital of Russia is Saint Petersburg. (Moscow)","a":"WRONG"},{"q":"New York is the Capital of America","a":"WRONG"},{"q":"Sun is known as the Red Planet.","a":"WRONG"},{"q":"Residents in Ludibrium do not age","a":"CORRECT"},{"q":"Grendel the Really Old is into Wine","a":"CORRECT"},{"q":"Cairo is the capital of Mongolia","a":"WRONG"},{"q":"New York is the largest city in US","a":"CORRECT"},{"q":"Goldfish have a 2 second memory","a":"WRONG"},{"q":"Hot and cold water sound the same when poured","a":"WRONG"},{"q":"Cygnus is the Queen of Maple World","a":"CORRECT"},{"q":"Light Blue Ore can be used to forge equipment","a":"CORRECT"},{"q":"During the equipment upgrade procedure, you have a chance to gain 2x, 5x, or 10x crit.","a":"CORRECT"},{"q":"Elephant is known to be the largest mammal in the world.","a":"WRONG"},{"q":"You can sneeze during your sleep.","a":"WRONG"},{"q":"Each NBA team has 18 players.","a":"WRONG"},{"q":"Each NBA team has 16 players.","a":"CORRECT"},{"q":"Minnie Mouse is the name of Mickey Mouse's Partner","a":"CORRECT"},{"q":"Cinderella is the first Disney Princess","a":"WRONG"},{"q":"Lionel Messi is known for football","a":"CORRECT"},{"q":"The longest-lived animal is elephant","a":"WRONG"},{"q":"Various rage skill upgrades require \"different\" skill manuals.","a":"CORRECT"},{"q":"Various rage skill upgrades require \"same\" skill manuals.","a":"WRONG"},{"q":"Red is the top colour in a rainbow (ROY G BIV)","a":"CORRECT"},{"q":"Sharks are mammals","a":"WRONG"},{"q":"Auto skill upgrades cannot surpass the character's current level","a":"CORRECT"},{"q":"Barak Obama is the first black president of the United States of America","a":"CORRECT"},{"q":"The Earth is round","a":"CORRECT"},{"q":"Mount Everest is the tallest mountain in the world","a":"CORRECT"},{"q":"Pure Energy Stone can be used to forge equipment.","a":"WRONG"},{"q":"During equipment upgrae, the substituted equipment does not inherit the enhancement level.","a":"WRONG"},{"q":"Equipment star-up primarily raises the percentage of basic attributes of equipment.","a":"CORRECT"},{"q":"Equipment star-up resources can be obtained from \"Adventurer Training Field\"","a":"WRONG"},{"q":"Characters can directly obtain attributes by embedding gems.","a":"CORRECT"},{"q":"Update ordinary gem to advanced gem.","a":"WRONG"},{"q":"When approaching the enemy, automatic skills must be activated manually.","a":"WRONG"},{"q":"The adventure journey's challenge level has a time constraint.","a":"CORRECT"},{"q":"The adventure journey's challenge level has no time constraint.","a":"WRONG"},{"q":"Use Time Energy to complete Dimension Trail (Exploration)","a":"CORRECT"},{"q":"Dimension Trail (Exploration) Exploration progress is not saved when quitting halfway","a":"WRONG"},{"q":"Clearing Dimension Trail (Plot) can obtain the plot title.","a":"CORRECT"},{"q":"Dimension Trail (Plot) can be accessed multiple times.","a":"WRONG"},{"q":"Adventure Book can be obtained through being presented from friends.","a":"WRONG"},{"q":"After activating the pet's bond effect, the character will gain the pet's bond attribute.","a":"WRONG"},{"q":"Activating pet maps can increase battle power","a":"CORRECT"},{"q":"Activating pet Illustration needs to consume coins","a":"WRONG"},{"q":"Dark Abyss has probability to drop runes and magic solvent.","a":"WRONG"},{"q":"Pink Bean Rune is a three-star product.","a":"WRONG"},{"q":"Unclaimed Costume items “can not” be tried on in the Fashion House.","a":"WRONG"},{"q":"When totems are dropped, they will create basic attribute at random within the area.","a":"WRONG"},{"q":"All stigmata attribute bonuses will activate together on the character.","a":"CORRECT"},{"q":"Stigmata Star-up needs to consume Potential Stones.","a":"WRONG"},{"q":"The Victoria Island Rivalry participation reward is available even if you do not participate","a":"WRONG"},{"q":"Dances with Balrog is the Warrior Instructor","a":"CORRECT"},{"q":"Dances with Balrog is the Magician Instructor","a":"WRONG"},{"q":"The incumbent Dark Lord's name is: Zhen","a":"CORRECT"},{"q":"The incumbent Dark Lord's name is: Lady Syl","a":"WRONG"},{"q":"Orchid's most beloved is Lotus","a":"CORRECT"},{"q":"The blue whale is the biggest animal to have ever lived.","a":"CORRECT"},{"q":"The hummingbird egg is the world's smallest bird egg.","a":"CORRECT"},{"q":"An octopus has seven hearts. (3)","a":"WRONG"},{"q":"Greenland is the largest island in the world.","a":"CORRECT"},{"q":"Vatican City is the smallest country in the world.","a":"CORRECT"},{"q":"Venezuela is home to the world's highest waterfall.","a":"CORRECT"},{"q":"Infants have more bones than adults.","a":"CORRECT"},{"q":"The two longest rivers in the world are the Mississippi and the Nile. (Nile then Amazon River)","a":"WRONG"},{"q":"China has the longest coastline in the world.","a":"WRONG"},{"q":"Canada has the longest coastline in the world.","a":"CORRECT"},{"q":"The human body has four lungs.","a":"WRONG"},{"q":"Human skin regenerates every week. (27 Days)","a":"WRONG"},{"q":"Australia is located in the northern hemisphere.","a":"WRONG"},{"q":"Brazil is the only nation to have played in every World Cup finals tournament.","a":"WRONG"},{"q":"Humans have five senses – sight, smell, hearing, taste and touch.","a":"CORRECT"},{"q":"Cheesecake comes from Italy.","a":"WRONG"},{"q":"Cheesecake first originated in Greece.","a":"CORRECT"},{"q":"Magellan was the first person to circumnavigate the Earth.","a":"CORRECT"},{"q":"Babylon was a city that actually used to exist","a":"CORRECT"},{"q":"Red, Green, Black, Blue, and Yellow are the colors of the Olympic Rings.","a":"CORRECT"},{"q":"The United States has the longest coastline in the world.","a":"WRONG"},{"q":"Ancient Egyptians were responsible for the pyramids.","a":"CORRECT"},{"q":"The first animal sent into space was a monkey.","a":"WRONG"},{"q":"Michael Jackson was dubbed the 'King of Pop, and he released the album Thriller.","a":"CORRECT"},{"q":"Abraham Lincoln was the first President of the United States. (George Washington)","a":"WRONG"},{"q":"Winston Churchill was prime minister of Great Britain at the end of World War II.","a":"CORRECT"},{"q":"Mahatma Gandhi was king of India.","a":"WRONG"},{"q":"President Richard Nixon resigned over the Watergate scandal.","a":"CORRECT"},{"q":"President Hillary Clinton resigned over the Watergate scandal.","a":"WRONG"},{"q":"McDonald's is also known as the Golden Arches.","a":"CORRECT"},{"q":"Insects have 10 legs.","a":"WRONG"},{"q":"Oxygen and hydrogen make up water.","a":"CORRECT"},{"q":"Polar bears live in Antarctica. (Arctic)","a":"WRONG"},{"q":"The African Elephant is the largest land animal to roam the planet.","a":"CORRECT"},{"q":"There are 45 states e in America. (50)","a":"WRONG"},{"q":"There are 60 states in the United States.","a":"WRONG"},{"q":"Courteney, Jennifer, David, Lisa, Matthew, and Matt starred in the Big Bang Theory.","a":"CORRECT"},{"q":"A cube has 12 straight edges.","a":"CORRECT"},{"q":"The Whopper is made by KFC. (Burger King)","a":"WRONG"},{"q":"The Whopper is made by McDonald's.","a":"WRONG"},{"q":"Australia is the smallest continent.","a":"CORRECT"},{"q":"As the saying goes, cats have 10 lives. (9)","a":"WRONG"},{"q":"India has 30 states. (28)","a":"WRONG"},{"q":"Plants gives us oxygen","a":"CORRECT"},{"q":"Adults have 34 teeth (32)","a":"WRONG"},{"q":"Cinderella's carriage turns into a potato","a":"WRONG"},{"q":"An ostrich's eyes are heavier than its brain","a":"CORRECT"},{"q":"The Sahara Desert is the largest in the world (Antarctica Desert)","a":"WRONG"},{"q":"The fruit of lemon has just one seed.","a":"WRONG"},{"q":"The World Cup is held every three years.","a":"WRONG"},{"q":"The World Cup is held every four years.","a":"CORRECT"},{"q":"The English abbreviation of the position of chief executive officier is CFO.","a":"WRONG"},{"q":"America's first military school was West Point","a":"CORRECT"},{"q":"The outermost of the nine planets in the solar system is Neptune.","a":"WRONG"},{"q":"The outermost of the eight planets in the solar system is Saturn.","a":"WRONG"},{"q":"Basketball is the national game of the USA","a":"WRONG"},{"q":"Canada is the largest country in the world based on the area.","a":"WRONG"},{"q":"New York is the capital of America","a":"WRONG"},{"q":"There are 8 colours in a rainbow.","a":"WRONG"},{"q":"Siri is a voice-controlled feature of Google's mobile app in the United States.","a":"WRONG"},{"q":"Pyramid of the Sun located in Egypt.","a":"WRONG"},{"q":"Each NBA team has 20 players.","a":"WRONG"},{"q":"Russia is the largest country in the world based on the area.","a":"CORRECT"},{"q":"Nile is the longest river in the world.","a":"CORRECT"},{"q":"There are 7 colours in a rainbow.","a":"CORRECT"},{"q":"Giraffe is the tallest animals in the world.","a":"CORRECT"},{"q":"Greece hosted the first Olympic Games.","a":"CORRECT"},{"q":"Ears are essential for imparting balance to the human body.","a":"CORRECT"},{"q":"There are 30 teams in the NBA.","a":"CORRECT"},{"q":"Neil Armstrong was the first man on the moon.","a":"CORRECT"},{"q":"Amsterdam is the capital of the Netherlands.","a":"CORRECT"},{"q":"Toronto is the capital of Canada","a":"WRONG"},{"q":"The largest city in Brazil is Brasilia.","a":"WRONG"},{"q":"The capital of Brazil is Brasilia.","a":"CORRECT"}];
+const FURNITURE_DATA={"items":[{"faction":"Mushroom Research Institute","name":"Wooden Lab Bench","cost":20,"reward":true},{"faction":"Mushroom Research Institute","name":"Sunflower Potted","cost":20,"reward":true},{"faction":"Mushroom Research Institute","name":"Chinese Rose Potted","cost":20,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Photo Frame","cost":20,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Soft Seat","cost":20,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Window","cost":20,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Tea Table","cost":20,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Wardrobe","cost":40,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Single Bed","cost":40,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Clock","cost":40,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Instrument Cabinet","cost":40,"reward":false},{"faction":"Mushroom Research Institute","name":"Large-capacity Oven","cost":40,"reward":true},{"faction":"Mushroom Research Institute","name":"Large Window with Pink Curtain","cost":60,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Chiming Clock","cost":60,"reward":false},{"faction":"Mushroom Research Institute","name":"Orange Mushroom Wood Carving","cost":60,"reward":true},{"faction":"Mushroom Research Institute","name":"Two-color Flower Potted","cost":60,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Cupboard","cost":120,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Napping Bed","cost":120,"reward":true},{"faction":"Mushroom Research Institute","name":"Wooden Instrument Table","cost":120,"reward":false},{"faction":"Mushroom Research Institute","name":"Safe","cost":120,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Sofa - Middle","cost":200,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Sofa - Right","cost":200,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Sofa - Left","cost":300,"reward":false},{"faction":"Mushroom Research Institute","name":"Wooden Floor Lamp","cost":300,"reward":false},{"faction":"Rural Deluxe Villa","name":"Who is she?","cost":65,"reward":false},{"faction":"Rural Deluxe Villa","name":"Crossbow Spirit Photo","cost":65,"reward":false},{"faction":"Rural Deluxe Villa","name":"Tropical Plants","cost":65,"reward":false},{"faction":"Rural Deluxe Villa","name":"Small Desk","cost":65,"reward":false},{"faction":"Rural Deluxe Villa","name":"Photo of Cygnus","cost":130,"reward":false},{"faction":"Rural Deluxe Villa","name":"European-style Window","cost":130,"reward":false},{"faction":"Rural Deluxe Villa","name":"Green Plant Potted","cost":130,"reward":false},{"faction":"Rural Deluxe Villa","name":"Command Stand","cost":130,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Floor Lamp","cost":195,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Window","cost":195,"reward":false},{"faction":"Rural Deluxe Villa","name":"Maple Island Map","cost":195,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Bookshelf","cost":195,"reward":false},{"faction":"Rural Deluxe Villa","name":"Mannequin Stand","cost":260,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Brown Sofa - Left","cost":260,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Blue Sofa","cost":260,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Brown sofa - Right","cost":260,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Fish Tank","cost":325,"reward":false},{"faction":"Rural Deluxe Villa","name":"European-style Wardrobe","cost":325,"reward":false},{"faction":"Rural Deluxe Villa","name":"European-style Dresser","cost":325,"reward":false},{"faction":"Rural Deluxe Villa","name":"Office Desk","cost":325,"reward":false},{"faction":"Rural Deluxe Villa","name":"Grand Piano","cost":390,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Fireplace","cost":390,"reward":false},{"faction":"Rural Deluxe Villa","name":"European-style King Size Bed","cost":390,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Chandelier","cost":390,"reward":false},{"faction":"Rural Deluxe Villa","name":"Deluxe Villa Wall","cost":0,"reward":true},{"faction":"Rural Deluxe Villa","name":"Deluxe Villa Music","cost":0,"reward":true},{"faction":"Rural Deluxe Villa","name":"Deluxe Villa House","cost":0,"reward":true},{"faction":"Rural Deluxe Villa","name":"Deluxe Villa Background","cost":0,"reward":true},{"faction":"Ludibrium Playground","name":"Toy Piano","cost":150,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Photo Frame","cost":150,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Potted","cost":300,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Table Lamp","cost":300,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Hanger","cost":300,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Dressing Mirror","cost":300,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Floor Lamp","cost":450,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Big Potted","cost":450,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Window","cost":450,"reward":false},{"faction":"Ludibrium Playground","name":"Sunlight Window","cost":450,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Record Player","cost":600,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Car","cost":600,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Closet","cost":600,"reward":false},{"faction":"Ludibrium Playground","name":"Zebra Bookshelf","cost":600,"reward":false},{"faction":"Ludibrium Playground","name":"Whale Potted","cost":750,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Sofa - Left","cost":750,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Sofa","cost":750,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Sofa - Right","cost":750,"reward":false},{"faction":"Ludibrium Playground","name":"Bear Bed","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Ligator Puppet","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Toy Desk","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Brown Bear Doll","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Puppy Console","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Violent Bear Sculpture","cost":900,"reward":false},{"faction":"Ludibrium Playground","name":"Playground Wall","cost":0,"reward":true},{"faction":"Ludibrium Playground","name":"Playground Music","cost":0,"reward":true},{"faction":"Ludibrium Playground","name":"Playground Background","cost":0,"reward":true},{"faction":"Ludibrium Playground","name":"Playground House","cost":0,"reward":true},{"faction":"Ice Kitten Castle","name":"Pink Cat Clock","cost":180,"reward":false},{"faction":"Ice Kitten Castle","name":"Bear Transparent Bookcase","cost":180,"reward":false},{"faction":"Ice Kitten Castle","name":"Dream Blue Cabinet","cost":360,"reward":false},{"faction":"Ice Kitten Castle","name":"Sky Blue Stool","cost":360,"reward":false},{"faction":"Ice Kitten Castle","name":"Blue Open Window","cost":360,"reward":false},{"faction":"Ice Kitten Castle","name":"Old Photo of Old Friend","cost":360,"reward":false},{"faction":"Ice Kitten Castle","name":"Star Wall Decoration","cost":540,"reward":false},{"faction":"Ice Kitten Castle","name":"Moon Wall Decoration","cost":540,"reward":false},{"faction":"Ice Kitten Castle","name":"Rabbit Shelf","cost":540,"reward":false},{"faction":"Ice Kitten Castle","name":"Velvet Tea Table","cost":540,"reward":false},{"faction":"Ice Kitten Castle","name":"Snow-covered Fish Tank","cost":720,"reward":false},{"faction":"Ice Kitten Castle","name":"Cat Arc Chair","cost":720,"reward":false},{"faction":"Ice Kitten Castle","name":"White Cat Curved Chair","cost":720,"reward":false},{"faction":"Ice Kitten Castle","name":"Frozen Mushroom Ice Stool","cost":720,"reward":false},{"faction":"Ice Kitten Castle","name":"Lop-eated Rabbit","cost":900,"reward":false},{"faction":"Ice Kitten Castle","name":"Orange Cat Sofa","cost":900,"reward":false},{"faction":"Ice Kitten Castle","name":"Fantasy Blue Single Bed","cost":900,"reward":false},{"faction":"Ice Kitten Castle","name":"Cat Storage Basket","cost":900,"reward":false},{"faction":"Ice Kitten Castle","name":"Sleeping Cat Carton","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Cat Music Box","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Blue Separated Pepe","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Penguin Refrigerator","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Fantasy Blue Sliding Window","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Cat Bean Bag Chair","cost":1080,"reward":false},{"faction":"Ice Kitten Castle","name":"Kitten Castle Wall","cost":0,"reward":true},{"faction":"Ice Kitten Castle","name":"Kitten Castle Music","cost":0,"reward":true},{"faction":"Ice Kitten Castle","name":"Kitten Castle Background","cost":0,"reward":true},{"faction":"Ice Kitten Castle","name":"Kitten Castle House","cost":0,"reward":true},{"faction":"Port Forest House","name":"Green Vine Dresser","cost":185,"reward":false},{"faction":"Port Forest House","name":"Round Wood Table","cost":185,"reward":false},{"faction":"Port Forest House","name":"Yellow Wood Storage Cabinet","cost":370,"reward":false},{"faction":"Port Forest House","name":"Hollow Curved Chair","cost":370,"reward":false},{"faction":"Port Forest House","name":"Linen Curtain Window","cost":370,"reward":false},{"faction":"Port Forest House","name":"Patterned Tapestry","cost":370,"reward":false},{"faction":"Port Forest House","name":"Broad-Leaved Rattan Potted","cost":555,"reward":false},{"faction":"Port Forest House","name":"Ritual Cowhide Drum","cost":555,"reward":false},{"faction":"Port Forest House","name":"Green Rope Ornament","cost":555,"reward":false},{"faction":"Port Forest House","name":"Playful Totem Pole","cost":555,"reward":false},{"faction":"Port Forest House","name":"Log Swing","cost":740,"reward":false},{"faction":"Port Forest House","name":"Patterned Chair","cost":740,"reward":false},{"faction":"Port Forest House","name":"Patterned Sofa","cost":740,"reward":false},{"faction":"Port Forest House","name":"Greenery Round Table","cost":740,"reward":false},{"faction":"Port Forest House","name":"Patterned Seat - Left","cost":925,"reward":false},{"faction":"Port Forest House","name":"Patterned Seat - Right","cost":925,"reward":false},{"faction":"Port Forest House","name":"Indoor Tent","cost":925,"reward":false},{"faction":"Port Forest House","name":"Potted Yarn","cost":925,"reward":false},{"faction":"Port Forest House","name":"Curved Right Armchair","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Curved Left Armchair","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Fun Hanging","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Bathroom Screen","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Jungle Bathtub","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Boat Hammock","cost":1110,"reward":false},{"faction":"Port Forest House","name":"Forest House Wall","cost":0,"reward":true},{"faction":"Port Forest House","name":"Forest House Music","cost":0,"reward":true},{"faction":"Port Forest House","name":"Forest House Background","cost":0,"reward":true},{"faction":"Port Forest House","name":"Forest House House","cost":0,"reward":true}],"factions":["Mushroom Research Institute","Rural Deluxe Villa","Ludibrium Playground","Ice Kitten Castle","Port Forest House"]};
+
+const SOUL_ORB={
+  Red:{unlock:60,levels:[{lv:1,frags:45},{lv:2,frags:67},{lv:3,frags:83},{bt:1,cost:20},{lv:4,frags:103},{lv:5,frags:137},{lv:6,frags:137},{bt:2,cost:40},{lv:7,frags:153},{lv:8,frags:153},{lv:9,frags:164},{lv:10,frags:164},{bt:3,cost:60}],total:1386},
+  Orange:{unlock:60,levels:[{lv:1,frags:56},{lv:2,frags:56},{lv:3,frags:70},{bt:1,cost:20},{lv:4,frags:84},{lv:5,frags:98},{lv:6,frags:112},{bt:2,cost:40},{lv:7,frags:126},{lv:8,frags:138},{lv:9,frags:150},{lv:10,frags:150},{bt:3,cost:60}],total:1220}
+};
+
+const WINGS={
+  Blue:{max:5,levels:[{frags:30,dusty:100},{frags:50,silent:50},{frags:70,twinkling:20},{frags:90,sparkling:10},{frags:120,burning:1}]},
+  Purple:{max:6,levels:[{frags:30,dusty:200},{frags:50,silent:100},{frags:70,twinkling:40},{frags:90,sparkling:20},{frags:120,burning:1},{frags:120,burning:1}]},
+  Yellow:{max:7,levels:[{frags:40,dusty:300},{frags:60,silent:150},{frags:60,twinkling:60},{frags:65,sparkling:30},{frags:65,burning:1},{frags:90,burning:3},{frags:140,burning:5}]},
+  Orange:{max:8,levels:[{frags:40,dusty:400},{frags:60,silent:200},{frags:60,twinkling:80},{frags:65,sparkling:40},{frags:65,burning:1},{frags:70,burning:3},{frags:120,burning:5},{frags:170,burning:5}]}
+};
+
+const STIGMATA_FRAGS={
+  Blue:{unlock:60,stars:[60,90,120,130],total:460},
+  Purple:{unlock:60,stars:[90,150,190,280],total:770},
+  Yellow:{unlock:60,stars:[110,180,230,330],total:910},
+  Orange:{unlock:60,stars:[120,230,250,370],total:1030}
+};
+
+// ─── STYLES ──────────────────────────────────────────────────────────────────
+const C={
+  bg:"#0d0f18",sur:"#141621",sur2:"#1c1f2e",
+  border:"#252840",borderSoft:"#1e2135",
+  amber:"#f0a030",amberDim:"rgba(240,160,48,0.12)",
+  green:"#4db87a",red:"#e05555",violet:"#9b7fe8",teal:"#40b8a8",
+  text:"#c5c8d8",muted:"#6b7280",soft:"#9298a8",white:"#f0f2ff"
+};
+const mono={fontFamily:"'JetBrains Mono',monospace"};
+const serif={fontFamily:"'Fraunces',serif"};
+const sans={fontFamily:"'Manrope',sans-serif"};
+
+// ─── SHARED COMPONENTS ───────────────────────────────────────────────────────
+const Tag=({children,color=C.amber})=>(
+  <span style={{...mono,fontSize:9,letterSpacing:"0.15em",textTransform:"uppercase",color,border:`1px solid ${color}`,padding:"2px 7px",display:"inline-block"}}>{children}</span>
+);
+const Label=({children})=><div style={{...mono,fontSize:10,letterSpacing:"0.15em",textTransform:"uppercase",color:C.amber,marginBottom:6}}>{children}</div>;
+const H1=({children})=><h2 style={{...serif,fontSize:28,color:C.white,margin:"0 0 6px",letterSpacing:"-0.02em",fontStyle:"italic"}}>{children}</h2>;
+const Inp=({label,value,onChange,min,max,step,type="number",placeholder})=>(
+  <div style={{marginBottom:14}}>
+    <Label>{label}</Label>
+    <input type={type} value={value} onChange={onChange} min={min} max={max} step={step} placeholder={placeholder}
+      style={{background:C.sur2,border:`1px solid ${C.border}`,color:C.white,padding:"10px 12px",width:"100%",boxSizing:"border-box",...mono,fontSize:14,outline:"none"}}/>
+  </div>
+);
+const Sel=({label,value,onChange,options})=>(
+  <div style={{marginBottom:14}}>
+    <Label>{label}</Label>
+    <select value={value} onChange={onChange}
+      style={{background:C.sur2,border:`1px solid ${C.border}`,color:C.white,padding:"10px 12px",width:"100%",...mono,fontSize:14,outline:"none"}}>
+      {options.map(o=><option key={o.value??o} value={o.value??o}>{o.label??o}</option>)}
+    </select>
+  </div>
+);
+const ResultBox=({label,value,sub,color=C.amber})=>(
+  <div style={{background:C.sur2,border:`1px solid ${color}33`,padding:"16px 18px",marginBottom:10}}>
+    <div style={{...mono,fontSize:10,letterSpacing:"0.15em",textTransform:"uppercase",color:C.muted,marginBottom:4}}>{label}</div>
+    <div style={{...serif,fontSize:32,fontStyle:"italic",color,lineHeight:1}}>{value}</div>
+    {sub&&<div style={{fontSize:12,color:C.soft,marginTop:4}}>{sub}</div>}
+  </div>
+);
+const Table=({heads,rows,compact})=>(
+  <div style={{overflowX:"auto"}}>
+  <table style={{width:"100%",borderCollapse:"collapse",fontSize:compact?12:13}}>
+    <thead><tr>{heads.map((h,i)=><th key={i} style={{...mono,fontSize:9,letterSpacing:"0.12em",textTransform:"uppercase",color:C.amber,textAlign:"left",padding:"8px 12px",borderBottom:`1px solid ${C.border}`,background:C.sur2,whiteSpace:"nowrap"}}>{h}</th>)}</tr></thead>
+    <tbody>{rows.map((row,i)=>(
+      <tr key={i} style={{borderBottom:`1px solid ${C.borderSoft}`}}>
+        {row.map((cell,j)=><td key={j} style={{padding:"9px 12px",color:j===0?C.soft:C.text,fontFamily:typeof cell==="number"?"'JetBrains Mono',monospace":"inherit"}}>{cell??"-"}</td>)}
+      </tr>
+    ))}</tbody>
+  </table>
+  </div>
+);
+const Divider=()=><hr style={{border:"none",borderTop:`1px solid ${C.border}`,margin:"24px 0"}}/>;
+const Note=({children})=>(
+  <div style={{background:C.amberDim,border:`1px solid ${C.amber}33`,padding:"12px 14px",fontSize:13,color:C.soft,lineHeight:1.6,marginBottom:14}}>
+    {children}
+  </div>
+);
+
+// ─── LEVELLING CALCULATOR ────────────────────────────────────────────────────
+function LevellingCalc(){
+  const [curLv,setCurLv]=useState(120);
+  const [curExp,setCurExp]=useState(0);
+  const [expHr,setExpHr]=useState(20000);
+  const [tgtLv,setTgtLv]=useState(140);
+
+  const result=useMemo(()=>{
+    const cl=Math.max(MIN_LV,Math.min(MAX_LV-1,parseInt(curLv)||116));
+    const tl=Math.max(cl+1,Math.min(MAX_LV,parseInt(tgtLv)||cl+1));
+    const ce=Math.max(0,parseInt(curExp)||0);
+    const eh=Math.max(1,parseInt(expHr)||1);
+    const base=EXP_MAP[cl]??0;
+    const target=EXP_MAP[tl]??0;
+    const remaining=Math.max(0,target-(base+ce));
+    const hrs=remaining/eh;
+    const h=Math.floor(hrs);
+    const m=Math.round((hrs-h)*60);
+    const now=new Date();
+    now.setHours(now.getHours()+h);
+    now.setMinutes(now.getMinutes()+m);
+    const lvExpNeeded=EXP_MAP[cl+1]?EXP_MAP[cl+1]-base:0;
+    const pct=lvExpNeeded>0?Math.min(100,Math.round((ce/lvExpNeeded)*100)):0;
+    return{remaining,h,m,hrs,eta:now.toLocaleString(),pct,lvExpNeeded};
+  },[curLv,curExp,expHr,tgtLv]);
+
+  const lvOptions=EXP_TABLE.slice(0,-1).map(([l])=>({value:l,label:`Level ${l}`}));
+  const tgtOptions=EXP_TABLE.filter(([l])=>l>(parseInt(curLv)||116)).map(([l])=>({value:l,label:`Level ${l}`}));
+
+  return(
+    <div>
+      <H1>Levelling <em>Calculator</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:24}}>EXP table covers levels 116–242 from the Bible. Input your stats and see exactly how long until you hit your target.</p>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+        <Sel label="Current Level" value={curLv} onChange={e=>setCurLv(e.target.value)} options={lvOptions}/>
+        <Sel label="Target Level" value={tgtLv} onChange={e=>setTgtLv(e.target.value)} options={[...EXP_TABLE.filter(([l])=>l>(parseInt(curLv)||116)).map(([l])=>({value:l,label:`Level ${l}`}))]}/>
+        <Inp label="Current EXP in this level" value={curExp} onChange={e=>setCurExp(e.target.value)} min={0} max={result.lvExpNeeded} step={1000}/>
+        <Inp label="EXP per hour" value={expHr} onChange={e=>setExpHr(e.target.value)} min={1} step={1000}/>
+      </div>
+      <div style={{background:C.sur2,border:`1px solid ${C.border}`,padding:"12px 16px",marginBottom:16}}>
+        <div style={{...mono,fontSize:10,color:C.muted,marginBottom:6,letterSpacing:"0.12em",textTransform:"uppercase"}}>Current level progress</div>
+        <div style={{background:C.border,height:8,borderRadius:0}}>
+          <div style={{background:C.amber,height:"100%",width:`${result.pct}%`,transition:"width 0.3s"}}/>
+        </div>
+        <div style={{...mono,fontSize:11,color:C.soft,marginTop:4}}>{result.pct}% — {(parseInt(curExp)||0).toLocaleString()} / {result.lvExpNeeded.toLocaleString()} EXP</div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <ResultBox label="EXP remaining" value={result.remaining.toLocaleString()} sub={`to reach Level ${tgtLv}`}/>
+        <ResultBox label="Time required" value={`${result.h}h ${result.m}m`} sub={result.hrs<1?"Less than 1 hour":"At current EXP/hr"} color={C.teal}/>
+      </div>
+      <ResultBox label="Estimated arrival" value={result.eta} sub="Based on current time + hours remaining" color={C.violet}/>
+    </div>
+  );
+}
+
+// ─── SOUL ORB CALCULATOR ─────────────────────────────────────────────────────
+function SoulOrbCalc(){
+  const [type,setType]=useState("Red");
+  const [curLv,setCurLv]=useState(0);
+  const orb=SOUL_ORB[type];
+
+  const result=useMemo(()=>{
+    const lv=parseInt(curLv)||0;
+    let frags=lv===0?orb.unlock:0;
+    let bt=0;
+    orb.levels.forEach(e=>{
+      if(e.bt!==undefined){if(e.lv===undefined)bt+=e.cost}
+      else if(e.lv>lv)frags+=(e.frags??0);
+    });
+    // Add breakthrough costs after current level
+    let passedBt=0;
+    orb.levels.forEach(e=>{
+      if(e.bt!==undefined){
+        const prevLvs=orb.levels.filter(x=>x.lv!==undefined&&x.lv<(e.bt*3));
+        const maxLvBefore=Math.max(0,...prevLvs.map(x=>x.lv));
+        if(lv<maxLvBefore)frags+=e.cost;
+      }
+    });
+    return{frags:Math.max(0,frags),total:orb.total};
+  },[type,curLv,orb]);
+
+  const rows=[];
+  let cum=orb.unlock;
+  rows.push(["Unlock","-",orb.unlock,orb.unlock]);
+  orb.levels.forEach(e=>{
+    if(e.bt!==undefined){cum+=e.cost;rows.push([`Breakthrough ${e.bt}`,"-",e.cost,cum]);}
+    else{cum+=e.frags;rows.push([`Level ${e.lv}`,e.lv,e.frags,cum]);}
+  });
+
+  return(
+    <div>
+      <H1>Soul Orb <em>Fragment Calculator</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Red orb total: 1,386 frags · Orange orb total: 1,220 frags · Ephenia:Balrog ratio at level 117 is ~1.15:1</p>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:20}}>
+        <Sel label="Orb type" value={type} onChange={e=>setType(e.target.value)} options={["Red","Orange"]}/>
+        <Sel label="Current level (0 = not unlocked)" value={curLv} onChange={e=>setCurLv(e.target.value)} options={[{value:0,label:"Not unlocked"},...Array.from({length:10},(_,i)=>({value:i+1,label:`Level ${i+1}`}))]}/>
+      </div>
+      <ResultBox label="Fragments remaining to max" value={result.frags.toLocaleString()} sub={`${type} orb · max requires ${result.total.toLocaleString()} total from zero`}/>
+      <Divider/>
+      <Label>Full breakdown ({type} orb)</Label>
+      <Table heads={["Step","Level","Frags","Cumulative"]} rows={rows}/>
+    </div>
+  );
+}
+
+// ─── WINGS CALCULATOR ────────────────────────────────────────────────────────
+function WingsCalc(){
+  const [tier,setTier]=useState("Blue");
+  const [from,setFrom]=useState(0);
+  const [to,setTo]=useState(1);
+  const data=WINGS[tier];
+
+  const result=useMemo(()=>{
+    const f=Math.max(0,Math.min(data.max-1,parseInt(from)||0));
+    const t=Math.max(f+1,Math.min(data.max,parseInt(to)||f+1));
+    let frags=0,dusty=0,silent=0,twinkling=0,sparkling=0,burning=0;
+    data.levels.slice(f,t).forEach(l=>{
+      frags+=l.frags||0;dusty+=l.dusty||0;silent+=l.silent||0;
+      twinkling+=l.twinkling||0;sparkling+=l.sparkling||0;burning+=l.burning||0;
+    });
+    return{frags,dusty,silent,twinkling,sparkling,burning};
+  },[tier,from,to,data]);
+
+  const fromOpts=Array.from({length:data.max},(_,i)=>({value:i,label:i===0?"Not upgraded":`+${i}`}));
+  const toOpts=Array.from({length:data.max-(parseInt(from)||0)},(_,i)=>({value:(parseInt(from)||0)+i+1,label:`+${(parseInt(from)||0)+i+1}`}));
+
+  const tbl=[];let cum=0;
+  data.levels.forEach((l,i)=>{cum+=l.frags;const t={dusty:l.dusty,silent:l.silent,twinkling:l.twinkling,sparkling:l.sparkling,burning:l.burning};const tstr=Object.entries(t).filter(([,v])=>v).map(([k,v])=>`${v}× ${k.charAt(0).toUpperCase()+k.slice(1)}`).join(", ");tbl.push([`+${i+1}`,l.frags,tstr,cum]);});
+
+  return(
+    <div>
+      <H1>Wings <em>Calculator</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Select wing tier and upgrade range. Shows fragment cost and tinder required by type.</p>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14}}>
+        <Sel label="Wing tier" value={tier} onChange={e=>{setTier(e.target.value);setFrom(0);setTo(1);}} options={["Blue","Purple","Yellow","Orange"]}/>
+        <Sel label="From level" value={from} onChange={e=>setFrom(e.target.value)} options={fromOpts}/>
+        <Sel label="To level" value={to} onChange={e=>setTo(e.target.value)} options={toOpts}/>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
+        <ResultBox label="Wing fragments needed" value={result.frags.toLocaleString()}/>
+        {result.dusty>0&&<ResultBox label="Dusty Tinder" value={result.dusty.toLocaleString()} color={C.soft}/>}
+        {result.silent>0&&<ResultBox label="Silent Tinder" value={result.silent.toLocaleString()} color={C.teal}/>}
+        {result.twinkling>0&&<ResultBox label="Twinkling Tinder" value={result.twinkling.toLocaleString()} color={C.violet}/>}
+        {result.sparkling>0&&<ResultBox label="Sparkling Tinder" value={result.sparkling.toLocaleString()} color={C.amber}/>}
+        {result.burning>0&&<ResultBox label="Burning Tinder" value={result.burning.toLocaleString()} color={C.red}/>}
+      </div>
+      <Divider/>
+      <Label>Full {tier} wing cost table</Label>
+      <Table heads={["Level","Frags","Tinder Required","Cumulative Frags"]} rows={tbl}/>
+    </div>
+  );
+}
+
+// ─── QUESTION BANK ───────────────────────────────────────────────────────────
+function QuestionBank(){
+  const [query,setQuery]=useState("");
+  const [filter,setFilter]=useState("ALL");
+  const filtered=useMemo(()=>{
+    const q=query.toLowerCase();
+    return QUESTIONS.filter(item=>{
+      if(filter!=="ALL"&&item.a!==filter)return false;
+      return !q||item.q.toLowerCase().includes(q);
+    });
+  },[query,filter]);
+  return(
+    <div>
+      <H1>Question <em>Bank</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>379 Q&A pairs from the trivia/quiz system. Use CTRL+F or the search below.</p>
+      <div style={{display:"grid",gridTemplateColumns:"1fr auto",gap:12,marginBottom:16}}>
+        <div>
+          <Label>Search</Label>
+          <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Type to search questions…"
+            style={{background:C.sur2,border:`1px solid ${C.border}`,color:C.white,padding:"10px 12px",width:"100%",boxSizing:"border-box",...mono,fontSize:13,outline:"none"}}/>
+        </div>
+        <div>
+          <Label>Filter</Label>
+          <div style={{display:"flex",gap:8}}>
+            {["ALL","CORRECT","WRONG"].map(f=>(
+              <button key={f} onClick={()=>setFilter(f)} style={{padding:"10px 16px",background:filter===f?(f==="CORRECT"?C.green:f==="WRONG"?C.red:C.amber):C.sur2,color:filter===f?C.bg:C.muted,border:`1px solid ${filter===f?(f==="CORRECT"?C.green:f==="WRONG"?C.red:C.amber):C.border}`,cursor:"pointer",...mono,fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>
+                {f==="ALL"?`All (${QUESTIONS.length})`:f==="CORRECT"?`✓ Correct (${QUESTIONS.filter(q=>q.a==="CORRECT").length})`:f==="WRONG"?`✗ Wrong (${QUESTIONS.filter(q=>q.a==="WRONG").length})`:f}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div style={{...mono,fontSize:11,color:C.muted,marginBottom:12}}>{filtered.length} result{filtered.length!==1?"s":""} shown</div>
+      <div style={{maxHeight:480,overflowY:"auto",border:`1px solid ${C.border}`}}>
+        {filtered.length===0?<div style={{padding:24,color:C.muted,textAlign:"center"}}>No questions match.</div>:
+         filtered.map((item,i)=>(
+          <div key={i} style={{display:"grid",gridTemplateColumns:"1fr 80px",gap:12,padding:"11px 14px",borderBottom:`1px solid ${C.borderSoft}`,background:i%2===0?C.sur:"transparent",alignItems:"center"}}>
+            <div style={{fontSize:13,color:C.text}}>{item.q}{item.note&&<span style={{color:C.muted,fontSize:11,marginLeft:8}}>({item.note})</span>}</div>
+            <div style={{textAlign:"center"}}>
+              <span style={{...mono,fontSize:10,fontWeight:700,color:item.a==="CORRECT"?C.green:C.red,border:`1px solid ${item.a==="CORRECT"?C.green:C.red}`,padding:"3px 8px"}}>
+                {item.a==="CORRECT"?"✓ TRUE":"✗ WRONG"}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── HOMELAND TRACKER ────────────────────────────────────────────────────────
+function HomelandTracker(){
+  const [faction,setFaction]=useState("All");
+  const [owned,setOwned]=useState({});
+  const [showOwned,setShowOwned]=useState(false);
+  const factions=["All",...FURNITURE_DATA.factions];
+  const items=FURNITURE_DATA.items.filter(f=>faction==="All"||f.faction===faction).filter(f=>showOwned?owned[f.name]:true);
+  const total=FURNITURE_DATA.items.length;
+  const ownedCount=Object.values(owned).filter(Boolean).length;
+  const toggle=name=>setOwned(p=>({...p,[name]:!p[name]}));
+  const factionCount=faction==="All"?FURNITURE_DATA.items:FURNITURE_DATA.items.filter(f=>f.faction===faction);
+  const factionOwned=factionCount.filter(f=>owned[f.name]).length;
+  return(
+    <div>
+      <H1>Homeland <em>Tracker</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:4}}>136 furniture items across 5 factions. Check off what you own. Note: checkmarks reset on refresh — no persistent storage in this view.</p>
+      <Note>Buy cheaper furniture first to hit faction milestones faster. Once approaching the final milestone you have more flexibility to choose pricier items for higher ratings.</Note>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr auto",gap:12,marginBottom:16}}>
+        <Sel label="Filter by faction" value={faction} onChange={e=>setFaction(e.target.value)} options={factions}/>
+        <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-end"}}>
+          <button onClick={()=>setShowOwned(p=>!p)} style={{padding:"10px 14px",background:showOwned?C.amber:C.sur2,color:showOwned?C.bg:C.muted,border:`1px solid ${showOwned?C.amber:C.border}`,cursor:"pointer",...mono,fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>
+            {showOwned?"Show All":"Hide Owned"}
+          </button>
+        </div>
+        <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-end"}}>
+          <div style={{...mono,fontSize:11,color:C.soft,textAlign:"right"}}>
+            <span style={{color:C.amber}}>{ownedCount}</span>/{total} owned
+            {faction!=="All"&&<><br/><span style={{color:C.teal}}>{factionOwned}</span>/{factionCount.length} in faction</>}
+          </div>
+        </div>
+      </div>
+      <div style={{maxHeight:480,overflowY:"auto",border:`1px solid ${C.border}`}}>
+        {items.map((item,i)=>(
+          <div key={item.name} onClick={()=>toggle(item.name)} style={{display:"grid",gridTemplateColumns:"24px 1fr auto auto",gap:12,padding:"10px 14px",borderBottom:`1px solid ${C.borderSoft}`,background:owned[item.name]?`${C.amber}10`:i%2===0?C.sur:"transparent",cursor:"pointer",alignItems:"center"}}>
+            <div style={{width:16,height:16,border:`1px solid ${owned[item.name]?C.amber:C.border}`,background:owned[item.name]?C.amber:"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+              {owned[item.name]&&<span style={{color:C.bg,fontSize:10,fontWeight:900}}>✓</span>}
+            </div>
+            <div>
+              <div style={{fontSize:13,color:owned[item.name]?C.amber:C.text}}>{item.name}</div>
+              <div style={{fontSize:11,color:C.muted}}>{item.faction}</div>
+            </div>
+            <div style={{...mono,fontSize:12,color:C.soft}}>{item.cost>0?item.cost+" coins":"-"}</div>
+            <div style={{...mono,fontSize:10}}>{item.reward?<span style={{color:C.green}}>REWARD</span>:<span style={{color:C.borderSoft}}>—</span>}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── STIGMATA ────────────────────────────────────────────────────────────────
+function Stigmata(){
+  const [tier,setTier]=useState("Orange");
+  const [from,setFrom]=useState(0);
+  const data=STIGMATA_FRAGS[tier];
+  const remaining=useMemo(()=>{
+    if(from===0)return data.total;
+    if(from===-1)return data.total-data.unlock;
+    let sum=0;
+    data.stars.slice(from).forEach(v=>sum+=v);
+    return sum;
+  },[tier,from,data]);
+
+  const rows=[];let cum=data.unlock;
+  rows.push(["Unlock","—",data.unlock,cum]);
+  ["2★","3★","4★","5★"].forEach((s,i)=>{cum+=data.stars[i];rows.push([s,(i+2)+"→"+(i+3),data.stars[i],cum]);});
+
+  const fromOpts=[{value:0,label:"Not unlocked (from zero)"},{value:-1,label:"Unlocked, 1★"},{value:1,label:"2★"},{value:2,label:"3★"},{value:3,label:"4★"},{value:4,label:"Already maxed (5★)"}];
+  return(
+    <div>
+      <H1>Stigmata <em>Fragments</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Fragment cost breakdown per tier and cost comparator for obtaining Orange stigmata.</p>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:16}}>
+        <Sel label="Tier" value={tier} onChange={e=>setTier(e.target.value)} options={["Blue","Purple","Yellow","Orange"]}/>
+        <Sel label="Current star level" value={from} onChange={e=>setFrom(parseInt(e.target.value))} options={fromOpts}/>
+      </div>
+      <ResultBox label={`Fragments remaining to max (${tier})`} value={remaining===0?"Already maxed":remaining.toLocaleString()} sub={`Total from zero: ${data.total.toLocaleString()} (including ${data.unlock} unlock)`}/>
+      <Divider/>
+      <Label>Breakdown — {tier} tier</Label>
+      <Table heads={["Step","Stars","Frags","Cumulative"]} rows={rows}/>
+      <Divider/>
+      <Label>Orange stigmata cost comparator</Label>
+      <Table heads={["Source","Cost","Qty","Avg per frag"]} rows={[
+        ["Shop","125 shards","1","125"],
+        ["World Auction (starting bid)","624 shards","5","124.8"],
+        ["Cross Auction (starting bid)","624 shards","10","62.4"],
+        ["World Auction (auto-win)","934 shards","5","186.8"],
+        ["Cross Auction (auto-win)","1,244 shards","10","124.4"],
+      ]}/>
+      <Note>To max an Orange stigmata: ~370 shards total. At 125/shard from shop, that is 46,250 shards. Cross-auction at starting bid (62.4/frag) is the most cost-efficient if available.</Note>
+    </div>
+  );
+}
+
+// ─── MONSTER CARDS ───────────────────────────────────────────────────────────
+function MonsterCards(){
+  return(
+    <div>
+      <H1>Monster <em>Cards</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Optimal card compositions, T1/T2 threshold (500 total MC level), Soul levelling costs, and set bonuses. Author: zanfriege.</p>
+      <Note>Replace T2 with T1 cards ONLY once your total card level hits 500+. T1 gives a fixed 20% for a 3-piece set — below 500 this does not outperform well-levelled T2. Confirm using the Monster Card sheet in the spreadsheet every ~5 levels.</Note>
+      <Label>Recommended compositions</Label>
+      <Table heads={["Phase","ATK","DEF","Guard"]} rows={[
+        ["Mid–Pre Late Game","5× Seruf + 3× Dyle","5× Eliza + 3× Capt. Darkgoo","5× Deo + 3× DF Android"],
+        ["Late Game+","5× Soul Teddy + 3× Dyle","5× Capt. Viking + 3× Capt. Darkgoo","5× Guardmaster + 3× DF Android"],
+      ]}/>
+      <Divider/>
+      <Label>Soul of Attack / Guard / Defense — levelling cost</Label>
+      <Table heads={["Level range","Cards consumed per level"]} rows={[
+        ["1–2","3 purple"],["3–4","2 purple + 1 yellow"],["5–6","1 purple + 2 yellow"],["7–14","3 yellow"],["Total lv 1–14","12 purple + 30 yellow"],["15+","2 yellow + 1 orange"],["Cap","Level 50 per category"],
+      ]}/>
+      <Note>Max 5-level gap between ATK/Guard/Def souls from level 15+. Priority order: ATK &gt; Guard &gt; Defense.</Note>
+      <Divider/>
+      <Label>Set bonuses (all categories)</Label>
+      <Table heads={["Set","Bonus"]} rows={[
+        ["2-set","HP of all cards in category +80%"],
+        ["4-set","+2% per 5 character levels, up to 92%"],
+        ["6-set","+2% per 20 MC levels, up to 144%"],
+        ["8-set","+2.5% per Soul level, up to 250%"],
+      ]}/>
+    </div>
+  );
+}
+
+// ─── PETS ────────────────────────────────────────────────────────────────────
+function Pets(){
+  const [copies,setCopies]=useState(3);
+  // UR pity: 60 pulls, each pull costs 270 moonstones. MS from event: variable.
+  // From D-08: +4 = 3 copies, +6 = 4 copies
+  const cost=useMemo(()=>{
+    const c=parseInt(copies)||1;
+    const pulls=c*60; // worst case: each copy at pity
+    return{copies:c,pulls,ms:pulls};
+  },[copies]);
+  return(
+    <div>
+      <H1>Pets <em>and Lineups</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Optimal pet lineups and EXR pull copy targets. Full EXR compendium in D-08 of the Whetstone guide.</p>
+      <Label>Optimal lineups — Dec 2023</Label>
+      <Table heads={["Content","Core lineup","Situational"]} rows={[
+        ["PvP","Viking, Bubble Fish, Dyle, Master Death Teddy, Gatekeeper, Bone Fish, Cornian","Hobbi (can replace Bone Fish)"],
+        ["PvE","Viking, Bubble Fish, Master Death Teddy, Gatekeeper, Bone Fish, Cornian, Hobbi","Dyle (struggling to survive), Eliza/Flying Fish (Hex)"],
+        ["Dojo","Viking, Bubble Fish, Bone Fish, Cornian","Master Death Teddy, Skull Commander, Dyle, Eliza (rage reduction), Flying Fish (hex)"],
+      ]}/>
+      <Divider/>
+      <Label>EXR pull copy targets</Label>
+      <Table heads={["Enhancement","Copies needed","Purpose"]} rows={[
+        ["+4","3 copies","Activates bonds on +7 UR pets — minimum viable pull"],
+        ["+6","4 copies","Unlocks Illustration"],
+        ["+13","All-in","Essential EXR only — maximum enhancement"],
+      ]}/>
+      <Note>Never pull just 1 copy — it cannot replace any slot and does not activate bonds. EXR pity carries between banners. UR and EXR banners do NOT share pity pools.</Note>
+      <Divider/>
+      <Label>EXR sequence (F2P priority)</Label>
+      <p style={{fontSize:13,color:C.soft}}>Lizard &gt; Gryphon/Kentaurus &gt; Gatekeeper &gt; Soul Teddy &gt; Hobgoblin &gt; Blue Dragon Turtle &gt; Birk (end-game PvE replacement for Seruf/Viking)</p>
+    </div>
+  );
+}
+
+// ─── RUNES ───────────────────────────────────────────────────────────────────
+function Runes(){
+  return(
+    <div>
+      <H1>Runes <em>and Abyss</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Progression framework, rune star tiers, and the critical Abyss Energy save threshold. Cross-reference Whetstone D-07 for the full dossier.</p>
+      <Label>Rune skill tier (by skill colour, not icon)</Label>
+      <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20,flexWrap:"wrap"}}>
+        {[["Orange",C.amber],["Yellow","#d4b040"],["Purple",C.violet],["Blue","#5080d0"]].map(([name,color],i,arr)=>(
+          <span key={name} style={{display:"flex",alignItems:"center",gap:8}}>
+            <span style={{...mono,fontSize:14,color,border:`1px solid ${color}`,padding:"4px 14px"}}>{name}</span>
+            {i<arr.length-1&&<span style={{color:C.muted,fontSize:18}}>›</span>}
+          </span>
+        ))}
+      </div>
+      <Label>Progression framework</Label>
+      <Table heads={["Step","Action","Target"]} rows={[
+        ["1","Unlock Abyss → get runes to meet next stage rating requirement","Rating gate"],
+        ["2","If enough rating but lacking level, compare ticket expiry vs level ETA. Clear expiring tickets on current stage if needed.","Ticket management"],
+        ["3","4★ runes last a considerable time. Do not rush upgrades before Nightmare.","Maple / Pink Bean tier"],
+        ["4","Save Abyss Energy until level 152, then buy solvents → hit 1.14m Rune Rating for Shura. DO NOT buy random 5★ runes for 10k Energy.","1.14m rating for Shura"],
+        ["5","Clear Nightmare 50× → earn 5★ Rune Optional Pack. Do NOT use immediately. Continue Shura until you can slot complementary Vortex runes.","Vortex slotting"],
+      ]}/>
+      <Divider/>
+      <Note>Sample rating increments from +8 to +12 on a single rune: ~6,700 → 10,500 per enhancement step (average ~8,800/step). Appraise only S-rank runes with 3 skill lines and a ready recast master.</Note>
+    </div>
+  );
+}
+
+// ─── GEMS ────────────────────────────────────────────────────────────────────
+function Gems(){
+  return(
+    <div>
+      <H1>Gems <em>Conversion</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:4}}>Gems are capped at level 15. Always embed gems before clicking upgrade.</p>
+      <Note>The gem conversion math is non-linear and the spreadsheet author notes it does not calculate cleanly from a single formula. The table gives a rough approximation.</Note>
+      <Label>Conversion table (approximate)</Label>
+      <Table heads={["Target Gem Level","Qty of Lv2","Qty of Lv3","Qty of Lv4"]} rows={[
+        [2,"1","—","—"],[3,"—","1","—"],[4,"—","1.67","—"],[5,"2","—","—"],[6,"5","—","—"],[7,"—","—","—"],
+        [8,"—","—","—"],[9,"—","—","—"],[10,"—","1","—"],
+      ]}/>
+      <Note>For precise conversion requirements, use the GEMS sheet in the original spreadsheet. The math "is kinda messed up" per zanfriege — reverse-calculating from the table is more reliable than formulaic prediction.</Note>
+    </div>
+  );
+}
+
+// ─── PVP ─────────────────────────────────────────────────────────────────────
+function PVP(){
+  return(
+    <div>
+      <H1>PvP <em>Tips</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>General PvP guidance and Victoria Island Rivalry strategy. Full class tier lists in D-14.</p>
+      <Note>Ignore skill level values when assessing threat. The highest damage % skill — regardless of level — is the one to dodge.</Note>
+      <Label>General PvP tips</Label>
+      <Table heads={["#","Tip"]} rows={[
+        [1,"Always ignore summons"],
+        [2,"Use Jr. Necki (pet) for disruption"],
+        [3,"Recognising skill animations lets you win by dodging crucial hits, not just dealing damage"],
+        [4,"Stack as much Initial Rage as possible — it determines how fast you get the first rage burst"],
+        [5,"Use Auto Skills that give extra rage at battle start IMMEDIATELY"],
+        [6,"Facing a higher-BP target: hit them until they have a lower HP% than you, then run out the clock for a victory"],
+      ]}/>
+      <Divider/>
+      <Label>Victoria Island Rivalry</Label>
+      <Table heads={["#","Strategy"]} rows={[
+        [1,"Aim to hold 3 lands rather than all 5 — easier to defend, sufficient for rewards"],
+        [2,"Your lowest-BP player can be used to strip blessings from enemy-held targets without committing DPS"],
+        [3,"If targeted by a higher-BP player: hit-and-run. Avoid extended engagements where their raw BP wins"],
+      ]}/>
+      <Divider/>
+      <Label>Class matchup order (general)</Label>
+      <p style={{...mono,fontSize:13,color:C.amber}}>Warrior → Thieves → Bowman → Mage → Cannoneers</p>
+    </div>
+  );
+}
+
+// ─── RESOURCES ───────────────────────────────────────────────────────────────
+function Resources(){
+  return(
+    <div>
+      <H1>Resources <em>and Sources</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>All documented Red Gem and Divine Moonstone sources with frequency.</p>
+      <Label>Red Gems</Label>
+      <Table heads={["Source","Amount","Frequency"]} rows={[
+        ["World Boss","Depends on damage","Daily"],
+        ["Dailies","115","Daily"],
+        ["Daily Packs","5 per pack","Daily"],
+        ["Team Sign In","50","Daily"],
+        ["Auction Dividends","40 World / 120 Guild","Daily"],
+        ["Homeland Chests","Random","Daily"],
+        ["Guests","Random","Daily"],
+        ["Lucky Bags","Random","Daily"],
+        ["Idle Reward","Random","Daily"],
+        ["Timer's Body Repair","Random","Daily"],
+        ["Daily Sign In","50 (every 6th day)","Weekly"],
+        ["Team Weekly Salary","Depends on ranking","Weekly"],
+        ["Grand Arena","Depends on daily ranking","Daily/Weekly"],
+        ["Tower of Origin","Depends on weekly ranking","Daily/Weekly"],
+        ["Spiritual Raw Stone","3–7 per chest (random)","Daily/Weekly"],
+        ["Victoria Island Rivalry","500","3× per week"],
+        ["Dimension Trial","Variable","—"],
+        ["Endless Hunting Trophy","Random","—"],
+        ["Bug Reports","100 (removed?)","—"],
+      ]}/>
+      <Divider/>
+      <Label>Divine Moonstones</Label>
+      <Table heads={["Source","Amount","Frequency"]} rows={[
+        ["Off-Road Shop","1 per 1,420 points","Possibly daily"],
+        ["Daily Pack (1 CD)","1","Daily"],
+        ["Monthly Card","1","Daily"],
+        ["Body ANE","10","Weekly"],
+        ["Daily Sign In","1","Weekly"],
+        ["Summons","1 for 30 gems / 350 gems for 1 / 2,700 gems for 10","Daily (30-gem option)"],
+        ["Dimensional Trial","1 for 180/210/240 gems","Variable"],
+        ["Friendship Points Shop","1 per 450 points","—"],
+        ["Divine Moon Stone Pack","10 per 50 CD","2× per day"],
+        ["Escape with Wisdom","1 (chance on 10 correct answers)","3× per week"],
+        ["Event","Variable","—"],
+      ]}/>
+    </div>
+  );
+}
+
+// ─── GENERAL ─────────────────────────────────────────────────────────────────
+function General(){
+  return(
+    <div>
+      <H1>General <em>Auction Prices</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:4}}>Pet advancement fragment costs via auction and shop. Red items in the original spreadsheet are Cross-Server Auction only.</p>
+      <Note>These are shard costs, not CD or Red Gem costs. Verify current auction prices in-game as they fluctuate.</Note>
+      <Label>Pet advancement fragments</Label>
+      <Table heads={["Type","Shards/Craft","Shop cost","World Auc start","World Auc buyout","Cross Auc start","Cross Auc buyout"]} rows={[
+        ["UR","120","110","—","—","880","1,330"],
+        ["SSR","40","56","280","430","224","349"],
+        ["SR","40","12","60","160","48","173"],
+      ]}/>
+      <Divider/>
+      <Label>Totem fragments</Label>
+      <Table heads={["Item","Shards/unit","Min cost","Max cost"]} rows={[
+        ["Silver Totem (60 frags)","60","420","1,265"],
+        ["Gold Totem (10 frags)","120","337","547"],
+        ["Totem Transfer Stone Frag","120","1,000","1,500"],
+      ]}/>
+      <Divider/>
+      <Label>Wings fragments</Label>
+      <Table heads={["Item","Frags/set","Min","Max"]} rows={[
+        ["Glory Glit / Exoskeleton","5","600","900"],
+        ["Green Blessing Wings","5","767","1,147"],
+        ["Ethereal Branch Leaf Frag","5","767","1,147"],
+        ["Burning Tinder","3","750","1,125"],
+      ]}/>
+    </div>
+  );
+}
+
+// ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+function Translations(){
+  const [search,setSearch]=useState("");
+  const rows=[
+    ["EXR","惡霸王 / 恶霸王","?","Not available"],
+    ["EXR","進化迅猛龍","?","Not available"],
+    ["EXR","格瑞芬多","?","Not available"],
+    ["EXR","绵羊酋长","?","Not available"],
+    ["EXR","守門人 / 守门人","?","Not available"],
+    ["EXR","妖怪侏儒","?","Not available"],
+    ["EXR","蜥蜴人酋长","?","Not available"],
+    ["UR","猿人肥肥","?","Similar to Bubble Fish — not available"],
+    ["UR","艾利傑 / 紅獨角獅","Cellion","—"],
+    ["UR","骷髏指挥官","Skull Monster","—"],
+    ["UR","沼澤巨鱷","Jr. Necki","—"],
+    ["UR","船長黑迪波","Flying Fish Slime","—"],
+    ["UR","巨人維京 / 百列","?","Not available"],
+    ["UR","海怒撕 / 骨骸魚","Bone Fish","—"],
+    ["UR","火蚌殼","Bubble Fish","—"],
+    ["Class","盗贼","Thief","—"],
+    ["Class","劍士","Warrior","—"],
+    ["Class","法师","Magician","—"],
+    ["Class","弓箭手","Bowman","—"],
+    ["Class","砲手","Cannoneer","—"],
+    ["Term","寵物","Pet","—"],
+    ["Term","圣痕 / 聖痕","Stigmata","—"],
+    ["Term","無盡狩獵","Endless Hunting","—"],
+  ].filter(r=>!search||r.join(" ").toLowerCase().includes(search.toLowerCase()));
+  return(
+    <div>
+      <H1>Translations <em>Reference</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:16}}>Chinese ↔ English pet and class names. Useful for cross-server content or Chinese community guides.</p>
+      <Inp label="Search" value={search} onChange={e=>setSearch(e.target.value)} type="text" placeholder="Search Chinese or English…"/>
+      <Table heads={["Grade","Chinese","English","Notes"]} rows={rows}/>
+      <Divider/>
+      <Label>Range converter</Label>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <div style={{background:C.sur2,border:`1px solid ${C.border}`,padding:16}}>
+          <div style={{...mono,fontSize:10,color:C.muted,marginBottom:4,letterSpacing:"0.1em",textTransform:"uppercase"}}>億 / 亿</div>
+          <div style={{...serif,fontSize:24,color:C.amber}}>× 100,000,000</div>
+        </div>
+        <div style={{background:C.sur2,border:`1px solid ${C.border}`,padding:16}}>
+          <div style={{...mono,fontSize:10,color:C.muted,marginBottom:4,letterSpacing:"0.1em",textTransform:"uppercase"}}>萬 / 万</div>
+          <div style={{...serif,fontSize:24,color:C.amber}}>× 10,000</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── INDEX ───────────────────────────────────────────────────────────────────
+function Index(){
+  return(
+    <div>
+      <div style={{...mono,fontSize:10,letterSpacing:"0.2em",color:C.amber,marginBottom:8,textTransform:"uppercase"}}>MapleRevolution Bible</div>
+      <H1>Interactive <em>Reference</em></H1>
+      <p style={{color:C.soft,fontSize:14,lineHeight:1.7,marginBottom:24}}>Original spreadsheet by <span style={{color:C.amber,fontWeight:700}}>zanfriege</span> (Discord). 15 sheets compiled into this interactive tool. Hosted on Whetstone — unofficial field dispatches for MapleStory R: Evolution.</p>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        {[
+          ["Levelling","📈","Interactive calculator — time to target level from EXP/hr"],
+          ["Soul Orb","🔮","Fragment cost calculator for Red and Orange orbs"],
+          ["Wings","🪽","Fragment + tinder calculator by tier and target level"],
+          ["Stigmata","⚔️","Fragment breakdown and cost comparator by tier"],
+          ["Monster Cards","🃏","Card compositions, T1/T2 threshold, Soul levelling, set bonuses"],
+          ["Pets","🐾","Optimal lineups and EXR pull copy targets"],
+          ["PvP","🥊","General tips and Victoria Island Rivalry strategy"],
+          ["Homeland","🏠","Interactive furniture tracker — 136 items, 5 factions"],
+          ["Runes","💎","Progression framework and skill tier reference"],
+          ["Gems","✨","Conversion reference table"],
+          ["Question Bank","❓","379 searchable trivia Q&As with CORRECT/WRONG filter"],
+          ["Resources","📦","All Red Gem and Moonstone sources with frequency"],
+          ["General","🏪","Auction prices for fragments, totems, and wings"],
+          ["Translations","🔤","Chinese ↔ English pet and class names"],
+        ].map(([name,icon,desc])=>(
+          <div key={name} style={{background:C.sur,border:`1px solid ${C.border}`,padding:"14px 16px"}}>
+            <div style={{fontSize:20,marginBottom:4}}>{icon}</div>
+            <div style={{...mono,fontSize:11,color:C.amber,marginBottom:3,letterSpacing:"0.1em",textTransform:"uppercase"}}>{name}</div>
+            <div style={{fontSize:12,color:C.muted}}>{desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── MAIN APP ─────────────────────────────────────────────────────────────────
+const TABS=[
+  {id:"index",label:"Index",C:Index},
+  {id:"levelling",label:"Levelling",C:LevellingCalc},
+  {id:"soul",label:"Soul Orbs",C:SoulOrbCalc},
+  {id:"wings",label:"Wings",C:WingsCalc},
+  {id:"stigmata",label:"Stigmata",C:Stigmata},
+  {id:"cards",label:"MC",C:MonsterCards},
+  {id:"pets",label:"Pets",C:Pets},
+  {id:"pvp",label:"PvP",C:PVP},
+  {id:"homeland",label:"Homeland",C:HomelandTracker},
+  {id:"runes",label:"Runes",C:Runes},
+  {id:"gems",label:"Gems",C:Gems},
+  {id:"qbank",label:"Q-Bank",C:QuestionBank},
+  {id:"resources",label:"Resources",C:Resources},
+  {id:"general",label:"General",C:General},
+  {id:"translations",label:"Translations",C:Translations},
+];
+
+function App(){
+  useEffect(()=>{
+    const link=document.createElement("link");
+    link.rel="stylesheet";
+    link.href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,1,300;9..144,1,600&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap";
+    document.head.appendChild(link);
+  },[]);
+
+  const [active,setActive]=useState("index");
+  const ActiveC=TABS.find(t=>t.id===active)?.C??Index;
+
+  return(
+    <div style={{background:C.bg,minHeight:"100vh",color:C.text,...sans}}>
+      {/* Header */}
+      <div style={{background:C.sur,borderBottom:`1px solid ${C.border}`,padding:"12px 20px",display:"flex",alignItems:"center",gap:16}}>
+        <div>
+          <span style={{...serif,fontStyle:"italic",color:C.amber,fontSize:18}}>Maple</span>
+          <span style={{...mono,fontSize:11,color:C.muted,marginLeft:8,letterSpacing:"0.15em",textTransform:"uppercase"}}>Revolution Bible</span>
+        </div>
+        <div style={{...mono,fontSize:10,color:C.muted,marginLeft:"auto"}}>by zanfriege · hosted on Whetstone</div>
+      </div>
+
+      {/* Tab nav */}
+      <div style={{background:C.sur,borderBottom:`1px solid ${C.border}`,overflowX:"auto",whiteSpace:"nowrap",padding:"0 12px",scrollbarWidth:"none"}}>
+        {TABS.map(t=>(
+          <button key={t.id} onClick={()=>setActive(t.id)}
+            style={{padding:"11px 14px",background:"transparent",border:"none",borderBottom:`2px solid ${active===t.id?C.amber:"transparent"}`,color:active===t.id?C.amber:C.muted,...mono,fontSize:11,letterSpacing:"0.08em",cursor:"pointer",textTransform:"uppercase",whiteSpace:"nowrap",transition:"color 0.15s"}}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{maxWidth:900,margin:"0 auto",padding:"28px 20px"}}>
+        <ActiveC/>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+<script>
+  // Hide loading screen once React has had a moment to render
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var el = document.getElementById('loading');
+      if (el) el.classList.add('hidden');
+    }, 800);
+  });
+</script>
+</body>
+</html>

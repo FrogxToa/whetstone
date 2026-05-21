@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Stigmata Reference · Whetstone</title>
+<meta name="description" content="Dossier 10: Stigmata shard upgrade costs from activation through 5 stars, attack vs defense potential classifications, and key stigmata notes." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Upgrade cost ladder */
+  .upgrade-ladder { border: 1px solid var(--line); }
+  .upgrade-rung { display: grid; grid-template-columns: 40px 1fr auto auto; gap: 16px; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line-soft); }
+  .upgrade-rung:last-child { border-bottom: none; }
+  .upgrade-rung.total-rung { background: linear-gradient(90deg, rgba(232,158,61,0.08), transparent); }
+  .upgrade-rung .star { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--amber); line-height: 1; }
+  .upgrade-rung .label { font-size: 14px; color: var(--ink); }
+  .upgrade-rung .label small { display: block; font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .upgrade-rung .cost { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); white-space: nowrap; text-align: right; }
+  .upgrade-rung .running { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); white-space: nowrap; text-align: right; }
+  .upgrade-rung.total-rung .cost { font-size: 16px; color: var(--paper); }
+  .upgrade-rung.total-rung .label { font-weight: 700; color: var(--paper); }
+
+  /* Potential grid */
+  .potential-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .potential-grid { grid-template-columns: 1fr; } }
+  .pot-card { border: 1px solid var(--line); background: var(--surface); padding: 22px; }
+  .pot-card .pt-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+  .pt-label.atk { color: var(--amber); }
+  .pt-label.def { color: var(--teal); }
+  .pot-card h4 { font-family: 'Fraunces', serif; font-size: 20px; margin: 0 0 14px; color: var(--paper); }
+  .pot-card.atk-card { border-color: rgba(232,158,61,0.3); background: linear-gradient(180deg, rgba(232,158,61,0.05), var(--surface) 50%); }
+  .pot-card.def-card { border-color: rgba(74,179,168,0.2); background: linear-gradient(180deg, rgba(74,179,168,0.04), var(--surface) 50%); }
+  .pot-item { padding: 10px 0; border-top: 1px solid var(--line-soft); font-size: 14px; color: var(--ink); }
+  .pot-item:first-child { border-top: none; }
+  .pot-item strong { display: block; color: var(--paper); margin-bottom: 3px; }
+  .pot-item span { font-size: 12px; color: var(--ink-mute); }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Stigmata Reference</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 10</div>
+      <h1>Stigmata <em>Reference</em></h1>
+      <p class="deck">Shard upgrade costs from activation through 5 stars, attack versus defense potential classifications, and notes on rage-affecting stigmata.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #stigmata-cultivation</span>
+        <span><strong>Compiled</strong> Sep–Oct 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 3 min</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <p>A short reference channel. The most useful content is the shard cost table — knowing the running total from activation through each star level helps plan how many shards to accumulate before committing to an upgrade path. The potential classification is equally useful: most stigmata potentials are defense-based, and only two have confirmed attack-based potentials.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat</span>
+      Shard costs and potential values are from September–October 2023. Verify current values in-game before planning a long shard accumulation. The "it will not show the next level skill unless you are at the last bar" UI note was accurate at the time — check whether this still applies in your current client version.
+    </div>
+
+    <!-- SECTION 1: SHARD COSTS -->
+    <section class="guide-section" id="shards">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Shard upgrade <em>costs</em></h2>
+        <div class="section-tag">Per tier · Running total</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Each tier's cost plus the cumulative total from zero. Plan your shard target based on where you want to stop, not just the next upgrade.</p>
+
+      <div class="upgrade-ladder">
+        <div class="upgrade-rung">
+          <div class="star">0</div>
+          <div class="label">Activation<small>First unlock — stigmata becomes usable</small></div>
+          <div class="cost">60 shards</div>
+          <div class="running">total: 60</div>
+        </div>
+        <div class="upgrade-rung">
+          <div class="star">1</div>
+          <div class="label">1 star<small>First star upgrade</small></div>
+          <div class="cost">+120 shards</div>
+          <div class="running">total: 180</div>
+        </div>
+        <div class="upgrade-rung">
+          <div class="star">2</div>
+          <div class="label">2 stars</div>
+          <div class="cost">+230 shards</div>
+          <div class="running">total: 410</div>
+        </div>
+        <div class="upgrade-rung">
+          <div class="star">3</div>
+          <div class="label">3 stars<small>Rage skills unlock at this tier — see notes</small></div>
+          <div class="cost">+250 shards</div>
+          <div class="running">total: 660</div>
+        </div>
+        <div class="upgrade-rung">
+          <div class="star">4</div>
+          <div class="label">4 stars</div>
+          <div class="cost">+370 shards</div>
+          <div class="running">total: 1,030</div>
+        </div>
+        <div class="upgrade-rung total-rung">
+          <div class="star">5</div>
+          <div class="label">Full 5 stars — maximum<small>From zero (activation through max)</small></div>
+          <div class="cost">1,030 shards</div>
+          <div class="running">total: 1,030</div>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">UI note</strong>
+        The next star level's skill will not be previewed until your current bar is at the last segment. Do not mistake the absence of a preview for an absence of a skill — the skill exists but is hidden until you are close to unlocking it.
+      </div>
+    </section>
+
+    <!-- SECTION 2: POTENTIALS -->
+    <section class="guide-section" id="potentials">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Potential <em>classifications</em></h2>
+        <div class="section-tag">Attack vs defense · Source: Ulam</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Most stigmata have defense-based potentials. Only two are confirmed as attack-based. This matters when choosing which stigmata to invest in for offensive builds.</p>
+
+      <div class="potential-grid">
+        <div class="pot-card atk-card">
+          <span class="pt-label atk">Attack-based potentials</span>
+          <h4>Two confirmed</h4>
+          <div class="pot-item">
+            <strong>Combat Scar</strong>
+            <span>1% at Potential 3</span>
+          </div>
+          <div class="pot-item">
+            <strong>Vampire Instinct</strong>
+            <span>2% at Potential 3</span>
+          </div>
+        </div>
+        <div class="pot-card def-card">
+          <span class="pt-label def">Defense-based potentials</span>
+          <h4>All others</h4>
+          <p class="lede" style="margin:0;font-size:14px;color:var(--ink-soft);">The remaining stigmata potentials are defense-oriented. This is the default assumption for any stigmata not listed under attack-based above. If you are building for offense, Combat Scar and Vampire Instinct are the two worth targeting.</p>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">Rage cross-reference</strong>
+        Vampire Instinct and Prom Mask both contribute to rage mechanics (see the Build Fundamentals dossier for the full rage reference). Vampire Instinct adds up to +2 initial self rage at +5 and reduces enemy initial rage by -1 at +3. Prom Mask adds +1 self initial rage at +3 and reduces enemy initial rage by up to -2 at +5. This makes Vampire Instinct a dual-purpose pick: attack-based potential AND rage contribution.
+      </div>
+    </section>
+
+    <!-- SECTION 3: RAGE NOTE -->
+    <section class="guide-section" id="rage">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">3-star <em>rage note</em></h2>
+        <div class="section-tag">Closed Shop stigmata</div>
+      </div>
+
+      <div class="card">
+        <h3>Close Shop at 3 stars</h3>
+        <p class="lede">The Close Shop stigmata unlocks a notable dual rage effect at 3 stars: <strong>+1 initial rage</strong> for the player and <strong>-1 PvP rage</strong> (reducing enemy initial rage in PvP). This is the only documented rage interaction for this specific stigmata in the channel.</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0;">Cross-referencing with the rage table in the Build Fundamentals dossier: the rage system has a self initial rage cap of +11 and an enemy initial rage reduction cap of -8. Close Shop contributes to both, making it a reasonable PvP investment if you are building toward those caps.</p>
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="exr-cultivation.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-09 · EXR Cultivation Events</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-11 · Coming soon <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Recent dossiers</h5>
+          <ul>
+            <li><a href="exr-cultivation.html">D-09 · EXR Cultivation Events</a></li>
+            <li><a href="stigmata.html">D-10 · Stigmata Reference</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 10</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
