@@ -30,6 +30,46 @@
 <script type="text/babel">
 const { useState, useMemo, useEffect } = React;
 
+// localStorage hook — works on whetstone.guide, silently falls back in preview
+function useLS(key, def) {
+  const [s, sS] = useState(() => {
+    try { const v = localStorage.getItem(key); return v !== null ? JSON.parse(v) : def; }
+    catch { return def; }
+  });
+  const set = v => {
+    sS(typeof v === 'function' ? prev => { const nv = v(prev); try { localStorage.setItem(key, JSON.stringify(nv)); } catch {} return nv; } : v);
+    if (typeof v !== 'function') { try { localStorage.setItem(key, JSON.stringify(v)); } catch {} }
+  };
+  return [s, set];
+}
+
+function exportPresets() {
+  try {
+    const keys = ['ws-homeland','ws-lv-cur','ws-lv-tgt','ws-lv-exp','ws-lv-eph','ws-orb-type','ws-orb-lv','ws-wing-tier','ws-wing-from','ws-wing-to','ws-stig-tier','ws-stig-from'];
+    const data = { version:1, saved:new Date().toISOString(), presets:{} };
+    keys.forEach(k => { try { const v=localStorage.getItem(k); if(v!==null) data.presets[k]=JSON.parse(v); } catch {} });
+    const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='whetstone-presets.json'; a.click();
+    URL.revokeObjectURL(url);
+  } catch(e) { alert('Export requires a real browser environment (not Claude preview).'); }
+}
+
+function importPresets(file) {
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.presets) {
+        Object.entries(data.presets).forEach(([k,v]) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} });
+        window.location.reload();
+      }
+    } catch { alert('Invalid preset file.'); }
+  };
+  r.readAsText(file);
+}
+
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const EXP_TABLE=[[116,375700],[117,398710],[118,422580],[119,447310],[120,472900],[121,500830],[122,528960],[123,558490],[124,589420],[125,621750],[126,655480],[127,690610],[128,727140],[129,765070],[130,804400],[131,845130],[132,887260],[133,930790],[134,975720],[135,1022050],[136,1069780],[137,1126910],[138,1190440],[139,1221370],[140,1326700],[141,1404430],[142,1483560],[143,1569090],[144,1656020],[145,1744350],[146,1834080],[147,1925210],[148,2017740],[149,2111670],[150,2177431],[151,2243191],[152,2308952],[153,2374712],[154,2440473],[155,2506233],[156,2571994],[157,2637754],[158,2703515],[159,2769275],[160,2835036],[161,2900797],[162,2966557],[163,3032318],[164,3098078],[165,3163839],[166,3229599],[167,3295360],[168,3361120],[169,3426881],[170,3492641],[171,3558402],[172,3624163],[173,3689923],[174,3755684],[175,4127160],[176,4198181],[177,4269202],[178,4340224],[179,4540224],[180,4739224],[181,4937224],[182,5134224],[183,5330224],[184,5525224],[185,5719224],[186,5912224],[187,6104224],[188,6295224],[189,6485224],[190,6674224],[191,6862224],[192,7049224],[193,7235224],[194,7420224],[195,7604224],[196,7787224],[197,7969224],[198,8150224],[199,8330224],[200,8509224],[201,8687224],[202,8864224],[203,9040224],[204,9215224],[205,9389224],[206,9562224],[207,9734224],[208,9905224],[209,10075224],[210,10244224],[211,10412224],[212,10579224],[242,14000224]];
 const EXP_MAP=Object.fromEntries(EXP_TABLE.map(([l,e])=>[l,e]));
@@ -119,10 +159,10 @@ const Note=({children})=>(
 
 // ─── LEVELLING CALCULATOR ────────────────────────────────────────────────────
 function LevellingCalc(){
-  const [curLv,setCurLv]=useState(120);
-  const [curExp,setCurExp]=useState(0);
-  const [expHr,setExpHr]=useState(20000);
-  const [tgtLv,setTgtLv]=useState(140);
+  const [curLv,setCurLv]=useLS('ws-lv-cur',120);
+  const [curExp,setCurExp]=useLS('ws-lv-exp',0);
+  const [expHr,setExpHr]=useLS('ws-lv-eph',20000);
+  const [tgtLv,setTgtLv]=useLS('ws-lv-tgt',140);
 
   const result=useMemo(()=>{
     const cl=Math.max(MIN_LV,Math.min(MAX_LV-1,parseInt(curLv)||116));
@@ -174,8 +214,8 @@ function LevellingCalc(){
 
 // ─── SOUL ORB CALCULATOR ─────────────────────────────────────────────────────
 function SoulOrbCalc(){
-  const [type,setType]=useState("Red");
-  const [curLv,setCurLv]=useState(0);
+  const [type,setType]=useLS('ws-orb-type',"Red");
+  const [curLv,setCurLv]=useLS('ws-orb-lv',0);
   const orb=SOUL_ORB[type];
 
   const result=useMemo(()=>{
@@ -224,9 +264,9 @@ function SoulOrbCalc(){
 
 // ─── WINGS CALCULATOR ────────────────────────────────────────────────────────
 function WingsCalc(){
-  const [tier,setTier]=useState("Blue");
-  const [from,setFrom]=useState(0);
-  const [to,setTo]=useState(1);
+  const [tier,setTier]=useLS('ws-wing-tier',"Blue");
+  const [from,setFrom]=useLS('ws-wing-from',0);
+  const [to,setTo]=useLS('ws-wing-to',1);
   const data=WINGS[tier];
 
   const result=useMemo(()=>{
@@ -323,19 +363,19 @@ function QuestionBank(){
 // ─── HOMELAND TRACKER ────────────────────────────────────────────────────────
 function HomelandTracker(){
   const [faction,setFaction]=useState("All");
-  const [owned,setOwned]=useState({});
+  const [owned,setOwned]=useLS('ws-homeland',{});
   const [showOwned,setShowOwned]=useState(false);
   const factions=["All",...FURNITURE_DATA.factions];
   const items=FURNITURE_DATA.items.filter(f=>faction==="All"||f.faction===faction).filter(f=>showOwned?owned[f.name]:true);
   const total=FURNITURE_DATA.items.length;
   const ownedCount=Object.values(owned).filter(Boolean).length;
-  const toggle=name=>setOwned(p=>({...p,[name]:!p[name]}));
+  const toggle=name=>setOwned(p=>{ const nv={...p,[name]:!p[name]}; try{localStorage.setItem('ws-homeland',JSON.stringify(nv));}catch{} return nv; });
   const factionCount=faction==="All"?FURNITURE_DATA.items:FURNITURE_DATA.items.filter(f=>f.faction===faction);
   const factionOwned=factionCount.filter(f=>owned[f.name]).length;
   return(
     <div>
       <H1>Homeland <em>Tracker</em></H1>
-      <p style={{color:C.soft,fontSize:14,marginBottom:4}}>136 furniture items across 5 factions. Check off what you own. Note: checkmarks reset on refresh — no persistent storage in this view.</p>
+      <p style={{color:C.soft,fontSize:14,marginBottom:4}}>136 furniture items across 5 factions. Check off what you own. Progress auto-saves on whetstone.guide. Resets each session in Claude preview.</p>
       <Note>Buy cheaper furniture first to hit faction milestones faster. Once approaching the final milestone you have more flexibility to choose pricier items for higher ratings.</Note>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr auto",gap:12,marginBottom:16}}>
         <Sel label="Filter by faction" value={faction} onChange={e=>setFaction(e.target.value)} options={factions}/>
@@ -372,8 +412,8 @@ function HomelandTracker(){
 
 // ─── STIGMATA ────────────────────────────────────────────────────────────────
 function Stigmata(){
-  const [tier,setTier]=useState("Orange");
-  const [from,setFrom]=useState(0);
+  const [tier,setTier]=useLS('ws-stig-tier',"Orange");
+  const [from,setFrom]=useLS('ws-stig-from',0);
   const data=STIGMATA_FRAGS[tier];
   const remaining=useMemo(()=>{
     if(from===0)return data.total;
@@ -763,7 +803,7 @@ function App(){
           <span style={{...serif,fontStyle:"italic",color:C.amber,fontSize:18}}>Maple</span>
           <span style={{...mono,fontSize:11,color:C.muted,marginLeft:8,letterSpacing:"0.15em",textTransform:"uppercase"}}>Revolution Bible</span>
         </div>
-        <div style={{...mono,fontSize:10,color:C.muted,marginLeft:"auto"}}>by zanfriege · hosted on Whetstone</div>
+        <div style={{display:"flex",alignItems:"center",gap:14,marginLeft:"auto"}}><span style={{...mono,fontSize:10,color:C.muted}}>by zanfriege</span><a href="index.html" style={{...mono,fontSize:10,color:C.amber,textDecoration:"none",border:`1px solid ${C.amber}44`,padding:"4px 10px",transition:"background 0.15s"}} onMouseEnter={e=>e.target.style.background='rgba(245,168,32,0.1)'} onMouseLeave={e=>e.target.style.background='transparent'}>← Whetstone</a></div>
       </div>
 
       {/* Tab nav */}
@@ -776,6 +816,15 @@ function App(){
         ))}
       </div>
 
+      {/* Save toolbar */}
+      <div style={{background:C.sur2,borderBottom:`1px solid ${C.border}`,padding:"8px 20px",display:"flex",alignItems:"center",gap:12,fontSize:11}}>
+        <span style={{...mono,fontSize:9,letterSpacing:"0.12em",textTransform:"uppercase",color:C.muted}}>Presets</span>
+        <button onClick={exportPresets} style={{...mono,fontSize:9,letterSpacing:"0.1em",background:"transparent",border:`1px solid ${C.border}`,color:C.soft,padding:"4px 10px",cursor:"pointer",textTransform:"uppercase"}}>↓ Export JSON</button>
+        <label style={{...mono,fontSize:9,letterSpacing:"0.1em",border:`1px solid ${C.border}`,color:C.soft,padding:"4px 10px",cursor:"pointer",textTransform:"uppercase"}}>
+          ↑ Import JSON<input type="file" accept=".json" onChange={e=>importPresets(e.target.files[0])} style={{display:"none"}}/>
+        </label>
+        <span style={{...mono,fontSize:9,color:C.muted,marginLeft:"auto"}}>Auto-saves on whetstone.guide · resets each session in preview</span>
+      </div>
       {/* Content */}
       <div style={{maxWidth:900,margin:"0 auto",padding:"28px 20px"}}>
         {active==="index" ? <Index setActive={setActive}/> : <ActiveC/>}
@@ -796,5 +845,6 @@ root.render(<App />);
     }, 800);
   });
 </script>
+<script src="whetstone.js" defer></script>
 </body>
 </html>

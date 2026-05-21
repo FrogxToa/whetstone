@@ -4,7 +4,7 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>Land of Chaos and Totems · Whetstone</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="styles.css"/>
 <style>
 .totem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
@@ -28,16 +28,62 @@
   <div class="dossier">Dossier No. 12</div>
   <h1>Land of Chaos <em>and Totems</em></h1>
   <p class="deck">Totem spending priority, why Critical State is the key effect to target, and when to use guild coins versus farming totems from LOC directly.</p>
-  <div class="article-meta">
+  <div class="article-meta"><span><strong>Source period</strong> Sep 2023–Sep 2023</span>
     <span><strong>Source</strong> Elian (Top 50) · Discord #loc-totem-guide</span>
     <span><strong>Compiled</strong> Sep 2023</span><span><strong>Filed</strong> 2026</span>
   </div>
-</div></header>
+</div><div class="hero-float" aria-hidden="true">🍄</div>
+</header>
 
 <article class="wrap wrap-narrow article-body">
   <p>Land of Chaos is the primary source for most totems. The question is not whether to farm LOC — it is which totem effects are worth spending guild coins to acquire directly rather than waiting for LOC drops, and which effects are secondary enough to let come naturally.</p>
 
   <div class="skeptic"><span class="label">Caveat</span>Sep 2023. Totem availability in LOC and guild shops may have changed with updates. Verify before planning a coin spend.</div>
+
+
+  <section class="guide-section" id="loc-rewards">
+    <div class="section-head">
+      <div class="section-num">§ 00</div>
+      <h2 class="section-title">LOC reward <em>structure</em></h2>
+      <div class="section-tag">Source: msrwiki.com</div>
+    </div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The rewards from each LOC level shift as you progress. Understanding this validates the totem strategy below and reveals free Moonstone income most players miss.</p>
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="card">
+        <h3>Levels 1–120</h3>
+        <p class="lede">Each level rewards Red Diamonds, Candy, and Coins. Every 4th level pays out slightly more. Red Diamond income is meaningful at early game.</p>
+      </div>
+      <div class="card">
+        <h3>Levels 121+</h3>
+        <p class="lede">Per-level rewards shift to Totem Essence + Totem Fragments + Coins. LOC becomes a direct totem upgrade source from here.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <h3>Progress awards every 4 chapters (levels 4–120)</h3>
+      <p class="lede">Alternates between <strong>SR pet fragments ×10</strong> and <strong>2 Divine Moon Stones</strong> plus 100K Coins at every 4th level. Two free Moonstones every 8 chapters is significant passive income that requires nothing except playing LOC normally.</p>
+    </div>
+    <div class="card" style="border-color:rgba(245,168,32,0.4);background:linear-gradient(180deg,rgba(245,168,32,0.06),var(--surface) 50%)">
+      <h3>Progress awards chapters 124–160: Silver Totem Fragments</h3>
+      <p class="lede">From chapter 124, progress awards become Silver Totem Fragments (60 per award) + 200 Totem Essence. The cycle:</p>
+      <div style="margin-top:12px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr>
+          <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Chapter</th>
+          <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Totem fragment</th>
+          <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Note</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">124</td><td style="padding:8px 12px;color:var(--paper)">Queen</td><td style="padding:8px 12px;color:var(--ink-soft)">—</td></tr>
+          <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">128</td><td style="padding:8px 12px;color:var(--paper)">Orbis</td><td style="padding:8px 12px;color:var(--ink-soft)">—</td></tr>
+          <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">132</td><td style="padding:8px 12px;color:var(--paper)">Maple Sword</td><td style="padding:8px 12px;color:var(--ink-soft)">—</td></tr>
+          <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">136</td><td style="padding:8px 12px;color:var(--paper)">Orange Mushroom</td><td style="padding:8px 12px;color:var(--ink-soft)">—</td></tr>
+          <tr style="border-bottom:1px solid var(--line-soft);background:rgba(245,168,32,0.05)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">140</td><td style="padding:8px 12px;color:var(--amber);font-weight:600">Steak ★ Critical State</td><td style="padding:8px 12px;color:var(--amber)">Free drop — the totem recommended in §01</td></tr>
+          <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">144–156</td><td style="padding:8px 12px;color:var(--paper)">Cycle repeats</td><td style="padding:8px 12px;color:var(--ink-soft)">Queen → Orbis → Maple Sword → Orange Mushroom</td></tr>
+          <tr><td style="padding:8px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">160</td><td style="padding:8px 12px;color:var(--amber);font-weight:600">Steak ★ Critical State</td><td style="padding:8px 12px;color:var(--amber)">Second Steak in the cycle</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:13px;color:var(--ink-soft);margin:12px 0 0;">The Steak totem drops free as a progress reward at chapters 140 and 160. This is precisely why pushing LOC is the right path — you do not need to spend guild coins on Steak, you earn it by clearing levels.</p>
+    </div>
+  </section>
 
   <section class="guide-section">
     <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Spend priority: <em>gold totem first</em></h2><div class="section-tag">LOC coins</div></div>
@@ -99,4 +145,5 @@
 </article>
 
 <footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span><span>Dossier No. 12</span></div></div></footer>
+<script src="whetstone.js" defer></script>
 </body></html>
