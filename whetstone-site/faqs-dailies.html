@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>FAQs and Dailies · Whetstone</title>
+<meta name="description" content="Dossier 02: Daily activity checklist, red diamond math, shop priorities, and quick-answer FAQs for MapleStory R: Evolution." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .toc { border: 1px solid var(--line); background: var(--surface); padding: 24px; margin-bottom: 32px; }
+  .toc h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin: 0 0 14px; }
+  .toc ol { margin: 0; padding: 0 0 0 18px; }
+  .toc li { font-size: 14px; color: var(--ink-soft); margin: 6px 0; }
+  .toc a { color: var(--ink-soft); text-decoration: none; transition: color 0.15s; }
+  .toc a:hover { color: var(--amber); }
+
+  .activity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .activity-grid { grid-template-columns: 1fr; } }
+
+  .activity-card { border: 1px solid var(--line); background: var(--surface); padding: 20px; }
+  .activity-card .name { font-family: 'Fraunces', serif; font-size: 19px; color: var(--paper); margin: 0 0 6px; letter-spacing: -0.01em; }
+  .activity-card .runs { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: block; }
+  .activity-card .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .split-col { font-size: 12px; padding: 8px 10px; border: 1px solid var(--line-soft); }
+  .split-col .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 4px; }
+  .split-col.p2w { border-color: rgba(140,107,183,0.3); background: rgba(140,107,183,0.04); }
+  .split-col.f2p { border-color: rgba(74,179,168,0.3); background: rgba(74,179,168,0.04); }
+  .split-col.p2w .label { color: var(--violet); }
+  .split-col.f2p .label { color: var(--teal); }
+  .activity-card p { font-size: 13px; color: var(--ink-soft); margin: 8px 0 0; line-height: 1.5; }
+
+  .math-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; padding: 10px 0; border-top: 1px solid var(--line-soft); font-size: 14px; }
+  .math-row:first-child { border-top: none; }
+  .math-row .source { color: var(--ink); }
+  .math-row .value { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); white-space: nowrap; }
+  .math-row .value.income { color: var(--green); }
+  .math-row .value.spend { color: var(--ember); }
+  .math-total { border-top: 2px solid var(--line); padding: 14px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; }
+  .math-total .label { font-weight: 700; color: var(--paper); font-size: 15px; }
+  .math-total .value { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--amber); }
+
+  .shop-priority { border: 1px solid var(--line); }
+  .priority-row { display: grid; grid-template-columns: 36px 1fr auto; gap: 14px; align-items: start; padding: 14px 16px; border-top: 1px solid var(--line-soft); }
+  .priority-row:first-child { border-top: none; }
+  .priority-row .pnum { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--amber); line-height: 1; }
+  .priority-row .ptext { font-size: 14px; color: var(--ink); line-height: 1.5; }
+  .priority-row .ptext strong { color: var(--paper); display: block; margin-bottom: 2px; }
+  .priority-row .ptext small { color: var(--ink-mute); font-size: 12px; }
+
+  .bp-list { border: 1px solid var(--line); }
+  .bp-row { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; padding: 11px 16px; border-top: 1px solid var(--line-soft); font-size: 14px; }
+  .bp-row:first-child { border-top: none; }
+  .bp-row .bpn { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-mute); }
+  .bp-row .bpname { color: var(--ink); }
+  .bp-row .bpname.top { color: var(--paper); font-weight: 600; }
+  .bp-bar { height: 3px; background: var(--line); margin-top: 4px; }
+  .bp-bar span { display: block; height: 100%; background: var(--amber); }
+
+  .tip-card { border: 1px solid var(--line); background: var(--surface); padding: 22px; margin-bottom: 14px; }
+  .tip-card .tip-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 10px; }
+  .tip-card h4 { font-family: 'Fraunces', serif; font-size: 20px; margin: 0 0 10px; color: var(--paper); letter-spacing: -0.01em; }
+  .tip-card p { font-size: 14px; color: var(--ink-soft); margin: 0 0 8px; line-height: 1.55; }
+  .tip-card p:last-child { margin-bottom: 0; }
+  .tip-card .warning { margin-top: 12px; padding: 10px 12px; background: rgba(199,80,63,0.08); border-left: 2px solid var(--red); font-size: 13px; color: var(--ink); }
+
+  .inline-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .inline-table th { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+  .inline-table td { padding: 9px 12px; border-bottom: 1px solid var(--line-soft); color: var(--ink); vertical-align: top; }
+  .inline-table tr:last-child td { border-bottom: none; }
+  .inline-table td:last-child { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--amber); white-space: nowrap; }
+  .inline-table .p2w-row td { background: rgba(140,107,183,0.03); }
+  .inline-table .f2p-row td { background: rgba(74,179,168,0.03); }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark">Whet<em>stone</em></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>FAQs and Dailies</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEAD -->
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 02</div>
+      <h1>FAQs and <em>Dailies</em></h1>
+      <p class="deck">A complete reference for daily activity priorities, red diamond math, shop spending order, and the recurring questions every player eventually asks.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50) · Discord #faqs-dailies</span>
+        <span><strong>Additional credits</strong> @boom (Moon Mining), @Pitlord S151 (Servant Reward)</span>
+        <span><strong>Compiled</strong> Sep 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 12 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE BODY -->
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Most daily confusion in MapleStory R comes from the same cluster of questions repeated across Discord: what do I run first, where do I spend reds, what do I buy with dust, and why am I always out of gold. This dossier compiles the channel's answers into one place. Numbers are estimates from September 2023 and should be treated as reference points, not exact current figures.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      This channel was last captured in September 2023. Specific numbers (red dia costs per QB run, shop prices, Apex rewards) may have changed. Use the math as a framework for understanding your own economy, not as exact current values. The spreadsheet calculator at <strong>tinyurl.com/ZanBiblevolution</strong> (by Ulam, CEO) is a more precise tool — make a copy, do not request edit access.
+    </div>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">01</span><span class="t"><strong>Monster Card</strong> contributes the most to Battle Power. Pet is second.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t">F2P daily spend: roughly <strong>250 reds</strong>. P2W: roughly <strong>4,000 reds</strong>.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t">In Dust shop: <strong>Moonstones first</strong>, always. 150 each, buy out daily.</span></div>
+      <div class="tldr-cell"><span class="n">04</span><span class="t"><strong>Save Spiritual Raw Stones</strong> for Event Reset day to potentially double Secret Chest rewards.</span></div>
+      <div class="tldr-cell"><span class="n">05</span><span class="t">Dimensional Trial: <strong>always buy discounted Moonstones</strong>. Never spend reds on anything else there.</span></div>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#bp">Battle Power: what actually moves the needle</a></li>
+        <li><a href="#dailies">Daily activity checklist (F2P vs P2W)</a></li>
+        <li><a href="#redmath">Red Diamond math: income and expenditure</a></li>
+        <li><a href="#bluediamond">Blue Diamond (Moon Mining) accounting</a></li>
+        <li><a href="#moonstones">Moonstone income per month</a></li>
+        <li><a href="#shops">Shop spending priorities</a></li>
+        <li><a href="#tips">Key tips and tricks</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: BP -->
+    <section class="guide-section" id="bp">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Battle Power: what <em>moves the needle</em></h2>
+        <div class="section-tag">Ranked by impact</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 18px;">Ranked from highest BP contribution to lowest. This is not a cost-to-gain ranking — it is purely an overview of what contributes the most before you decide where to spend or save. Source: TW server data, may not be 1:1 for all servers.</p>
+
+      <div class="bp-list">
+        <div class="bp-row"><span class="bpn">01</span><div><span class="bpname top">Monster Card</span><div class="bp-bar"><span style="width:100%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">02</span><div><span class="bpname top">Pet</span><div class="bp-bar"><span style="width:92%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">03</span><div><span class="bpname top">Mounts</span><div class="bp-bar"><span style="width:85%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">04</span><div><span class="bpname top">Equipment</span><div class="bp-bar"><span style="width:78%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">05</span><div><span class="bpname">Rune</span><div class="bp-bar"><span style="width:70%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">06</span><div><span class="bpname">Spirits</span><div class="bp-bar"><span style="width:63%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">07</span><div><span class="bpname">Wing</span><div class="bp-bar"><span style="width:57%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">08</span><div><span class="bpname">Soul Orb</span><div class="bp-bar"><span style="width:50%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">09</span><div><span class="bpname">Totem</span><div class="bp-bar"><span style="width:44%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">10</span><div><span class="bpname">Skill</span><div class="bp-bar"><span style="width:38%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">11</span><div><span class="bpname">Draw</span><div class="bp-bar"><span style="width:33%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">12</span><div><span class="bpname">Costume</span><div class="bp-bar"><span style="width:28%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">13</span><div><span class="bpname">Gem / Mental Link / Firewing / Stigmata</span><div class="bp-bar"><span style="width:22%"></span></div></div></div>
+        <div class="bp-row"><span class="bpn">14+</span><div><span class="bpname" style="color:var(--ink-mute)">Title · Creature · Ancient Tree · Reconstruct · Fashion King · Homeland</span></div></div>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">Disclaimer from source</strong>
+        The bar widths above are illustrative, not derived from exact % figures. The original ranking is ordinal only. Title varies significantly by wallet. Creature Devour and Stigmata Devour are late-game considerations.
+      </div>
+    </section>
+
+    <!-- SECTION 2: DAILIES -->
+    <section class="guide-section" id="dailies">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Daily activity <em>checklist</em></h2>
+        <div class="section-tag">F2P vs P2W</div>
+      </div>
+
+      <div class="activity-grid">
+
+        <div class="activity-card">
+          <div class="name">Adventure Training Field</div>
+          <span class="runs">2x daily · 3x for VIP11</span>
+          <p>Huge source of EXP daily. Crazy mode costs 100 reds per run.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Use Crazy Mode</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Up to red Dias availability</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Expedition Forces</div>
+          <span class="runs">4/4 daily</span>
+          <p>Go in, invite all, match. Run the full 4.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Full 4/4</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Full 4/4 — no cost</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Attacking Monsters</div>
+          <span class="runs">2/2 base daily</span>
+          <p>Extra runs cost 150 reds for 30 Abyss tickets. Abyss tickets via shop is 72 Dias for 10.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Extra runs fine</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Not recommended</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Monster Park</div>
+          <span class="runs">2/2 base daily</span>
+          <p>Same cost structure as Attacking Monsters. 150 reds for extra run.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Extra runs fine</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Not recommended</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Arena</div>
+          <span class="runs">5/5 free daily</span>
+          <p>Good source of stigmata and arena points. Extra runs available for P2W.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Extra runs for ranking</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Extra to hit points milestone</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Quick Battle</div>
+          <span class="runs">Up to 8/8</span>
+          <p>After clearing dailies task chest, approx 850 reds to clear 8/8. From Chapter 30+, idle drops gold totem fragments.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>8/8 recommended</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Max 3 extra to preserve reds</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">World Boss</div>
+          <span class="runs">Daily window · UTC+8</span>
+          <p>700+ red Dias from fighting, ~100 reds from ranking. Use red gem blessing on competitive servers for better rank and more servant stones. Otherwise gold blessings.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Red gem blessing if competitive</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Gold blessings</div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="name">Dusk Demesne</div>
+          <span class="runs">1 free key daily</span>
+          <p>Good source of gems. Additional keys cost from 100/120/150 reds onwards.</p>
+          <div class="split">
+            <div class="split-col p2w"><span class="label">P2W</span>Up to 3 extra boxes</div>
+            <div class="split-col f2p"><span class="label">F2P</span>Avoid extra at lower tiers</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">Also run daily</strong>
+        Dark Abyss (Runes and Abyss Energy), Tower of Origins (Soul Orb Materials), Adventurer Field, Off-Road Party (refer to the off-road-gamblers channel for strategy). Endless Hunting provides supply next day — see the Tips section for the exact return table.
+      </div>
+    </section>
+
+    <!-- SECTION 3: RED MATH -->
+    <section class="guide-section" id="redmath">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Red Diamond <em>math</em></h2>
+        <div class="section-tag">Income vs expenditure</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 20px;">Two views of your red diamond economy: how many you spend per day running everything, and how many you earn back. The gap tells you whether your balance grows or shrinks over time.</p>
+
+      <div class="grid-2">
+        <div class="card" style="padding:0">
+          <div style="padding:18px 16px 10px; border-bottom:1px solid var(--line);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);">Daily Expenditure</span>
+          </div>
+          <div style="padding:4px 16px 16px">
+            <div class="math-row"><span class="source">Daily EXP (3 runs + 1 extra)</span><span class="value spend">560</span></div>
+            <div class="math-row"><span class="source">Quick Battle 8/8 (V8)</span><span class="value spend">850</span></div>
+            <div class="math-row"><span class="source">Attacking Monsters (2 runs)</span><span class="value spend">350</span></div>
+            <div class="math-row"><span class="source">Monster Park (2 runs)</span><span class="value spend">500</span></div>
+            <div class="math-row"><span class="source">WB Blessings</span><span class="value spend">100</span></div>
+            <div class="math-row"><span class="source">Arena (9 tries, v13)</span><span class="value spend">430</span></div>
+            <div class="math-row"><span class="source">Endless Hunting</span><span class="value spend">50</span></div>
+            <div class="math-row"><span class="source">Dusk Demesne (extras)</span><span class="value spend">~1,000</span></div>
+            <div class="math-total"><span class="label">P2W total / day</span><span class="value">~4,000 reds</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0">
+          <div style="padding:18px 16px 10px; border-bottom:1px solid var(--line);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);">F2P Daily Spend</span>
+          </div>
+          <div style="padding:4px 16px 16px">
+            <div class="math-row"><span class="source">QB 6/8 (V8)</span><span class="value spend">~150</span></div>
+            <div class="math-row"><span class="source">Daily dungeons (no extras)</span><span class="value spend">0</span></div>
+            <div class="math-row"><span class="source">WB Blessings (gold instead)</span><span class="value spend">0</span></div>
+            <div class="math-row"><span class="source">Arena (2 tries, v13)</span><span class="value spend">50</span></div>
+            <div class="math-row"><span class="source">Endless Hunting</span><span class="value spend">50</span></div>
+            <div style="height:32px"></div>
+            <div style="height:32px"></div>
+            <div style="height:32px"></div>
+            <div class="math-total"><span class="label">F2P total / day</span><span class="value">~250 reds</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px; padding:0">
+        <div style="padding:18px 16px 10px; border-bottom:1px solid var(--line);">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);">Daily Income (F2P baseline)</span>
+        </div>
+        <div style="padding:4px 16px 16px">
+          <div class="math-row"><span class="source">Monthly passes (with medal: 390 + 260)</span><span class="value income">~650 / day</span></div>
+          <div class="math-row"><span class="source">Quick Battle passive (8 reds/hr × 38hrs)</span><span class="value income">~304 / day</span></div>
+          <div class="math-row"><span class="source">Timer packs</span><span class="value income">~300 / day</span></div>
+          <div class="math-row"><span class="source">World Boss (fight + ranking)</span><span class="value income">~850 / day</span></div>
+          <div class="math-row"><span class="source">WB reward top 3</span><span class="value income">~100 / day</span></div>
+          <div class="math-row"><span class="source">Guild Auction</span><span class="value income">~220 / day</span></div>
+          <div class="math-row"><span class="source">World Auction</span><span class="value income">~40 / day</span></div>
+          <div class="math-row"><span class="source">Treasure map seeking</span><span class="value income">~50 / day</span></div>
+          <div class="math-total"><span class="label">Estimated total income / day</span><span class="value">~2,300 reds</span></div>
+        </div>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">Net position</strong>
+        F2P net is roughly +2,050 reds/day before events and adventure benefits. P2W net depends heavily on monthly pass tier and how aggressively QB and dungeons are run. This math is from Sep 2023 and used as a framework — your numbers will vary.
+      </div>
+    </section>
+
+    <!-- SECTION 4: BLUE DIAMONDS -->
+    <section class="guide-section" id="bluediamond">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Blue Diamond <em>accounting</em></h2>
+        <div class="section-tag">Moon Mining · Credits: @boom</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="padding:0">
+          <div style="padding:18px 16px 10px; border-bottom:1px solid var(--line);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Moon Mining Sources (per 4 weeks)</span>
+          </div>
+          <div style="padding:4px 16px 16px">
+            <div class="math-row"><span class="source">Daily supply</span><span class="value">28</span></div>
+            <div class="math-row"><span class="source">Daily sign-in (est)</span><span class="value">19</span></div>
+            <div class="math-row"><span class="source">Daily 30 Blue Diamond claim</span><span class="value">28</span></div>
+            <div class="math-row"><span class="source">Timer</span><span class="value">40</span></div>
+            <div class="math-row"><span class="source">Monthly pack</span><span class="value">28</span></div>
+            <div class="math-total"><span class="label">Subtotal / 4w</span><span class="value">143</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0">
+          <div style="padding:18px 16px 10px; border-bottom:1px solid var(--line);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);">Other Sources (per 30 days)</span>
+          </div>
+          <div style="padding:4px 16px 16px">
+            <div class="math-row"><span class="source">Off-road shop</span><span class="value">30</span></div>
+            <div class="math-row"><span class="source">Monthly pack (both)</span><span class="value">15</span></div>
+            <div class="math-row"><span class="source">Dimension Trail</span><span class="value">15</span></div>
+            <div class="math-row"><span class="source">Apex Arena (tier/rank dependent)</span><span class="value">16–80</span></div>
+            <div class="math-total"><span class="label">Subtotal / 30 days</span><span class="value">76–140</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fact" style="margin-top:14px">
+        <div class="num">216<span style="font-size:32px">–280</span></div>
+        <div class="txt">
+          <strong>Estimated Blue Diamonds per 4 weeks (with Apex)</strong>
+          <span>Baseline without Apex is roughly 200 per 4 weeks. Excludes events, adventure benefits, and rank badge rewards. Numbers updated to include 30 blue diamond daily claim.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MOONSTONES -->
+    <section class="guide-section" id="moonstones">
+      <div class="section-head">
+        <div class="section-num">§ 05</div>
+        <h2 class="section-title">Moonstone income <em>per month</em></h2>
+        <div class="section-tag">F2P vs P2W breakdown</div>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="inline-table">
+          <thead>
+            <tr><th>Source</th><th>Per Month</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr class="p2w-row"><td>Daily Supply Pack (1 CD)</td><td>30</td><td>P2W</td></tr>
+            <tr class="p2w-row"><td>Daily Limit (30 Blue Diamonds)</td><td>30</td><td>P2W</td></tr>
+            <tr class="p2w-row"><td>Advanced Monthly Card</td><td>40</td><td>P2W (10 on first purchase, 1/day)</td></tr>
+            <tr class="p2w-row"><td>Common Monthly Card</td><td>5</td><td>P2W (5 on first purchase)</td></tr>
+            <tr><td>Daily Sign In (1+3+5+10)</td><td>19</td><td>Free</td></tr>
+            <tr><td>Timer's Body Repair Other Exchange</td><td>40</td><td>10 for 1,500 Dust per week</td></tr>
+            <tr><td>Off-Road Shop</td><td>30</td><td>At least 1/day, plus extras</td></tr>
+            <tr><td>Dimensional Trial</td><td>15</td><td>Avg 1 per 2 days, 180/210/240 gem ea</td></tr>
+            <tr><td>Victoria Rivalry</td><td>12</td><td>Random, avg ~3/week</td></tr>
+            <tr><td>Apex Ranking</td><td>20</td><td>4 min, 20 max depending on rank</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare" style="margin-top:14px">
+        <div class="compare-col p2w">
+          <h4>P2W total</h4>
+          <p class="sub">All sources combined</p>
+          <div style="font-family:'Fraunces',serif;font-size:56px;line-height:1;color:var(--violet);margin:8px 0;">241</div>
+          <p style="font-size:13px;color:var(--ink-soft);">per month</p>
+        </div>
+        <div class="compare-col f2p">
+          <h4>F2P total</h4>
+          <p class="sub">241 minus P2W sources</p>
+          <div style="font-family:'Fraunces',serif;font-size:56px;line-height:1;color:var(--teal);margin:8px 0;">~136</div>
+          <p style="font-size:13px;color:var(--ink-soft);">per month (minus an additional 16–20 from Apex Ranking)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: SHOPS -->
+    <section class="guide-section" id="shops">
+      <div class="section-head">
+        <div class="section-num">§ 06</div>
+        <h2 class="section-title">Shop spending <em>priorities</em></h2>
+        <div class="section-tag">Dust · Body ANE · Adventure Team Coins</div>
+      </div>
+
+      <h3 style="font-family:'Fraunces',serif;font-size:22px;margin:0 0 14px;color:var(--paper);">Dust Shop</h3>
+      <div class="shop-priority">
+        <div class="priority-row">
+          <div class="pnum">1</div>
+          <div class="ptext"><strong>Divine Moonstone — 150 dust each, buy out</strong><small>Always the first spend. Non-negotiable.</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">2</div>
+          <div class="ptext"><strong>UR pets you are focusing</strong><small>Every 3 weeks you receive 1 UR. Buy toward your current focus.</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">3</div>
+          <div class="ptext"><strong>Monster Card Fragments</strong><small>Consistent priority given MC's top-ranked BP contribution.</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">4</div>
+          <div class="ptext"><strong>Others: Star Source, Magic Crystals, Coins</strong><small>Once you no longer need MC frags. Star Source becomes a luxury once you cannot upgrade anything further.</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">~</div>
+          <div class="ptext"><strong>SSR fragments</strong><small>Only if you are lacking minor frags (fewer than 10) and it will help your progression.</small></div>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Fraunces',serif;font-size:22px;margin:24px 0 14px;color:var(--paper);">Body ANE Dust Shop</h3>
+      <div class="shop-priority">
+        <div class="priority-row">
+          <div class="pnum">1</div>
+          <div class="ptext"><strong>Divine Moon Stones</strong></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">2</div>
+          <div class="ptext"><strong>Magic Crystals</strong><small>Until MC are maxed.</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">3</div>
+          <div class="ptext"><strong>Wait until end of week</strong><small>Then buy lacking Pet or MC Frags. Can max out Orange MC Frags if working toward set. Wings/Stigmata — at minimum try to unlock, especially useful PvE ones (e.g. extra rage at battle start).</small></div>
+        </div>
+        <div class="priority-row">
+          <div class="pnum">4</div>
+          <div class="ptext"><strong>Calculate your weekly ANE surplus first</strong><small>For genuine extras only: Star Source, Gold if needed, Sewing Wand if rich in ANE.</small></div>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Fraunces',serif;font-size:22px;margin:24px 0 14px;color:var(--paper);">Dimensional Trial (Adventure Team Coins)</h3>
+      <div class="card">
+        <p class="lede" style="margin:0 0 12px">Two phases as you progress:</p>
+        <ol class="steps">
+          <li>While <strong>missing SR characters</strong> — pick the SR reward.</li>
+          <li>Once SR is maxed — <strong>pick Gold</strong> instead.</li>
+          <li><strong>Always buy the discounted Moonstones</strong> regardless of phase. Do not spend reds on anything else in this shop. Moonstones are the delayed-gratification path toward UR and EXR characters.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECTION 7: TIPS -->
+    <section class="guide-section" id="tips">
+      <div class="section-head">
+        <div class="section-num">§ 07</div>
+        <h2 class="section-title">Key tips <em>and tricks</em></h2>
+        <div class="section-tag">Mechanics worth knowing</div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Spiritual Raw Stones</span>
+        <h4>Save them for Event Reset day</h4>
+        <p>Whenever events refresh, a Servant Reward Up feature activates. Completing the related task on that day makes all Spiritual Raw Stones consumed yield double Secret Chest rewards until the next server reset (05:00).</p>
+        <p>Strategy: accumulate Spiritual Raw Stones across the event period, then burn them all on the Event Reset day to potentially double your Red Gem yield.</p>
+        <p>Unused stones are automatically consumed at server reset, so the only way to hold them is to keep them unclaimed in your Mail. Mail limit is 100 items — regularly delete low-value mail to maintain space.</p>
+        <div class="warning">Mail may have a 7-day expiry. Check the storage duration on your Spiritual Raw Stone mails before banking too many. Losing a stack to expiry negates the entire strategy.</div>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Servant Reward · Credits: @Pitlord S151</span>
+        <h4>Stack rewards before activating</h4>
+        <p>If you finish top 32 in Duel Arena and do not claim the box, it is sent to your mail when the next Duel Arena starts. This means you can hold up to 3 reward claims simultaneously.</p>
+        <p>To maximize the Servant Reward Up bonus, activate it when you have these four reward sources ready to claim at once:</p>
+        <ol class="steps" style="margin-top:10px">
+          <li>World Boss rewards</li>
+          <li>Duel Arena reward (unclaimed from mail)</li>
+          <li>Friend Points</li>
+          <li>Cash Shop Pack</li>
+        </ol>
+        <p style="margin-top:10px">Activate in the morning so the World Boss reward from your morning attack can be claimed immediately under the active bonus.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Friendship Points</span>
+        <h4>Only claim from friends with 100+ intimacy</h4>
+        <p>You can claim up to 50 friendship points per day. Claiming from a friend with 100 or more friendship points (intimacy) gives 2 points instead of 1. Prioritize only those friends to maximize your daily take.</p>
+        <p>The intimacy value is shown as the number next to the leaf icon in your friend list (visible via the red outline in the original guide image).</p>
+        <p>All unclaimed friendship points are cleared at 05:00 the following day. Cross-server friends count.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Endless Hunting</span>
+        <h4>Supply return table</h4>
+        <p>Each Endless Hunting run today converts to Supply items the next day. The diminishing returns per run:</p>
+        <table class="inline-table" style="margin-top:10px">
+          <thead><tr><th>Runs today</th><th>Supply next day</th></tr></thead>
+          <tbody>
+            <tr><td>1×</td><td>4</td></tr>
+            <tr><td>2×</td><td>7</td></tr>
+            <tr><td>3×</td><td>10</td></tr>
+            <tr><td>4×</td><td>13</td></tr>
+            <tr><td>5×</td><td>17 (est)</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px">Run at least once daily. Whether to go beyond 3 depends on your resource tolerance; returns flatten after the first few.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Gold (when empty)</span>
+        <h4>Buy the 80-reds option daily, not the one-shot max</h4>
+        <p>When your gold runs dry, the temptation is to one-shot the large purchase to fill it. The recommended approach is to spend approximately 80 reds per day on the smaller purchase rather than maxing it out at once. Daily incremental buying is more efficient than a single large spend.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Totem Shop · Early season</span>
+        <h4>Flying Fish Slime first, then nothing else</h4>
+        <p>Before yellow totems release, sweep the discounted Flying Fish Slime Fragment. At 6k coins you get 30 pieces; 24k coins completes one free Flying Fish.</p>
+        <p>Do not buy other totem fragments from the shop — they are all obtainable from Land of Chaos. The one exception is Steak Totem fragments, which are not available there.</p>
+      </div>
+
+      <div class="tip-card">
+        <span class="tip-label">Server Day check</span>
+        <h4>Use the Mask Event Gameplay tab</h4>
+        <p>If you are unsure which day your server is on, navigate to Mask Event and open the Gameplay tab. It shows the server's current day count, which determines which content and events are available to you.</p>
+      </div>
+    </section>
+
+    <!-- NEXT / PREV -->
+    <nav class="article-foot-nav">
+      <a class="prev" href="tower-of-origins.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-01 · Tower of Origins</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-03 · Soul Bloom Pathway <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Dossiers</h5>
+          <ul>
+            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
+            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
+            <li><a href="#">D-03 · Soul Bloom Pathway <em style="color:var(--ink-mute)">queued</em></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 02</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
