@@ -4,24 +4,29 @@
    ============================================================ */
 
 :root{
-  --bg: #0d0f13;
-  --bg-2: #14171d;
-  --surface: #1a1e26;
-  --surface-2: #232833;
-  --line: #2c3340;
-  --line-soft: #1f242e;
-  --ink: #e8e4d8;
-  --ink-soft: #a8a89c;
-  --ink-mute: #6f7280;
-  --amber: #e89e3d;
-  --amber-soft: #b97e30;
-  --ember: #d24c2a;
-  --teal: #4ab3a8;
-  --green: #6fa86a;
-  --yellow: #d4b14a;
-  --red: #c7503f;
-  --violet: #8c6bb7;
-  --paper: #f4ecd8;
+  --bg: #070b12;
+  --bg-2: #0c1120;
+  --surface: #111826;
+  --surface-2: #18202e;
+  --line: #222c42;
+  --line-soft: #182030;
+  --ink: #ece8da;
+  --ink-soft: #aaa89c;
+  --ink-mute: #6a7080;
+  --amber: #f5a820;
+  --amber-soft: #c07818;
+  --ember: #e04830;
+  --teal: #38b8b0;
+  --green: #48b868;
+  --yellow: #f8cc38;
+  --red: #c85040;
+  --violet: #9060d0;
+  --paper: #f5ecd8;
+  /* MapleStory palette additions */
+  --maple: #e03820;
+  --sky: #4890d8;
+  --forest: #48b868;
+  --luminous: #f8cc38;
 }
 
 *,*::before,*::after{ box-sizing: border-box; }
@@ -29,8 +34,10 @@ html, body{ margin: 0; padding: 0; }
 html{ scroll-behavior: smooth; }
 body{
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(232,158,61,0.08), transparent 60%),
-    radial-gradient(900px 500px at -10% 30%, rgba(74,179,168,0.05), transparent 60%),
+    radial-gradient(1300px 600px at 78% -18%, rgba(72,144,216,0.14), transparent 62%),
+    radial-gradient(900px 700px at -8%  28%, rgba(72,184,104,0.09), transparent 60%),
+    radial-gradient(700px 500px at 94%  72%, rgba(224,56,32,0.07),  transparent 60%),
+    radial-gradient(1100px 500px at 45% 105%, rgba(245,168,32,0.11), transparent 62%),
     var(--bg);
   color: var(--ink);
   font-family: 'Manrope', sans-serif;
@@ -46,7 +53,22 @@ body::before{
   inset: 0;
   pointer-events: none;
   background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 3px);
+    radial-gradient(1.5px 1.5px at 12% 8%,  rgba(245,168,32,0.55),  transparent),
+    radial-gradient(1px   1px   at 28% 14%, rgba(255,255,255,0.30),  transparent),
+    radial-gradient(1px   1px   at 47% 6%,  rgba(255,255,255,0.22),  transparent),
+    radial-gradient(1.5px 1.5px at 65% 11%, rgba(72,144,216,0.55),   transparent),
+    radial-gradient(1px   1px   at 81% 4%,  rgba(255,255,255,0.28),  transparent),
+    radial-gradient(1px   1px   at 93% 20%, rgba(72,184,104,0.45),   transparent),
+    radial-gradient(1.5px 1.5px at 6%  38%, rgba(255,255,255,0.20),  transparent),
+    radial-gradient(1px   1px   at 22% 52%, rgba(245,168,32,0.40),   transparent),
+    radial-gradient(1px   1px   at 55% 44%, rgba(255,255,255,0.18),  transparent),
+    radial-gradient(1.5px 1.5px at 74% 35%, rgba(224,56,32,0.45),    transparent),
+    radial-gradient(1px   1px   at 88% 50%, rgba(255,255,255,0.25),  transparent),
+    radial-gradient(1px   1px   at 38% 72%, rgba(72,144,216,0.40),   transparent),
+    radial-gradient(1.5px 1.5px at 60% 78%, rgba(245,168,32,0.50),   transparent),
+    radial-gradient(1px   1px   at 78% 82%, rgba(255,255,255,0.22),  transparent),
+    radial-gradient(1px   1px   at 15% 88%, rgba(72,184,104,0.40),   transparent),
+    radial-gradient(1.5px 1.5px at 95% 90%, rgba(255,255,255,0.28),  transparent);
   z-index: 0;
 }
 
@@ -64,7 +86,7 @@ body::before{
    ============================================================ */
 .site-nav{
   border-bottom: 1px solid var(--line);
-  background: rgba(13,15,19,0.85);
+  background: rgba(7,11,18,0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   position: sticky;
@@ -90,27 +112,20 @@ body::before{
   position: relative;
   display: block;
 }
-.brand .mark::before,
-.brand .mark::after{
-  content: "";
-  position: absolute;
-  background: var(--amber);
-}
 .brand .mark::before{
+  content: "🍁";
+  position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  transform: translateY(-50%);
-}
-.brand .mark::after{
-  top: 2px;
-  bottom: 2px;
   left: 50%;
-  width: 1px;
-  transform: rotate(28deg);
-  transform-origin: center;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  line-height: 1;
+  background: none;
+  width: auto;
+  height: auto;
+  filter: drop-shadow(0 0 6px rgba(245,168,32,0.6));
 }
+.brand .mark::after{ display: none; }
 .brand .wordmark{
   font-family: 'Fraunces', serif;
   font-weight: 500;
@@ -174,7 +189,7 @@ body::before{
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--amber);
-  box-shadow: 0 0 12px var(--amber);
+  box-shadow: 0 0 12px var(--amber), 0 0 24px rgba(72,144,216,0.3);
 }
 .hero h1{
   font-family: 'Fraunces', serif;
@@ -190,6 +205,7 @@ body::before{
   font-style: italic;
   color: var(--amber);
   font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  text-shadow: 0 0 40px rgba(245,168,32,0.35), 0 0 80px rgba(245,168,32,0.15);
 }
 .hero .lede{
   font-family: 'Fraunces', serif;
@@ -332,8 +348,9 @@ section.s:last-of-type{ border-bottom: none; }
 }
 .featured .visual{
   background:
-    linear-gradient(135deg, rgba(232,158,61,0.18) 0%, rgba(13,15,19,0) 60%),
-    radial-gradient(circle at 70% 40%, rgba(210,76,42,0.25), transparent 55%),
+    linear-gradient(135deg, rgba(245,168,32,0.20) 0%, rgba(7,11,18,0) 60%),
+    radial-gradient(circle at 30% 60%, rgba(72,144,216,0.18), transparent 55%),
+    radial-gradient(circle at 70% 40%, rgba(224,72,48,0.22), transparent 55%),
     var(--bg-2);
   position: relative;
   min-height: 280px;
@@ -378,15 +395,23 @@ section.s:last-of-type{ border-bottom: none; }
   display: grid;
   grid-template-columns: 60px 1fr auto auto;
   gap: 24px;
-  padding: 22px 0;
+  padding: 22px 0 22px 14px;
   align-items: center;
   border-bottom: 1px solid var(--line-soft);
+  border-left: 3px solid transparent;
   text-decoration: none;
   color: inherit;
   position: relative;
-  transition: padding 0.2s;
+  transition: padding 0.2s, border-left-color 0.2s, background 0.2s;
+  margin-left: -3px;
 }
-.index-row:hover{ padding-left: 12px; }
+.index-row:hover{
+  padding-left: 22px;
+  background: rgba(245,168,32,0.03);
+}
+.index-row:nth-child(3n+1):hover{ border-left-color: var(--amber); }
+.index-row:nth-child(3n+2):hover{ border-left-color: var(--teal); }
+.index-row:nth-child(3n+0):hover{ border-left-color: var(--violet); }
 .index-row .num{
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
