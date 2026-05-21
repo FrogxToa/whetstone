@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Runes and Abyss · Whetstone</title>
+<meta name="description" content="Dossier 07: Rune basics, skill priority, solvent economy, Lucky Recast, and full Abyss tier requirements with rewards." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .toc { border:1px solid var(--line); background:var(--surface); padding:22px; margin-bottom:28px; }
+  .toc h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber); margin:0 0 12px; }
+  .toc ol { margin:0; padding:0 0 0 18px; }
+  .toc li { font-size:14px; color:var(--ink-soft); margin:5px 0; }
+  .toc a { color:var(--ink-soft); text-decoration:none; }
+  .toc a:hover { color:var(--amber); }
+
+  /* Skill priority grid */
+  .skill-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px) { .skill-grid { grid-template-columns:1fr; } }
+  .skill-col { border:1px solid var(--line); background:var(--surface); padding:20px; }
+  .skill-col .sc-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .skill-col .sc-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .skill-col.keep .sc-icon { background:rgba(111,168,106,0.15); border:1px solid var(--green); color:var(--green); }
+  .skill-col.skip .sc-icon { background:rgba(199,80,63,0.10); border:1px solid var(--red); color:var(--red); }
+  .skill-col h4 { font-family:'Fraunces',serif; font-size:18px; margin:0; color:var(--paper); }
+  .skill-col.keep { border-color:rgba(111,168,106,0.3); }
+  .skill-col.skip { border-color:rgba(199,80,63,0.2); }
+  .skill-list { list-style:none; padding:0; margin:0; }
+  .skill-list li { font-size:14px; padding:7px 0; border-top:1px solid var(--line-soft); color:var(--ink-soft); }
+  .skill-list li:first-child { border-top:none; }
+  .skill-list li strong { color:var(--paper); }
+
+  /* Solvent math */
+  .solvent-math { border:1px solid var(--line); }
+  .solvent-row { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center; padding:14px 18px; border-bottom:1px solid var(--line-soft); font-size:14px; }
+  .solvent-row:last-child { border-bottom:none; }
+  .solvent-row.bad { background:rgba(199,80,63,0.05); border-left:3px solid var(--red); }
+  .solvent-row.good { background:rgba(111,168,106,0.05); border-left:3px solid var(--green); }
+  .solvent-row .sr-label { color:var(--ink); }
+  .solvent-row .sr-label small { display:block; color:var(--ink-mute); font-size:12px; margin-top:3px; }
+  .solvent-row .sr-val { font-family:'JetBrains Mono',monospace; font-size:14px; white-space:nowrap; }
+  .solvent-row.bad .sr-val { color:var(--ember); }
+  .solvent-row.good .sr-val { color:var(--green); }
+
+  /* Lucky Recast */
+  .lucky-steps { counter-reset:lucky; list-style:none; padding:0; margin:0; }
+  .lucky-steps li { counter-increment:lucky; padding:14px 0 14px 48px; position:relative; border-top:1px solid var(--line-soft); font-size:14px; color:var(--ink); line-height:1.5; }
+  .lucky-steps li:first-child { border-top:none; }
+  .lucky-steps li::before { content:counter(lucky); position:absolute; left:0; top:14px; width:28px; height:28px; background:rgba(232,158,61,0.12); border:1px solid var(--amber); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--amber); text-align:center; line-height:28px; }
+
+  /* Abyss tiers */
+  .abyss-tier-list { border:1px solid var(--line); }
+  .abyss-tier { display:grid; grid-template-columns:120px 1fr 1fr; gap:0; border-bottom:1px solid var(--line-soft); align-items:stretch; }
+  .abyss-tier:last-child { border-bottom:none; }
+  .abyss-tier .at-name { padding:16px 18px; background:var(--bg-2); border-right:1px solid var(--line-soft); display:flex; align-items:center; }
+  .abyss-tier .at-name span { font-family:'Fraunces',serif; font-size:17px; color:var(--paper); }
+  .abyss-tier .at-req { padding:16px 18px; border-right:1px solid var(--line-soft); display:flex; align-items:center; }
+  .abyss-tier .at-rewards { padding:16px 18px; }
+  .at-req .req-val { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--amber); }
+  .tier-hell .at-name { border-left:3px solid #c47; }
+  .tier-shura .at-name { border-left:3px solid #e89e3d; }
+  .tier-chaos .at-name { border-left:3px solid #8c6bb7; }
+  .tier-despair .at-name { border-left:3px solid #4ab3a8; }
+  .tier-havoc .at-name { border-left:3px solid #6fa86a; }
+  .tier-epic .at-name { border-left:3px solid #d4b14a; }
+  .reward-milestone { font-size:12px; color:var(--ink-soft); margin:3px 0; }
+  .reward-milestone strong { color:var(--ink); font-weight:600; margin-right:6px; font-family:'JetBrains Mono',monospace; font-size:11px; }
+  .no-data { font-size:12px; color:var(--ink-mute); font-style:italic; }
+  @media (max-width:640px) {
+    .abyss-tier { grid-template-columns:1fr; }
+    .abyss-tier .at-req { border-right:none; border-top:1px solid var(--line-soft); }
+    .abyss-tier .at-rewards { border-top:1px solid var(--line-soft); }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Runes and Abyss</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 07</div>
+      <h1>Runes and <em>Abyss</em></h1>
+      <p class="deck">Rune skill priority, why solvents beat 5-star purchases, the Lucky Recast mechanic, and full Abyss tier requirements and rewards.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #runes-abyss</span>
+        <span><strong>Lucky Recast credits</strong> @Jisoo (S39)</span>
+        <span><strong>Compiled</strong> Sep–Oct 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 7 min</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Runes have more moving parts than they first appear — six slots, a separate unlock at level 140, an enhancement system, a recast system, and the Abyss as the primary currency source. Most early mistakes come from either enhancing the wrong skills or spending Abyss Energy on 5-star runes instead of solvents. This dossier covers both, plus the Lucky Recast mechanic and the full Abyss tier ladder.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      Content compiled September–October 2023. Abyss tier requirements, reward milestones, and recast costs may have changed since. Verify current values in-game before planning a grind.
+    </div>
+
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">01</span><span class="t">You need <strong>6 runes</strong>. A second identical page unlocks at <strong>level 140</strong>.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t">Enhance <strong>any quality rune</strong> — C, B, or S. Dismantling returns all enhancement materials.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t"><strong>Do not buy 5-star runes</strong> with Abyss Energy. Solvents for level 12 enhancement outperform by a large margin.</span></div>
+      <div class="tldr-cell"><span class="n">04</span><span class="t"><strong>375 recasts</strong> trigger a Lucky Recast with a guaranteed S rank option.</span></div>
+      <div class="tldr-cell"><span class="n">05</span><span class="t"><strong>Do not appraise yet</strong> unless you have S runes with 3 skill lines and a ready recast master.</span></div>
+    </div>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#basics">Rune basics</a></li>
+        <li><a href="#skills">Skill priority: keep vs skip</a></li>
+        <li><a href="#economy">Solvent economy: why solvents beat 5-star purchases</a></li>
+        <li><a href="#lucky">Lucky Recast mechanic</a></li>
+        <li><a href="#abyss">Abyss tier requirements and rewards</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: BASICS -->
+    <section class="guide-section" id="basics">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Rune <em>basics</em></h2>
+        <div class="section-tag">New player orientation</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>6 rune slots</h3>
+          <p class="lede">The total number of runes in your primary loadout. Keep this in mind when collecting and enhancing — you need six to fill the page.</p>
+        </div>
+        <div class="card">
+          <h3>Level 140 unlock</h3>
+          <p class="lede">An identical second rune page unlocks at level 140. Keep spare runes before hitting this level — you will want to fill the second page immediately.</p>
+        </div>
+        <div class="card">
+          <h3>Any quality works</h3>
+          <p class="lede">C, B, and S runes can all be enhanced. Dismantling an enhanced rune returns every enhancement material. Enhance what you have — do not wait for S runes to start.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Cursed state</h3>
+        <p class="lede" style="margin:0;">Certain rune skills apply a cursed debuff to targets. <strong>Cursed = increased critical damage taken.</strong> Some documented rune combinations apply cursed toxin for 3–4 seconds. Keep this in mind when evaluating offensive rune skill lines.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SKILLS -->
+    <section class="guide-section" id="skills">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Skill priority: <em>keep vs skip</em></h2>
+        <div class="section-tag">Rune skill evaluation</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Not all rune skill lines are worth keeping. The following is a practical filter — skills too minor to justify holding a rune slot versus the skills worth building around.</p>
+
+      <div class="skill-grid">
+        <div class="skill-col keep">
+          <div class="sc-header">
+            <div class="sc-icon">✓</div>
+            <h4>Keep these skills</h4>
+          </div>
+          <ul class="skill-list">
+            <li><strong>Orange and yellow tier skills</strong> — colour tier correlates with power; these are the primary targets.</li>
+            <li><strong>Cooldown runes</strong> — skill cooldown reduction is consistently valuable across all content.</li>
+            <li><strong>Giant Blessings</strong> — notable power gain.</li>
+            <li><strong>Braver with More Battle</strong> — combat performance skill worth retaining.</li>
+          </ul>
+        </div>
+        <div class="skill-col skip">
+          <div class="sc-header">
+            <div class="sc-icon">✕</div>
+            <h4>Skip these skills</h4>
+          </div>
+          <ul class="skill-list">
+            <li><strong>Movement Speed</strong> — too minor to affect outcomes.</li>
+            <li><strong>+Ranks to Skill</strong> — marginal and not worth a slot.</li>
+            <li><strong>Experienced: Hunting / Insight / Acuity</strong> — experience-type bonuses are low priority at this stage.</li>
+            <li><strong>Mini Clan</strong> — negligible impact.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Reforging note</strong>
+        If a rune has undesirable skills but good enhancement levels, you do not have to discard it. Skills can be reforged out and you will still recover the solvents used for enhancement after the reforge. Only recasting solvents are not returned on dismantle.
+      </div>
+    </section>
+
+    <!-- SECTION 3: SOLVENT ECONOMY -->
+    <section class="guide-section" id="economy">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Solvent economy: why solvents <em>beat 5-star purchases</em></h2>
+        <div class="section-tag">Abyss Energy allocation</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">The instinct is to spend Abyss Energy on 5-star (red) runes for the immediate rating boost. The math argues strongly against this. The solvent path to level 12 enhancement adds more rating per unit of energy spent than buying a red rune outright.</p>
+
+      <div class="solvent-math">
+        <div class="solvent-row bad">
+          <div class="sr-label">Buy 1 red rune with 10,000 Abyss Energy
+            <small>Immediate rating gain from a 5-star rune</small>
+          </div>
+          <span class="sr-val">~+30k rating</span>
+        </div>
+        <div class="solvent-row good">
+          <div class="sr-label">Spend 10,000 Abyss Energy on solvents instead
+            <small>~19,800 solvents — enough to take approximately 4 runes to level 12</small>
+          </div>
+          <span class="sr-val">4 × level 12 runes</span>
+        </div>
+      </div>
+
+      <div class="fact" style="margin-top:14px;">
+        <div class="num">4,820</div>
+        <div class="txt">
+          <strong>Solvents required per rune to reach level 12 enhancement</strong>
+          <span>At this cost, 19,800 solvents covers approximately 4 runes at level 12 — each contributing meaningfully to your rating, far outpacing the single red rune purchase.</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>What if you get a 5-star rune naturally?</h3>
+        <p class="lede">If you pull a 5-star rune through normal play rather than purchasing, keep it. If it has good skills, reforge the skills in and you will recover the enhancement solvents. If you later find a better rune to replace it, dismantle — all enhancement solvents return. Recasting solvents do not return on dismantle, so be more conservative about recasting lower-quality runes.</p>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Alternative: level 9 across five runes</h3>
+        <p class="lede">If full level 12 on three runes feels too concentrated, an alternative is to bring five runes to level 9. This spreads the solvent investment more evenly, gains more rating per level at that range, and ensures you hit more attribute thresholds across the set.</p>
+      </div>
+
+      <div class="skeptic" style="margin-top:14px;">
+        <span class="label">Do not appraise yet</span>
+        Appraisal is not the right move until you have S-rank runes with 3 skill lines and your recast master is ready. Appraising before that point wastes resources on a rune you will likely replace. The source is explicit on this: "we are not yet at the stage that we are ready to appraise yet."
+      </div>
+    </section>
+
+    <!-- SECTION 4: LUCKY RECAST -->
+    <section class="guide-section" id="lucky">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Lucky Recast <em>mechanic</em></h2>
+        <div class="section-tag">Credits: @Jisoo (S39), compiled by Ulam</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Lucky Recast is a pity mechanic built into the rune recast system. After a set number of recasts, it guarantees at least one S-rank attribute option in the next recast pull.</p>
+
+      <div class="card">
+        <ul class="lucky-steps">
+          <li>Recast your rune repeatedly. Each recast costs solvents (exact cost varies by rune tier — see Lucky Recast cost table in-game).</li>
+          <li>After <strong>375 recasts</strong>, Lucky Recast is triggered automatically on the next recast.</li>
+          <li>Lucky Recast presents 4 random bonus attributes. <strong>One of the 4 is guaranteed to be S rank.</strong></li>
+          <li>You may swap one of your existing bonus attributes with any of the 4 presented options — or decline to swap entirely.</li>
+          <li>Regardless of whether you choose to swap, Lucky Recast <strong>resets immediately after triggering.</strong> You need another 375 recasts to trigger it again.</li>
+        </ul>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Strategic implication</strong>
+        If you are close to the 375 threshold and have a high-value S rank attribute in your current set that you do not want to risk replacing, you can still trigger Lucky Recast and simply decline the swap. The guaranteed S rank option is a floor, not a forced outcome. The pity counter always resets after triggering regardless of your choice.
+      </div>
+    </section>
+
+    <!-- SECTION 5: ABYSS TIERS -->
+    <section class="guide-section" id="abyss">
+      <div class="section-head">
+        <div class="section-num">§ 05</div>
+        <h2 class="section-title">Abyss tier requirements <em>and rewards</em></h2>
+        <div class="section-tag">Rune Rating thresholds</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 18px;">Six Abyss difficulty tiers, each gated by a Rune Rating requirement. Rewards are run-count milestones within each tier — Abyss Tickets and Rune Enhancement Potions are the primary returns. Reward data is documented for Hell and Shura. Higher tiers confirmed with requirements only.</p>
+
+      <div class="abyss-tier-list">
+
+        <div class="abyss-tier tier-hell">
+          <div class="at-name"><span>Hell</span></div>
+          <div class="at-req"><span class="req-val">550k</span></div>
+          <div class="at-rewards">
+            <div class="reward-milestone"><strong>25 runs</strong> 500 Abyss Tickets</div>
+            <div class="reward-milestone"><strong>50 runs</strong> 1,500 Rune Enhancement Potions</div>
+            <div class="reward-milestone"><strong>80 runs</strong> 800 Abyss Tickets</div>
+            <div class="reward-milestone"><strong>120 runs</strong> 2,000 Rune Enhancement Potions</div>
+            <div class="reward-milestone"><strong>160 runs</strong> 5 Abyss Crystals</div>
+          </div>
+        </div>
+
+        <div class="abyss-tier tier-shura">
+          <div class="at-name"><span>Shura</span></div>
+          <div class="at-req"><span class="req-val">1.14m</span></div>
+          <div class="at-rewards">
+            <div class="reward-milestone"><strong>30 runs</strong> 800 Abyss Tickets</div>
+            <div class="reward-milestone"><strong>60 runs</strong> 2,500 Rune Enhancement Potions</div>
+            <div class="reward-milestone"><strong>90 runs</strong> 800 Abyss Tickets</div>
+            <div class="reward-milestone"><strong>120 runs</strong> 3,000 Rune Enhancement Potions</div>
+            <div class="reward-milestone"><strong>150 runs</strong> 1,000 Abyss Tickets</div>
+            <div class="reward-milestone"><strong>180 runs</strong> 5 Abyss Crystals</div>
+          </div>
+        </div>
+
+        <div class="abyss-tier tier-chaos">
+          <div class="at-name"><span>Chaos</span></div>
+          <div class="at-req"><span class="req-val">1.32m</span></div>
+          <div class="at-rewards"><span class="no-data">Reward milestones not documented for this tier.</span></div>
+        </div>
+
+        <div class="abyss-tier tier-despair">
+          <div class="at-name"><span>Despair</span></div>
+          <div class="at-req"><span class="req-val">1.45m</span></div>
+          <div class="at-rewards"><span class="no-data">Reward milestones not documented for this tier.</span></div>
+        </div>
+
+        <div class="abyss-tier tier-havoc">
+          <div class="at-name"><span>Havoc</span></div>
+          <div class="at-req"><span class="req-val">1.53m</span></div>
+          <div class="at-rewards"><span class="no-data">Reward milestones not documented for this tier.</span></div>
+        </div>
+
+        <div class="abyss-tier tier-epic">
+          <div class="at-name"><span>Epic</span></div>
+          <div class="at-req"><span class="req-val">1.68m</span></div>
+          <div class="at-rewards"><span class="no-data">Reward milestones not documented for this tier.</span></div>
+        </div>
+
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Reward data gaps</strong>
+        Only Hell and Shura reward milestones were documented in the source channel. If you have reached Chaos, Despair, Havoc, or Epic tier, the reward structure from those tiers is not currently recorded here. The rating requirements for all six tiers are confirmed as of October 2023.
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="build.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-06 · Build Fundamentals</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-08 · Monster Cards <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Recent dossiers</h5>
+          <ul>
+            <li><a href="build.html">D-06 · Build Fundamentals</a></li>
+            <li><a href="runes-abyss.html">D-07 · Runes and Abyss</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 07</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

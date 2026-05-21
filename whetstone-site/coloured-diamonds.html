@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Coloured Diamonds · Whetstone</title>
+<meta name="description" content="Dossier 04: What Coloured Diamonds are, how the pricing works, and which SGD tiers offer the best value per CD." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .rate-table { width: 100%; border-collapse: collapse; }
+  .rate-table thead th {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+    text-align: left; padding: 10px 16px;
+    border-bottom: 1px solid var(--line); background: var(--bg-2);
+  }
+  .rate-table thead th:not(:first-child) { text-align: right; }
+  .rate-table tbody td {
+    padding: 12px 16px; border-bottom: 1px solid var(--line-soft);
+    color: var(--ink); font-size: 14px;
+  }
+  .rate-table tbody td:not(:first-child) { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .rate-table tbody tr:last-child td { border-bottom: none; }
+  .rate-table tbody tr:hover td { background: rgba(232,158,61,0.03); }
+  .rate-table .cd { font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; color: var(--amber); }
+  .rate-table .best td { background: rgba(111,168,106,0.06); }
+  .rate-table .best td:first-child { border-left: 2px solid var(--green); }
+  .rate-table .good td { background: rgba(74,179,168,0.04); }
+  .rate-table .good td:first-child { border-left: 2px solid var(--teal); }
+  .value-tag {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 2px 6px; border: 1px solid currentColor; vertical-align: middle; margin-left: 6px;
+  }
+  .vt-best { color: var(--green); }
+  .vt-good { color: var(--teal); }
+
+  .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+
+  .concept-card { border: 1px solid var(--line); background: var(--surface); padding: 22px; }
+  .concept-card .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+    display: block; margin-bottom: 10px;
+  }
+  .concept-card h4 { font-family: 'Fraunces', serif; font-size: 20px; margin: 0 0 8px; color: var(--paper); }
+  .concept-card p { font-size: 14px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark">Whet<em>stone</em></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Coloured Diamonds</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEAD -->
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 04</div>
+      <h1>Coloured <em>Diamonds</em></h1>
+      <p class="deck">What CDs are, why they exist, the SGD pricing tiers, and which bundles offer the best value per diamond.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50) · Discord #how-to-use-coloured-dias</span>
+        <span><strong>Compiled</strong> Sep 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 2 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE BODY -->
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Coloured Diamonds are an alternate payment method for MapleStory R in-game packs. The core proposition is straightforward: buying CDs through the game's own CD system costs less than purchasing equivalent packs through the App Store. The base rate is fixed — one CD equals one US Dollar — but the actual price you pay depends on your local currency and which bundle tier you select.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      The pricing below was posted in September 2023 and reflects SGD rates at that time. Currency exchange rates and in-game pricing can change. Verify the current rates in-game before committing. The USD parity (1 CD = 1 USD) is the more stable reference point.
+    </div>
+
+    <!-- CONCEPT CARDS -->
+    <div class="concept-grid" style="margin: 28px 0;">
+      <div class="concept-card">
+        <span class="label">What are CDs</span>
+        <h4>Alternate purchase currency</h4>
+        <p>Coloured Diamonds let you buy in-game packs at a lower cost than paying through Apple or Google's App Store. The platform takes a cut on App Store purchases; CDs route around that cut.</p>
+      </div>
+      <div class="concept-card">
+        <span class="label">Base rate</span>
+        <h4>1 CD = 1 USD</h4>
+        <p>The universal reference point. Everything else — SGD tiers, regional pricing — derives from this. If you are budgeting in USD, the math is simple. SGD buyers get volume-dependent rates.</p>
+      </div>
+    </div>
+
+    <!-- RATE TABLE -->
+    <section class="guide-section">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">SGD pricing <em>tiers</em></h2>
+        <div class="section-tag">Value analysis</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 18px;">The per-CD rate in SGD is not linear — it does not simply improve with volume. The 10 CD bundle offers the best per-unit rate, followed by the 50 CD bundle. The 3 CD bundle is actually worse value per CD than buying a single CD.</p>
+
+      <div class="card" style="padding:0">
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>Bundle</th>
+              <th>SGD price</th>
+              <th>SGD per CD</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="cd">1</span> CD</td>
+              <td>$1.48</td>
+              <td>1.480</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><span class="cd">3</span> CD</td>
+              <td>$4.48</td>
+              <td>1.493</td>
+              <td style="color:var(--ember);font-size:12px;">Worse than buying 1</td>
+            </tr>
+            <tr>
+              <td><span class="cd">5</span> CD</td>
+              <td>$6.98</td>
+              <td>1.396</td>
+              <td></td>
+            </tr>
+            <tr class="best">
+              <td><span class="cd">10</span> CD</td>
+              <td>$12.98</td>
+              <td>1.298</td>
+              <td><span class="value-tag vt-best">Best value</span></td>
+            </tr>
+            <tr>
+              <td><span class="cd">15</span> CD</td>
+              <td>$20.98</td>
+              <td>1.399</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><span class="cd">20</span> CD</td>
+              <td>$28.98</td>
+              <td>1.449</td>
+              <td></td>
+            </tr>
+            <tr class="good">
+              <td><span class="cd">26</span> CD</td>
+              <td>$35.98</td>
+              <td>1.384</td>
+              <td><span class="value-tag vt-good">3rd best</span></td>
+            </tr>
+            <tr class="good">
+              <td><span class="cd">50</span> CD</td>
+              <td>$66.98</td>
+              <td>1.340</td>
+              <td><span class="value-tag vt-good">2nd best</span></td>
+            </tr>
+            <tr>
+              <td><span class="cd">100</span> CD</td>
+              <td>$139.98</td>
+              <td>1.400</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">Why the non-linear pricing</strong>
+        These are likely preset bundle tiers in the game's shop rather than simply different quantities of the same item. Each tier may include bonus items alongside the CDs, which would explain why the per-CD cost does not decrease monotonically with volume. Verify what each bundle contains before purchasing on value alone.
+      </div>
+    </section>
+
+    <!-- WHERE TO BUY -->
+    <section class="guide-section">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Where to <em>buy</em></h2>
+        <div class="section-tag">Purchase method</div>
+      </div>
+
+      <div class="card">
+        <p class="lede" style="margin:0">The original guide directs players to the <strong>#lobang</strong> channel in the Discord server for purchasing instructions. "Lobang" (Singlish for a good deal or insider tip) suggests the channel contains vendor sources or reseller options for buying CDs at favorable rates.</p>
+        <div class="caveat" style="margin-top:14px">
+          <strong class="lab">Not reproduced here</strong>
+          Specific vendor or reseller information is not included in this dossier. Those listings change frequently and need to be verified for legitimacy before any transaction. Check the source Discord directly for current purchasing options.
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT / PREV -->
+    <nav class="article-foot-nav">
+      <a class="prev" href="event-timeline.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-03 · Event Timeline</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-05 · Daily 600 Prestige <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Dossiers</h5>
+          <ul>
+            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
+            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
+            <li><a href="event-timeline.html">D-03 · Event Timeline</a></li>
+            <li><a href="coloured-diamonds.html">D-04 · Coloured Diamonds</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 04</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

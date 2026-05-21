@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Event Timeline · Whetstone</title>
+<meta name="description" content="Dossier 03: A full week-by-week log of cultivation events, server day unlocks, and shop additions for MapleStory R: Evolution." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* ---- TOC ---- */
+  .toc { border: 1px solid var(--line); background: var(--surface); padding: 24px; margin-bottom: 32px; }
+  .toc h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin: 0 0 14px; }
+  .toc ol { margin: 0; padding: 0 0 0 18px; }
+  .toc li { font-size: 14px; color: var(--ink-soft); margin: 6px 0; }
+  .toc a { color: var(--ink-soft); text-decoration: none; transition: color 0.15s; }
+  .toc a:hover { color: var(--amber); }
+
+  /* ---- EVENT TYPE PILLS ---- */
+  .etype {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .et-bp    { color: #e89e3d; }
+  .et-mc    { color: #4ab3a8; }
+  .et-wings { color: #8c6bb7; }
+  .et-stig  { color: #d24c2a; }
+  .et-orb   { color: #4ab3a8; }
+  .et-pet   { color: #6fa86a; }
+  .et-ml    { color: #d4b14a; }
+  .et-spirit{ color: #c7503f; }
+  .et-rune  { color: #a8a89c; }
+  .et-totem { color: #b97e30; }
+  .et-other { color: #6f7280; }
+
+  /* ---- TIMELINE TABLE ---- */
+  .timeline-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .timeline-table thead th {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--amber); text-align: left;
+    padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--bg-2);
+    position: sticky; top: 56px;
+  }
+  .timeline-table tbody td {
+    padding: 10px 12px; border-bottom: 1px solid var(--line-soft);
+    vertical-align: top; color: var(--ink);
+  }
+  .timeline-table tbody tr:last-child td { border-bottom: none; }
+  .timeline-table tbody tr:hover td { background: rgba(232,158,61,0.03); }
+  .timeline-table .wk {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-mute); white-space: nowrap;
+  }
+  .timeline-table .day {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--amber); white-space: nowrap;
+  }
+  .timeline-table .additions {
+    font-size: 12px; color: var(--ink-soft); margin-top: 6px; line-height: 1.55;
+  }
+  .timeline-table .additions li { margin: 2px 0; }
+
+  /* ---- MILESTONE CARDS ---- */
+  .milestone-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--line); }
+  .milestone-item {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 0; border-bottom: 1px solid var(--line-soft);
+    align-items: stretch;
+  }
+  .milestone-item:last-child { border-bottom: none; }
+  .milestone-day {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-2);
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 28px; color: var(--amber);
+    padding: 16px 12px;
+    border-right: 1px solid var(--line-soft);
+    text-align: center; line-height: 1;
+  }
+  .milestone-body { padding: 14px 16px; background: var(--surface); }
+  .milestone-body strong { display: block; color: var(--paper); font-size: 14px; margin-bottom: 4px; }
+  .milestone-body p { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  /* ---- PATTERN GRID ---- */
+  .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .pattern-grid { grid-template-columns: 1fr; } }
+  .pattern-card { border: 1px solid var(--line); background: var(--surface); padding: 18px; }
+  .pattern-card .cycle-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber); display: block; margin-bottom: 10px;
+  }
+  .pattern-card h4 { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 8px; color: var(--paper); }
+  .pattern-card p { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  /* ---- SCROLL WRAPPER for table ---- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark">Whet<em>stone</em></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Event Timeline</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEAD -->
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 03</div>
+      <h1>Event <em>Timeline</em></h1>
+      <p class="deck">A full week-by-week log of cultivation events, shop additions, and server day unlocks — from Week 1 through Week 37 (Day 253). Use this to plan which fragments to stockpile before the next event cycle.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam, EvilHelen · Discord #event-timeline</span>
+        <span><strong>Period</strong> Sep 2023 – Apr 2024</span>
+        <span><strong>Server days</strong> D1 – D253</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 8 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE BODY -->
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Cultivation events are the primary vehicle for earning ranking rewards and titles in MapleStory R. Each event asks you to invest specific fragments or materials to accumulate points; higher totals place you in better reward tiers. Knowing the rotation in advance lets you time your fragment spending rather than burning stockpiles between events.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      This timeline was logged on one server from Week 1. Later servers may follow the same rotation in the same order, or the rotation may shift. Treat weeks 1–10 as a reliable early-game reference and later weeks as indicative rather than guaranteed. Confirm the current event in-game before spending saved fragments.
+    </div>
+
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">01</span><span class="t">Events rotate through <strong>Soul Orb, Wings, Stigmata, Pet, Mental Link, Spirit</strong> — roughly every 7 weeks for each.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t"><strong>Red fragments</strong> score 10 points. <strong>Orange fragments</strong> score 5. Save reds for orb/soul weeks.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t">Not all fragments count. Each week specifies <strong>exactly which items</strong> score points.</span></div>
+      <div class="tldr-cell"><span class="n">04</span><span class="t"><strong>Day 65</strong> is a notable server milestone: special Abyss event unlocks.</span></div>
+      <div class="tldr-cell"><span class="n">05</span><span class="t"><strong>Day 99</strong> introduces Mental Link competition, Bumper Chess, and El Nath Training.</span></div>
+    </div>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#patterns">Event rotation patterns</a></li>
+        <li><a href="#milestones">Server day milestones</a></li>
+        <li><a href="#fulllog">Full week-by-week log</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: PATTERNS -->
+    <section class="guide-section" id="patterns">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Event rotation <em>patterns</em></h2>
+        <div class="section-tag">What to expect</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 18px;">After 37 weeks of data, a clear rotation emerges. The cycle is not rigid — special events and re-runs interrupt it — but the broad pattern holds. Understanding it lets you decide which fragments are safe to spend between events.</p>
+
+      <div class="pattern-grid">
+        <div class="pattern-card">
+          <span class="cycle-label">Appears every ~7 weeks</span>
+          <h4>Soul Orb</h4>
+          <p>Weeks 5, 10, 14, 18, 22, 26, 30, 34. Red fragments score 10 pts, Orange 5 pts. Specific orbs called out each time — only those count.</p>
+        </div>
+        <div class="pattern-card">
+          <span class="cycle-label">Appears every ~8 weeks</span>
+          <h4>Wings</h4>
+          <p>Weeks 3, 7, 11, 16, 24, 28, 32, 36. Each event names which wing tiers count. Later events specify Red (10pts), Gold/Yellow (3pts), Orange (5pts).</p>
+        </div>
+        <div class="pattern-card">
+          <span class="cycle-label">Appears every ~7 weeks</span>
+          <h4>Stigmata</h4>
+          <p>Weeks 4, 8, 12, 20. Specific stigmata named each time. Later events include Vampire Instinct, Prom Mask, Black/White Yaksha.</p>
+        </div>
+        <div class="pattern-card">
+          <span class="cycle-label">Appears every ~6 weeks</span>
+          <h4>Pet (EXR/UR)</h4>
+          <p>Weeks 6, 9, 13, 17, 21, 25, 29, 33, 37. Each cycle introduces a new EXR pet and adds the previous cycle's EXR to the Pet Banner and ANE Dust shop.</p>
+        </div>
+        <div class="pattern-card">
+          <span class="cycle-label">Introduced Week 15</span>
+          <h4>Mental Link</h4>
+          <p>Weeks 15, 19, 23, 28, 35. Each fragment gives 10 points. Introduced alongside Bumper Chess and El Nath Training at Day 99.</p>
+        </div>
+        <div class="pattern-card">
+          <span class="cycle-label">Introduced Week 27</span>
+          <h4>Spirit Training</h4>
+          <p>Weeks 27, 31, 35, 39. Only Red fragments count. Red Spirit gives 480 pts, Red fragment gives 12 pts. Later addition to the rotation.</p>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:18px">
+        <strong class="lab">Fragment timing advice</strong>
+        If you are holding a large stockpile of Soul Orb or Wings fragments, check the current event type first. Spending the week before your category's event wastes the points they would have scored. The event after your category just ended is the safest window to convert excess fragments.
+      </div>
+    </section>
+
+    <!-- SECTION 2: MILESTONES -->
+    <section class="guide-section" id="milestones">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Server day <em>milestones</em></h2>
+        <div class="section-tag">Permanent unlocks</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 18px;">These are additions that unlock at a specific server day and remain available afterward. Different from weekly events — these change the permanent shop and feature landscape.</p>
+
+      <div class="milestone-list">
+        <div class="milestone-item">
+          <div class="milestone-day">D65</div>
+          <div class="milestone-body">
+            <strong>Special Abyss Event</strong>
+            <p>One-time event tied to server reaching Day 65. The more Abyss runs you complete, the more rewards you earn. Noted as a notable milestone by both Elian and Ulam. Specific pack contents credited to @Haenjin.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D90</div>
+          <div class="milestone-body">
+            <strong>Crystal Totem Fragment added to Adventure Team Shop</strong>
+            <p>Also: 2nd last day of Pet Ranking Event. Crystal Totem Fragment Weekly Daily Pack introduced.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D94</div>
+          <div class="milestone-body">
+            <strong>Arkarium added to Red Gem Shop</strong>
+            <p>Ephenia and Netherworld Monk Fragments added to Auctions. Riding Mount introduced. Secret of Riding Pet Cultivation Pack available in Diamond Shop (weekly 3×, 15 CD each).</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D96</div>
+          <div class="milestone-body">
+            <strong>Ephenia Fragments (×10) added to Blue Diamond Shop</strong>
+            <p>Important F2P milestone for players building Ephenia without spending Red Gems.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D99</div>
+          <div class="milestone-body">
+            <strong>Mental Link Cultivation Competition introduced</strong>
+            <p>Also introduces Bumper Chess and El Nath Training game modes. Major content expansion that adds a new cultivation category to the rotation.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D102</div>
+          <div class="milestone-body">
+            <strong>Earliest possible Mental Link Auto Skill III unlock</strong>
+            <p>Requires Snow Field Common Soldier IV rank and every Frigid Snow Bones available up to that point. Not achievable before D102 regardless of investment.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D106</div>
+          <div class="milestone-body">
+            <strong>Exoskeleton Wing Fragment added to Duel Arena Shop</strong>
+            <p>Ghost Pirate Viking added to More Wish feature. Ethereal Branch of Flowering Leaf Fragment added to Body ANE shop and general Shop.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D113</div>
+          <div class="milestone-body">
+            <strong>EXR Buffoon added to Pet Banner and Body ANE Dust shop</strong>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D120</div>
+          <div class="milestone-body">
+            <strong>Ephenia Orb added to Tower of Origins shop</strong>
+            <p>Notable for F2P players farming TOO currency — Ephenia becomes directly purchasable.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D134</div>
+          <div class="milestone-body">
+            <strong>Vampire Stigmata added to Dust shop</strong>
+            <p>Prom Mask Stigmata added to Arena shop. Pink Doodle Wings added to Arena shop.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D148</div>
+          <div class="milestone-body">
+            <strong>Von Leon (Red) Soul Orb introduced</strong>
+            <p>Administrator Rousseau (Orange) introduced. Arkarium added to Red Gem Shop and ANE dust Exchange.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D191</div>
+          <div class="milestone-body">
+            <strong>Calls from Abyss 10 introduced</strong>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D204</div>
+          <div class="milestone-body">
+            <strong>Cygnus Orb (Rainbow tier) introduced</strong>
+            <p>Holy Land Beast added to Origin shop. Von Leon added to ANE dust Exchange. Rainbow is a new tier above Red for soul orbs.</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-day">D253</div>
+          <div class="milestone-body">
+            <strong>MR tier pet introduced (Crocky the Gatekeeper)</strong>
+            <p>MR is a new pet tier above EXR. Events now count MR, EXR, and UR pets/fragments. EXR Birk added to Pet Banner and ANE dust Exchange.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FULL LOG -->
+    <section class="guide-section" id="fulllog">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Full week-by-week <em>log</em></h2>
+        <div class="section-tag">W1–W37 · D1–D253</div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+        <span class="etype et-bp">BP Ranking</span>
+        <span class="etype et-mc">Monster Card</span>
+        <span class="etype et-wings">Wings</span>
+        <span class="etype et-stig">Stigmata</span>
+        <span class="etype et-orb">Soul Orb</span>
+        <span class="etype et-pet">Pet</span>
+        <span class="etype et-ml">Mental Link</span>
+        <span class="etype et-spirit">Spirit</span>
+        <span class="etype et-totem">Totem</span>
+        <span class="etype et-other">Other</span>
+      </div>
+
+      <div class="table-scroll">
+        <table class="timeline-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Day</th>
+              <th>Main Event (7D)</th>
+              <th>Notes and additions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="wk">W1</td><td class="day">D1</td>
+              <td><span class="etype et-bp">BP Ranking</span></td>
+              <td><div class="additions">Pet cultivation ranking (2D), Star force enhancement ranking (2D), Homeland cultivation. Titles awarded for each.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W2</td><td class="day">D8</td>
+              <td><span class="etype et-mc">Monster Card</span></td>
+              <td><div class="additions">Totem cultivation event (2D alongside MC week).</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W3</td><td class="day">D15</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Cyborg Wings cultivation. Rune event (2D alongside wings week).</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W4</td><td class="day">D22</td>
+              <td><span class="etype et-stig">Stigmata</span></td>
+              <td><div class="additions">Yaksha Stigmata featured.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W5</td><td class="day">D29</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Ephenia Soul Orb featured. Summer Event — one-off cross-server festive event running concurrently.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W6</td><td class="day">D36</td>
+              <td><span class="etype et-pet">Pet (UR)</span></td>
+              <td><div class="additions">Viking featured. Gem event cultivation ranking (2D). Gem event runs alongside pet week.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W7</td><td class="day">D43</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Orange and Exo Wings only counted. Rune event (2D) runs alongside wings week.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W8</td><td class="day">D50</td>
+              <td><span class="etype et-stig">Stigmata</span></td>
+              <td><div class="additions">Black Yaksha, White Yaksha, and Prom Mask only counted.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W9</td><td class="day">D57</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Soul Teddy featured. EXR pets, fragments, UR pets, and UR fragments all count.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W10</td><td class="day">D65</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Balrog and Ephenia only. <strong>Day 65 milestone:</strong> Special Abyss Event — more runs = more rewards.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W11</td><td class="day">D72</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Ethereal Wings main event. Timer pack includes Green Blessing or Exo Wings (selectable). Only green blessing, ethereal wing, and exo count for ranking.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W12</td><td class="day">D79</td>
+              <td><span class="etype et-stig">Stigmata</span></td>
+              <td><div class="additions">Vampire Instinct main. Timer pack: Prom Mask or White Yaksha (selectable). Black Yaksha, White Yaksha, Prom Mask, and Vampire Instinct fragments count.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W12+</td><td class="day">D86</td>
+              <td><span class="etype et-other">Pop-up Event</span></td>
+              <td><div class="additions">Dorothy event. Rewards include Orange Wings, Orange Stigmata, Ephenia Soul Orbs. Advice: aim for devour value items. Avoid moonstones/reds/wands/yellow wings from this selection — everything else has better value. Orange pet frags not recommended at this stage.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W13</td><td class="day">D86</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Gatekeeper featured. <strong>D90:</strong> EXR Soul Teddy added to Pet Banner Selector. White Yaksha Fragment added to Arena Coins Shop. Crystal Totem Fragment added to Adventure Team Shop. Weekly Crystal Totem Fragment Daily Pack introduced.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W14</td><td class="day">D93</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Arkarium (Red, 10pts), Netherworld Monk (Orange, 5pts). Riding Mount introduced. Ephenia added to Red Gem Shop. Ephenia and Netherworld Monk Fragments in Auctions. <strong>D96:</strong> Ephenia Fragments (×10) in Blue Diamond Shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W15</td><td class="day">D99</td>
+              <td><span class="etype et-ml">Mental Link</span></td>
+              <td><div class="additions">Each fragment = 10 points. <strong>New features:</strong> Bumper Chess and El Nath Training introduced. <strong>D102:</strong> Earliest Mental Link Auto Skill III unlock (requires Snow Field Common Soldier IV rank).</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W16</td><td class="day">D106</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Thorns Coronation event item. Golden/Yellow wing frags = 3pts, Orange = 5pts. Ethereal Branch of Flowering Leaf Fragment added to Body ANE and Shop. Ghost Pirate Viking added to More Wish. Exoskeleton Wing Fragment added to Duel Arena Shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W17</td><td class="day">D113</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Cornian featured. EXR Buffoon added to Pet Banner and Body ANE Dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W18</td><td class="day">D120</td>
+              <td><span class="etype et-orb">Soul Orb (re-run)</span></td>
+              <td><div class="additions">Monk, Ephenia, and Arkarium fragments count. <strong>Ephenia Orb added to Tower of Origins shop.</strong></div></td>
+            </tr>
+            <tr>
+              <td class="wk">W19</td><td class="day">D127</td>
+              <td><span class="etype et-ml">Mental Link</span></td>
+              <td><div class="additions">Same rules as W15. Riding Pets Cultivation Ranking introduced — takes current riding pet rating.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W20</td><td class="day">D134</td>
+              <td><span class="etype et-stig">Stigmata</span></td>
+              <td><div class="additions">Orange frags = 5pts. Vampire Stigmata added to Dust shop. Prom Mask added to Arena shop. Pink Doodle Wings added to Arena shop. <strong>D135:</strong> Monster Card Exhibition Event (obtain monster crystals for points).</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W21</td><td class="day">D141</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Hobogoblin featured. EXR Cornian added to Pet Banner and Body ANE Dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W22</td><td class="day">D148</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Von Leon (Red, 10pts), Administrator Rousseau (Orange, 5pts). Arkarium added to Red Gem Shop and ANE dust Exchange. Arkarium and Administrator Rousseau Fragments in Auctions.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W23</td><td class="day">D155</td>
+              <td><span class="etype et-ml">Mental Link</span></td>
+              <td><div class="additions">Mental Link (soul) fragments added to ANE dust exchange.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W24</td><td class="day">D162</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Utopia's Fallen Wing event item. Only Cyber Exoskeleton wing fragment counts for Yellow (3pts). Orange = 5pts. Thorns Coronation Fragment added to Body ANE shop and Shop. Green Blessing Wing Fragment added to Duel Arena Shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W25</td><td class="day">D169</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Blue Dragon Turtle featured. EXR Hobogoblin added to Pet Banner and Body ANE Dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W26</td><td class="day">D176</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Von Leon (Red), Administrator Rousseau (Orange). Arkarium added to Origin shop. <strong>D177:</strong> Totem Exhibition Event.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W27</td><td class="day">D183</td>
+              <td><span class="etype et-spirit">Spirit Training</span></td>
+              <td><div class="additions">First Spirit Training event. Only Red fragments count. Red Spirit = 480pts, Red fragment = 12pts.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W28</td><td class="day">D190</td>
+              <td><span class="etype et-ml">Mental Link</span></td>
+              <td><div class="additions">Utopia's Fallen Wing Fragment and Stamen's Mirror Fragment added to ANE dust Exchange. Ethereal Branch of Flowering Leaf Fragment added to Duel Arena Shop. <strong>D191:</strong> Calls from Abyss 10 introduced.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W29</td><td class="day">D197</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Red Kentaurus featured. EXR Blue Dragon Turtle added to Pet Banner and Body ANE Dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W30</td><td class="day">D204</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Cygnus Orb (Rainbow, 20pts), Administrator Rousseau (Orange, 5pts). Holy Land Beast fragments = 5pts (other orange orbs do not count). Von Leon added to ANE dust Exchange. Holy Land Beast added to Origin shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W31</td><td class="day">D211</td>
+              <td><span class="etype et-spirit">Spirit Training</span></td>
+              <td><div class="additions">Same as W27 rules.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W32</td><td class="day">D218</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Dream Breaker's Blade event item. Red frags = 10pts, Yellow/Gold = 3pts (Cyber Exoskeleton only), Orange = 5pts.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W33</td><td class="day">D225</td>
+              <td><span class="etype et-pet">Pet (EXR)</span></td>
+              <td><div class="additions">Nutty Sheep featured. EXR Red Kentasaurus added to Pet Banner and Body ANE Dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W34</td><td class="day">D232</td>
+              <td><span class="etype et-orb">Soul Orb</span></td>
+              <td><div class="additions">Cygnus Orb (Rainbow), Administrator Rousseau (Orange). <strong>D233:</strong> Monster Card Exhibition Event.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W35</td><td class="day">D239</td>
+              <td><span class="etype et-spirit">Spirit Training</span></td>
+              <td><div class="additions">Mental Link Heart fragments added to ANE dust shop.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W36</td><td class="day">D246</td>
+              <td><span class="etype et-wings">Wings</span></td>
+              <td><div class="additions">Dream Breaker's Blade event item (repeat). Same point rules as W32. Dream Breaker's Blade Fragments added to ANE dust shop. <strong>D249:</strong> Totem Exhibition Event.</div></td>
+            </tr>
+            <tr>
+              <td class="wk">W37</td><td class="day">D253</td>
+              <td><span class="etype et-pet">Pet (MR)</span></td>
+              <td><div class="additions">Crocky the Gatekeeper featured. <strong>New tier: MR.</strong> MR, EXR, and UR pets and fragments all count. EXR Birk added to Pet Banner and ANE dust Exchange.</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- NEXT / PREV -->
+    <nav class="article-foot-nav">
+      <a class="prev" href="faqs-dailies.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-02 · FAQs and Dailies</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-04 · Seasonal Counter Index <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Dossiers</h5>
+          <ul>
+            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
+            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
+            <li><a href="event-timeline.html">D-03 · Event Timeline</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 03</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

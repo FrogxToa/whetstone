@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Daily 600 Prestige · Whetstone</title>
+<meta name="description" content="Dossier 05: How to hit 600 prestige for 9 CD, monthly essential purchases for mid-spenders, and legendary level benefit planning." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .pack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (max-width: 640px) { .pack-grid { grid-template-columns: 1fr; } }
+  .pack-cell { background: var(--surface); padding: 24px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .pack-cell .pack-name { font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); line-height: 1.2; }
+  .pack-cell .pack-cost { font-family: 'JetBrains Mono', monospace; font-size: 28px; color: var(--amber); line-height: 1; }
+  .pack-cell .pack-cost span { font-size: 13px; color: var(--ink-mute); margin-left: 4px; }
+  .pack-cell .pack-detail { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+  .total-bar {
+    border: 1px solid var(--amber);
+    background: linear-gradient(90deg, rgba(232,158,61,0.12), rgba(232,158,61,0.02));
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 1px;
+  }
+  .total-bar .total-item { display: flex; flex-direction: column; gap: 4px; }
+  .total-bar .total-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); }
+  .total-bar .total-value { font-family: 'Fraunces', serif; font-style: italic; font-size: 40px; color: var(--paper); line-height: 1; }
+  .total-bar .total-value span { font-size: 16px; color: var(--ink-soft); font-style: normal; margin-left: 4px; }
+
+  .essential-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .essential-grid { grid-template-columns: 1fr; } }
+  .essential-card { border: 1px solid var(--line); background: var(--surface); padding: 22px; }
+  .essential-card .ename { font-family: 'Fraunces', serif; font-size: 20px; margin: 0 0 6px; color: var(--paper); }
+  .essential-card .ecost { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); letter-spacing: 0.05em; margin-bottom: 12px; display: block; }
+  .essential-card p { font-size: 13px; color: var(--ink-soft); margin: 0 0 6px; line-height: 1.55; }
+  .essential-card p:last-child { margin-bottom: 0; }
+  .essential-card .highlight { color: var(--green); font-weight: 600; }
+
+  .legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .legend-grid { grid-template-columns: 1fr; } }
+  .legend-tier { border: 1px solid var(--line); background: var(--surface); padding: 24px; }
+  .legend-tier .tier-level { font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; color: var(--amber); line-height: 1; margin-bottom: 8px; }
+  .legend-tier .tier-cost { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; display: block; }
+  .legend-tier h4 { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 8px; color: var(--paper); }
+  .legend-tier ul { margin: 0; padding: 0 0 0 16px; }
+  .legend-tier li { font-size: 14px; color: var(--ink-soft); margin: 4px 0; }
+
+  .toc { border: 1px solid var(--line); background: var(--surface); padding: 22px; margin-bottom: 28px; }
+  .toc h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin: 0 0 12px; }
+  .toc ol { margin: 0; padding: 0 0 0 18px; }
+  .toc li { font-size: 14px; color: var(--ink-soft); margin: 5px 0; }
+  .toc a { color: var(--ink-soft); text-decoration: none; }
+  .toc a:hover { color: var(--amber); }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark">Whet<em>stone</em></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Daily 600 Prestige</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEAD -->
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 05</div>
+      <h1>Daily 600 <em>Prestige</em></h1>
+      <p class="deck">How to hit 600 prestige for exactly 9 CD, which monthly packs a mid-spender should prioritize, and how to think about the legendary level benefits.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50) · Discord #daily-600-prestige</span>
+        <span><strong>Compiled</strong> Sep 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 4 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE BODY -->
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Prestige points are earned by spending Coloured Diamonds on in-game packs. There is a daily target of 600 prestige that is worth hitting efficiently — the question is which combination of packs gets you there at the lowest CD cost. The answer is a specific three-pack combination totalling 9 CD. Beyond the daily target, this dossier also covers the monthly packs a mid-spender should consider and the blue diamond sinks that unlock at the legendary levels.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      All prices and pack contents are from September 2023. Pack availability, CD costs, and prestige values may have changed in subsequent updates. Verify current in-game values before spending.
+    </div>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#prestige">Hitting 600 prestige for 9 CD</a></li>
+        <li><a href="#essentials">Mid-spender monthly essentials</a></li>
+        <li><a href="#legendary">Legendary level benefits</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: 600 PRESTIGE -->
+    <section class="guide-section" id="prestige">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Hitting 600 prestige <em>for 9 CD</em></h2>
+        <div class="section-tag">Daily allocation</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 20px;">Three packs combine to hit exactly 600 prestige at a total cost of 9 CD. Each pack contributes differently — the Timer Maintenance Pack carries the most weight at 5 CD.</p>
+
+      <div class="pack-grid">
+        <div class="pack-cell">
+          <div class="pack-name">Timer Maintenance Pack</div>
+          <div class="pack-cost">5 <span>CD</span></div>
+          <div class="pack-detail">The primary pack. Highest individual CD cost but largest prestige contribution. Includes maintenance tickets as part of the daily allocation.</div>
+        </div>
+        <div class="pack-cell">
+          <div class="pack-name">Maintenance Weekly Pack</div>
+          <div class="pack-cost">3 <span>CD</span></div>
+          <div class="pack-detail">Secondary pack. Pairs with the Timer pack to bulk out the maintenance ticket total.</div>
+        </div>
+        <div class="pack-cell">
+          <div class="pack-name">Daily Supply Shop</div>
+          <div class="pack-cost">1 <span>CD</span></div>
+          <div class="pack-detail">Smallest cost, rounds out the 600 prestige target and contributes to the total ticket count.</div>
+        </div>
+      </div>
+
+      <div class="total-bar">
+        <div class="total-item">
+          <span class="total-label">Total CD cost</span>
+          <div class="total-value">9 <span>CD / day</span></div>
+        </div>
+        <div class="total-item">
+          <span class="total-label">Maintenance tickets earned</span>
+          <div class="total-value">31 <span>tickets</span></div>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top: 14px;">
+        <strong class="lab">What prestige is used for</strong>
+        The original post notes this as a "daily 600 prestige" target without specifying the prestige reward structure in detail. Prestige is accumulated from CD spending and likely feeds into a separate prestige ranking or milestone reward track. Check the current in-game prestige panel to confirm what hitting 600/day unlocks.
+      </div>
+    </section>
+
+    <!-- SECTION 2: MID-SPENDER ESSENTIALS -->
+    <section class="guide-section" id="essentials">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Mid-spender monthly <em>essentials</em></h2>
+        <div class="section-tag">Best value CD purchases</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 20px;">For a player who spends moderately — not P2W by any strict definition, but willing to invest in the highest-leverage recurring packs — these are the purchases with the strongest return relative to their CD cost.</p>
+
+      <div class="essential-grid">
+        <div class="essential-card">
+          <div class="ename">Monthly Passes</div>
+          <span class="ecost">~20 CD total · (6.98 + 20.98 SGD for both tiers)</span>
+          <p>Two-tier system. Grants <span class="highlight">1 wish and 500 reds per day</span> across the month.</p>
+          <p>Blessings stack up to 450 points every 30 days. The more you stack, the more UR fragments you can redeem. Do not skip days — the stacking value compounds.</p>
+        </div>
+        <div class="essential-card">
+          <div class="ename">Monthly Licence</div>
+          <span class="ecost">20 CD</span>
+          <p>The headline reward comes at <span class="highlight">day 28: 270 UR Fragment Selector + dust + reds</span>. That single day-28 claim is the reason this is considered non-negotiable for mid-spenders.</p>
+          <p>You do not need to purchase it immediately. Claims can be collected on the last day — plan the purchase timing around your prestige accumulation cycle.</p>
+        </div>
+        <div class="essential-card">
+          <div class="ename">Growth Fund 1</div>
+          <span class="ecost">20 CD</span>
+          <p>One of two growth funds available. Combined value across both funds: <span class="highlight">26,500 Blue Diamonds</span>. Strong long-term value relative to the CD cost.</p>
+          <p>Like the licence, purchase timing can be deferred. Plan both growth funds together with your prestige cycle.</p>
+        </div>
+        <div class="essential-card">
+          <div class="ename">Growth Fund 2</div>
+          <span class="ecost">20 CD</span>
+          <p>The second growth fund. Same mechanic as Fund 1. Buy both for the full 26,500 Blue Diamond value.</p>
+          <p>If budget is constrained, prioritize the Monthly Licence first (day-28 reward is time-sensitive within the licence period), then both growth funds.</p>
+        </div>
+      </div>
+
+      <div class="fact" style="margin-top: 14px;">
+        <div class="num">80</div>
+        <div class="txt">
+          <strong>Total CD for the full mid-spender stack</strong>
+          <span>Monthly Passes (20) + Monthly Licence (20) + Growth Fund 1 (20) + Growth Fund 2 (20) = 80 CD per month. At 1 CD = 1 USD, this is roughly $80 USD per month for the recommended recurring stack.</span>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top: 14px;">
+        <strong class="lab">Timing note</strong>
+        None of these need to be purchased on day one of the month. The key exception is the Monthly Licence — its day-28 reward is gated by how many days into the licence you are, so purchasing it late in a calendar period means waiting longer for the day-28 claim. Plan accordingly.
+      </div>
+    </section>
+
+    <!-- SECTION 3: LEGENDARY LEVELS -->
+    <section class="guide-section" id="legendary">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Legendary level <em>benefits</em></h2>
+        <div class="section-tag">Blue Diamond sink</div>
+      </div>
+
+      <p style="color:var(--ink-soft); margin: 0 0 20px;">Two legendary level thresholds unlock UR pet selectors. Both are priced in Blue Diamonds rather than CDs — making them the largest Blue Diamond expenditure most players will encounter. The mechanic effectively asks you to convert Blue Diamonds into UR pets with reds as an additional return.</p>
+
+      <div class="legend-grid">
+        <div class="legend-tier">
+          <div class="tier-level">155</div>
+          <span class="tier-cost">8,888 Blue Diamonds</span>
+          <h4>UR Pet Selector</h4>
+          <ul>
+            <li>Seruf</li>
+            <li>Cellion</li>
+          </ul>
+        </div>
+        <div class="legend-tier">
+          <div class="tier-level">168</div>
+          <span class="tier-cost">8,888 Blue Diamonds</span>
+          <h4>UR Pet Selector (expanded)</h4>
+          <ul>
+            <li>Seruf</li>
+            <li>Flying Fish</li>
+            <li>Cellion</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 14px;">
+        <h3>Should you buy?</h3>
+        <p class="lede">The source's framing is direct: "if you need the UR it's really good." The mechanic converts Blue Diamonds — which you accumulate passively over time — into a UR pet plus reds and additional benefits. If the selector includes a UR you are actively building toward, the value is strong. If you are already covered on the available pets, the value drops considerably.</p>
+        <ol class="steps">
+          <li>Identify which UR pets you currently need or are working toward.</li>
+          <li>Check whether that pet appears in the level 155 or level 168 selector.</li>
+          <li>Accumulate Blue Diamonds toward 8,888 before the unlock — do not panic-spend blues on other items if one of these selectors is on your roadmap.</li>
+          <li>At level 168, the selector expands to include Flying Fish. If Flying Fish is your target, wait for level 168 before spending.</li>
+        </ol>
+      </div>
+
+      <div class="caveat" style="margin-top: 14px;">
+        <strong class="lab">Blue Diamond planning</strong>
+        8,888 Blue Diamonds is a substantial sink relative to the F2P income of roughly 136–200 Blue Diamonds per month (see the FAQs and Dailies dossier). At that rate, accumulating for one selector takes 44–65 months without spending. This is realistically a P2W or long-term milestone feature for F2P players.
+      </div>
+    </section>
+
+    <!-- NEXT / PREV -->
+    <nav class="article-foot-nav">
+      <a class="prev" href="coloured-diamonds.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-04 · Coloured Diamonds</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-06 · Build <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Dossiers</h5>
+          <ul>
+            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
+            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
+            <li><a href="event-timeline.html">D-03 · Event Timeline</a></li>
+            <li><a href="coloured-diamonds.html">D-04 · Coloured Diamonds</a></li>
+            <li><a href="daily-600-prestige.html">D-05 · Daily 600 Prestige</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 05</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Build Fundamentals · Whetstone</title>
+<meta name="description" content="Dossier 06: Why hit rate beats raw ATK in Dojo, monster card distribution, and a full rage mechanics reference for pets, wings, and stigmata." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .toc { border:1px solid var(--line); background:var(--surface); padding:22px; margin-bottom:28px; }
+  .toc h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber); margin:0 0 12px; }
+  .toc ol { margin:0; padding:0 0 0 18px; }
+  .toc li { font-size:14px; color:var(--ink-soft); margin:5px 0; }
+  .toc a { color:var(--ink-soft); text-decoration:none; }
+  .toc a:hover { color:var(--amber); }
+
+  /* Case study comparison */
+  .case-study { display:grid; grid-template-columns:1fr auto 1fr; gap:0; border:1px solid var(--line); align-items:stretch; }
+  @media (max-width:640px) { .case-study { grid-template-columns:1fr; } }
+  .case-col { padding:24px 22px; background:var(--surface); }
+  .case-col.before { background:linear-gradient(180deg,rgba(199,80,63,0.07),var(--surface) 60%); border-right:1px solid var(--line); }
+  .case-col.after  { background:linear-gradient(180deg,rgba(111,168,106,0.07),var(--surface) 60%); border-left:1px solid var(--line); }
+  .case-divider { display:flex; align-items:center; justify-content:center; padding:0 16px; background:var(--bg-2); border-left:1px solid var(--line); border-right:1px solid var(--line); }
+  .case-divider span { font-family:'Fraunces',serif; font-style:italic; font-size:28px; color:var(--amber); }
+  .case-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:14px; display:block; }
+  .case-col.before .case-label { color:var(--ember); }
+  .case-col.after  .case-label { color:var(--green); }
+  .case-stat { display:flex; flex-direction:column; gap:3px; margin-bottom:14px; }
+  .case-stat .sname { font-size:12px; color:var(--ink-mute); }
+  .case-stat .sval { font-family:'Fraunces',serif; font-size:26px; color:var(--paper); line-height:1; }
+  .case-stat .sval.positive { color:var(--green); }
+  .case-stat .sval.negative { color:var(--ember); }
+  @media (max-width:640px) { .case-col.before { border-right:none; border-bottom:1px solid var(--line); } .case-divider { padding:14px 22px; } .case-col.after { border-left:none; border-top:1px solid var(--line); } }
+
+  /* Monster card display */
+  .card-build { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px) { .card-build { grid-template-columns:1fr; } }
+  .card-variant { border:1px solid var(--line); background:var(--surface); padding:20px; }
+  .card-variant .vname { font-family:'Fraunces',serif; font-size:18px; margin:0 0 14px; color:var(--paper); }
+  .stat-bars { display:flex; flex-direction:column; gap:8px; }
+  .stat-bar-row { display:grid; grid-template-columns:60px 1fr 36px; gap:8px; align-items:center; font-size:12px; }
+  .stat-bar-row .sn { color:var(--ink-mute); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; }
+  .stat-bar-row .sb { height:8px; background:var(--line); position:relative; }
+  .stat-bar-row .sb span { display:block; height:100%; }
+  .stat-bar-row .sv { color:var(--ink-soft); font-family:'JetBrains Mono',monospace; font-size:11px; text-align:right; }
+  .bar-atk { background: var(--amber); }
+  .bar-guard { background: var(--teal); }
+  .bar-def { background: var(--violet); }
+
+  /* Rage tables */
+  .rage-section { margin-bottom:28px; }
+  .rage-header { display:flex; align-items:center; gap:14px; padding:14px 16px; border-bottom:1px solid var(--line); }
+  .rage-header .rh-sign { font-family:'Fraunces',serif; font-style:italic; font-size:36px; line-height:1; }
+  .rage-header.self-add .rh-sign { color:var(--green); }
+  .rage-header.self-reduce .rh-sign { color:var(--teal); }
+  .rage-header.enemy-reduce .rh-sign { color:var(--ember); }
+  .rage-header .rh-text { }
+  .rage-header .rh-text strong { display:block; font-size:15px; color:var(--paper); }
+  .rage-header .rh-text span { font-size:12px; color:var(--ink-mute); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; }
+  .rage-row { display:grid; grid-template-columns:auto 1fr auto auto; gap:14px; align-items:center; padding:11px 16px; border-bottom:1px solid var(--line-soft); font-size:13px; }
+  .rage-row:last-child { border-bottom:none; }
+  .rage-row .rtype { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; padding:2px 7px; border:1px solid var(--line); color:var(--ink-mute); white-space:nowrap; }
+  .rage-row .rtype.pet { color:var(--green); border-color:rgba(111,168,106,0.4); }
+  .rage-row .rtype.wings { color:var(--violet); border-color:rgba(140,107,183,0.4); }
+  .rage-row .rtype.stig { color:var(--ember); border-color:rgba(210,76,42,0.4); }
+  .rage-row .rname { color:var(--ink); }
+  .rage-row .rthreshold { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-mute); white-space:nowrap; }
+  .rage-row .rval { font-family:'Fraunces',serif; font-style:italic; font-size:22px; line-height:1; white-space:nowrap; min-width:48px; text-align:right; }
+  .rval.pos { color:var(--green); }
+  .rval.neg { color:var(--ember); }
+  .rval.neutral { color:var(--teal); }
+
+  .max-badge { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--line); background:var(--bg-2); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px; }
+  .max-badge strong { color:var(--amber); }
+
+  .pet-lineup { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pet-pill { background:var(--surface); border:1px solid var(--line); padding:6px 12px; font-size:13px; color:var(--ink); border-radius:0; }
+</style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a>
+      <div class="nav-links">
+        <a href="index.html">Index</a>
+        <a href="index.html#catalog" class="active">Guides</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap wrap-narrow">
+    <div class="breadcrumb">
+      <a href="index.html">Whetstone</a><span class="sep">/</span>
+      <a href="index.html#catalog">Guides</a><span class="sep">/</span>
+      <span>Build Fundamentals</span>
+    </div>
+  </div>
+
+  <header class="article-head">
+    <div class="wrap wrap-narrow">
+      <div class="dossier">Dossier No. 06</div>
+      <h1>Build <em>Fundamentals</em></h1>
+      <p class="deck">Why hit rate outperforms raw ATK in Dojo, how to distribute monster cards, and a complete reference for rage mechanics across all pets, wings, and stigmata.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #build</span>
+        <span><strong>Rage credits</strong> @boom</span>
+        <span><strong>Compiled</strong> Sep–Oct 2023</span>
+        <span><strong>Filed</strong> 2026</span>
+        <span><strong>Read</strong> 6 min</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="wrap wrap-narrow article-body">
+
+    <p>Two questions come up constantly in build discussions: how to distribute monster cards, and which equipment affects rage. This dossier answers both with empirical data. The hit rate case study is a real before/after test run by a Top-50 player — the same pets, different card distributions, 20 more dojo floors cleared. The rage reference covers every known source of initial rage and rage gain across pets, wings, and stigmata.</p>
+
+    <div class="skeptic">
+      <span class="label">Caveat before you read</span>
+      The case study reflects one player's build in September 2023. The rage reference table was compiled as of October 2023 and noted as including "upcoming" items at that time. Verify enhancement thresholds and rage values in your current client — these can shift with balance patches.
+    </div>
+
+    <div class="toc">
+      <h4>Contents</h4>
+      <ol>
+        <li><a href="#hitrate">Hit rate vs ATK: the case study</a></li>
+        <li><a href="#cards">Monster card distribution</a></li>
+        <li><a href="#rage">Rage mechanics reference</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1: HIT RATE -->
+    <section class="guide-section" id="hitrate">
+      <div class="section-head">
+        <div class="section-num">§ 01</div>
+        <h2 class="section-title">Hit rate vs ATK: <em>the case study</em></h2>
+        <div class="section-tag">Empirical · Dojo</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 20px;">The conventional instinct is to stack ATK. The data below challenges that. By redistributing monster cards to favour hit rate over ATK, a Top-50 player cleared 20 additional Dojo floors — at the cost of 30,000 raw ATK. The same pets were used throughout, so the variable is exclusively the card distribution.</p>
+
+      <div class="case-study">
+        <div class="case-col before">
+          <span class="case-label">Before adjustment</span>
+          <div class="case-stat">
+            <span class="sname">Monster cards</span>
+            <span class="sval">25 / 20 / 10</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Distribution</span>
+            <span class="sval" style="font-size:16px;color:var(--ink-soft);">ATK-heavy / Guard / Def</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Hit rate</span>
+            <span class="sval negative">178.5%</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Dojo cleared to</span>
+            <span class="sval negative">Floor 483</span>
+          </div>
+        </div>
+        <div class="case-divider"><span>→</span></div>
+        <div class="case-col after">
+          <span class="case-label">After adjustment</span>
+          <div class="case-stat">
+            <span class="sname">Monster cards</span>
+            <span class="sval">20 / 20 / 20</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Distribution</span>
+            <span class="sval" style="font-size:16px;color:var(--ink-soft);">ATK / Guard / Def (balanced)</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Hit rate</span>
+            <span class="sval positive">220%</span>
+          </div>
+          <div class="case-stat">
+            <span class="sname">Dojo cleared to</span>
+            <span class="sval positive">Floor 503</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare" style="margin-top:14px;">
+        <div class="compare-col" style="background:linear-gradient(180deg,rgba(199,80,63,0.08),var(--surface) 50%);">
+          <h4 style="color:var(--ember);">What was lost</h4>
+          <p class="sub">The trade-off cost</p>
+          <div style="font-family:'Fraunces',serif;font-size:48px;color:var(--ember);line-height:1;margin:8px 0;">-30k</div>
+          <p style="font-size:13px;color:var(--ink-soft);">raw ATK. A significant number on paper that mattered less than assumed once hit rate was deficient.</p>
+        </div>
+        <div class="compare-col" style="background:linear-gradient(180deg,rgba(111,168,106,0.08),var(--surface) 50%);">
+          <h4 style="color:var(--green);">What was gained</h4>
+          <p class="sub">The net result</p>
+          <div style="font-family:'Fraunces',serif;font-size:48px;color:var(--green);line-height:1;margin:8px 0;">+20</div>
+          <p style="font-size:13px;color:var(--ink-soft);">Dojo floors cleared. Hit rate at 178.5% was apparently below a threshold where missed hits negated the ATK advantage entirely.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>Pets used in both tests</h3>
+        <p class="lede">Held constant to isolate the card variable.</p>
+        <div class="pet-lineup">
+          <span class="pet-pill">Seruf</span>
+          <span class="pet-pill">Eliza</span>
+          <span class="pet-pill">Viking</span>
+          <span class="pet-pill">Goby</span>
+          <span class="pet-pill">Android</span>
+          <span class="pet-pill">Skull Commander</span>
+          <span class="pet-pill">Dark Goo</span>
+        </div>
+      </div>
+
+      <div class="caveat" style="margin-top:14px;">
+        <strong class="lab">Skeptical note</strong>
+        This is a single data point from one player's build. The result may not generalise to all stat levels or content types. The principle — that insufficient hit rate undermines ATK — is mechanically sound, but the specific threshold where hit rate becomes the binding constraint will vary by character level, equipment tier, and the content being cleared.
+      </div>
+    </section>
+
+    <!-- SECTION 2: MONSTER CARDS -->
+    <section class="guide-section" id="cards">
+      <div class="section-head">
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">Monster card <em>distribution</em></h2>
+        <div class="section-tag">ATK vs balanced</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 20px;">Two tested distributions visualised. The balanced build sacrifices ATK slots but covers all three damage-relevant stats evenly. Note that in the adjusted build, one Def card was still at 15 rather than 20 — the improvement came even before the full balanced set was complete.</p>
+
+      <div class="card-build">
+        <div class="card-variant">
+          <div class="vname">ATK-heavy (pre-adjustment)</div>
+          <div class="stat-bars">
+            <div class="stat-bar-row">
+              <span class="sn">ATK</span>
+              <div class="sb"><span class="bar-atk" style="width:100%"></span></div>
+              <span class="sv">25</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="sn">Guard</span>
+              <div class="sb"><span class="bar-guard" style="width:80%"></span></div>
+              <span class="sv">20</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="sn">Def</span>
+              <div class="sb"><span class="bar-def" style="width:40%"></span></div>
+              <span class="sv">10</span>
+            </div>
+          </div>
+          <div style="margin-top:14px;font-size:12px;color:var(--ember);">Hit rate 178.5% · Dojo 483</div>
+        </div>
+        <div class="card-variant">
+          <div class="vname">Balanced (post-adjustment)</div>
+          <div class="stat-bars">
+            <div class="stat-bar-row">
+              <span class="sn">ATK</span>
+              <div class="sb"><span class="bar-atk" style="width:80%"></span></div>
+              <span class="sv">20</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="sn">Guard</span>
+              <div class="sb"><span class="bar-guard" style="width:80%"></span></div>
+              <span class="sv">20</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="sn">Def</span>
+              <div class="sb"><span class="bar-def" style="width:72%"></span></div>
+              <span class="sv">20*</span>
+            </div>
+          </div>
+          <div style="margin-top:14px;font-size:12px;color:var(--green);">Hit rate 220% · Dojo 503–513</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--ink-mute);margin-top:8px;">* One Def card was still at 15 during the initial 503 test. Further improvement came with the full 20/20/20 set, reaching dojo 513.</p>
+    </section>
+
+    <!-- SECTION 3: RAGE MECHANICS -->
+    <section class="guide-section" id="rage">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">Rage mechanics <em>reference</em></h2>
+        <div class="section-tag">Initial rage · Rage gain · Credits: @boom</div>
+      </div>
+
+      <p style="color:var(--ink-soft);margin:0 0 20px;">Rage determines how quickly you can use skills in combat. Two separate mechanics apply: <strong>initial rage</strong> (how much rage you start a fight with) and <strong>rage gain</strong> (how rage accumulates during combat). Both can be modified by pets, wings, and stigmata. The tables below cover all documented sources.</p>
+
+      <!-- INITIAL RAGE -->
+      <h3 style="font-family:'Fraunces',serif;font-size:24px;margin:0 0 16px;color:var(--paper);">Initial Rage</h3>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+        <div class="max-badge">Self initial rage cap: <strong>+11</strong></div>
+        <div class="max-badge">Enemy initial rage reduction cap: <strong>-8</strong></div>
+      </div>
+
+      <!-- Add self initial rage -->
+      <div class="rage-section">
+        <div class="card" style="padding:0;">
+          <div class="rage-header self-add">
+            <span class="rh-sign">+</span>
+            <div class="rh-text">
+              <strong>Add self initial rage</strong>
+              <span>Your character starts fights with more rage</span>
+            </div>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Seruf</span>
+            <span class="rthreshold">at +9</span>
+            <span class="rval pos">up to +3</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Exo Wings</span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Green Wings</span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Flower Wings</span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Thorns Wings <span style="color:var(--ink-mute);font-size:11px;">(upcoming at time of writing)</span></span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Feather Wings <span style="color:var(--ink-mute);font-size:11px;">(upcoming at time of writing)</span></span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype stig">Stigma</span>
+            <span class="rname">Prom Mask</span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype stig">Stigma</span>
+            <span class="rname">Vampire Instinct</span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval pos">up to +2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reduce enemy initial rage -->
+      <div class="rage-section">
+        <div class="card" style="padding:0;">
+          <div class="rage-header enemy-reduce">
+            <span class="rh-sign">−</span>
+            <div class="rh-text">
+              <strong>Reduce enemy initial rage</strong>
+              <span>Enemy characters start fights with less rage</span>
+            </div>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Glory Wings</span>
+            <span class="rthreshold">at +7</span>
+            <span class="rval neg">-1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Green Wings</span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval neg">-1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Flower Wings</span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval neg">-1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Thorns Wings <span style="color:var(--ink-mute);font-size:11px;">(upcoming)</span></span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval neg">-1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype wings">Wings</span>
+            <span class="rname">Feather Wings <span style="color:var(--ink-mute);font-size:11px;">(upcoming)</span></span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval neg">-1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype stig">Stigma</span>
+            <span class="rname">Prom Mask</span>
+            <span class="rthreshold">at +5</span>
+            <span class="rval neg">up to -2</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype stig">Stigma</span>
+            <span class="rname">Vampire Instinct</span>
+            <span class="rthreshold">at +3</span>
+            <span class="rval neg">-1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAGE GAIN -->
+      <h3 style="font-family:'Fraunces',serif;font-size:24px;margin:28px 0 16px;color:var(--paper);">Rage Gain</h3>
+      <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">How rage accumulates during combat. Three mechanics: adding to your own rage, slowing your own rage reduction, and reducing the enemy's rage.</p>
+
+      <!-- Add self rage -->
+      <div class="rage-section">
+        <div class="card" style="padding:0;">
+          <div class="rage-header self-add">
+            <span class="rh-sign">+</span>
+            <div class="rh-text">
+              <strong>Add self rage (during combat)</strong>
+              <span>Rage granted per auto-skill activation or on a timer</span>
+            </div>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Viking</span>
+            <span class="rthreshold">on auto 4</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Cornian <span style="color:var(--teal);font-size:11px;">+allies</span></span>
+            <span class="rthreshold">on auto 4</span>
+            <span class="rval pos">+1</span>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Birk</span>
+            <span class="rthreshold">every 20s</span>
+            <span class="rval pos">+3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reduce self rage reduction -->
+      <div class="rage-section">
+        <div class="card" style="padding:0;">
+          <div class="rage-header self-reduce">
+            <span class="rh-sign" style="color:var(--teal);">~</span>
+            <div class="rh-text">
+              <strong>Reduce self rage reduction</strong>
+              <span>Slows how quickly your rage depletes — effectively preserving more rage</span>
+            </div>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Eliza</span>
+            <span class="rthreshold">at +13</span>
+            <span class="rval neutral">up to -3 reduction</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reduce enemy rage -->
+      <div class="rage-section">
+        <div class="card" style="padding:0;">
+          <div class="rage-header enemy-reduce">
+            <span class="rh-sign">−</span>
+            <div class="rh-text">
+              <strong>Reduce enemy rage (during combat)</strong>
+              <span>Drains enemy rage on skill activation</span>
+            </div>
+          </div>
+          <div class="rage-row">
+            <span class="rtype pet">Pet</span>
+            <span class="rname">Brexton</span>
+            <span class="rthreshold">on auto 3</span>
+            <span class="rval neg">-1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="caveat">
+        <strong class="lab">Build implications</strong>
+        Green Wings and Flower Wings contribute to both self initial rage and enemy rage reduction simultaneously, making them efficient choices for PvP-focused builds. Prom Mask Stigmata is similarly dual-purpose. Seruf (up to +3 initial rage) and Eliza (rage preservation) form the core of a rage-optimised pet lineup and appear in Elian's own test lineup above.
+      </div>
+    </section>
+
+    <nav class="article-foot-nav">
+      <a class="prev" href="daily-600-prestige.html">
+        <div class="dir">← Previous dossier</div>
+        <div class="title">D-05 · Daily 600 Prestige</div>
+      </a>
+      <a class="next disabled" href="#">
+        <div class="dir">Next dossier →</div>
+        <div class="title">D-07 · Class Guide <span style="color:var(--yellow);font-size:11px;">queued</span></div>
+      </a>
+    </nav>
+
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="colophon">
+          <span class="wm">Whet<em>stone</em></span>
+          <p>Unofficial field dispatches for MapleStory R: Evolution. Independent, reader-funded, and verified before posted.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Sections</h5>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="index.html#catalog">Catalog</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Dossiers</h5>
+          <ul>
+            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
+            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
+            <li><a href="event-timeline.html">D-03 · Event Timeline</a></li>
+            <li><a href="coloured-diamonds.html">D-04 · Coloured Diamonds</a></li>
+            <li><a href="daily-600-prestige.html">D-05 · Daily 600 Prestige</a></li>
+            <li><a href="build.html">D-06 · Build Fundamentals</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <span>Dossier No. 06</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
