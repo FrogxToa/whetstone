@@ -685,32 +685,38 @@ function Translations(){
 }
 
 // ─── INDEX ───────────────────────────────────────────────────────────────────
-function Index(){
+function Index({setActive=()=>{}}){
+  const [hovered,setHovered]=useState(null);
+  const cards=[
+    ["Levelling","📈","Interactive calculator — time to target level from EXP/hr","levelling"],
+    ["Soul Orb","🔮","Fragment cost calculator for Red and Orange orbs","soul"],
+    ["Wings","🪽","Fragment + tinder calculator by tier and target level","wings"],
+    ["Stigmata","⚔️","Fragment breakdown and cost comparator by tier","stigmata"],
+    ["Monster Cards","🃏","Card compositions, T1/T2 threshold, Soul levelling, set bonuses","cards"],
+    ["Pets","🐾","Optimal lineups and EXR pull copy targets","pets"],
+    ["PvP","🥊","General tips and Victoria Island Rivalry strategy","pvp"],
+    ["Homeland","🏠","Interactive furniture tracker — 136 items, 5 factions","homeland"],
+    ["Runes","💎","Progression framework and skill tier reference","runes"],
+    ["Gems","✨","Conversion reference table","gems"],
+    ["Question Bank","❓","379 searchable trivia Q&As with CORRECT/WRONG filter","qbank"],
+    ["Resources","📦","All Red Gem and Moonstone sources with frequency","resources"],
+    ["General","🏪","Auction prices for fragments, totems, and wings","general"],
+    ["Translations","🔤","Chinese ↔ English pet and class names","translations"],
+  ];
   return(
     <div>
       <div style={{...mono,fontSize:10,letterSpacing:"0.2em",color:C.amber,marginBottom:8,textTransform:"uppercase"}}>MapleRevolution Bible</div>
       <H1>Interactive <em>Reference</em></H1>
       <p style={{color:C.soft,fontSize:14,lineHeight:1.7,marginBottom:24}}>Original spreadsheet by <span style={{color:C.amber,fontWeight:700}}>zanfriege</span> (Discord). 15 sheets compiled into this interactive tool. Hosted on Whetstone — unofficial field dispatches for MapleStory R: Evolution.</p>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-        {[
-          ["Levelling","📈","Interactive calculator — time to target level from EXP/hr"],
-          ["Soul Orb","🔮","Fragment cost calculator for Red and Orange orbs"],
-          ["Wings","🪽","Fragment + tinder calculator by tier and target level"],
-          ["Stigmata","⚔️","Fragment breakdown and cost comparator by tier"],
-          ["Monster Cards","🃏","Card compositions, T1/T2 threshold, Soul levelling, set bonuses"],
-          ["Pets","🐾","Optimal lineups and EXR pull copy targets"],
-          ["PvP","🥊","General tips and Victoria Island Rivalry strategy"],
-          ["Homeland","🏠","Interactive furniture tracker — 136 items, 5 factions"],
-          ["Runes","💎","Progression framework and skill tier reference"],
-          ["Gems","✨","Conversion reference table"],
-          ["Question Bank","❓","379 searchable trivia Q&As with CORRECT/WRONG filter"],
-          ["Resources","📦","All Red Gem and Moonstone sources with frequency"],
-          ["General","🏪","Auction prices for fragments, totems, and wings"],
-          ["Translations","🔤","Chinese ↔ English pet and class names"],
-        ].map(([name,icon,desc])=>(
-          <div key={name} style={{background:C.sur,border:`1px solid ${C.border}`,padding:"14px 16px"}}>
+        {cards.map(([name,icon,desc,tabId])=>(
+          <div key={name}
+            onClick={()=>setActive(tabId)}
+            onMouseEnter={()=>setHovered(tabId)}
+            onMouseLeave={()=>setHovered(null)}
+            style={{background:hovered===tabId?C.sur2:C.sur,border:`1px solid ${hovered===tabId?C.amber:C.border}`,padding:"14px 16px",cursor:"pointer",transition:"border-color 0.15s,background 0.15s"}}>
             <div style={{fontSize:20,marginBottom:4}}>{icon}</div>
-            <div style={{...mono,fontSize:11,color:C.amber,marginBottom:3,letterSpacing:"0.1em",textTransform:"uppercase"}}>{name}</div>
+            <div style={{...mono,fontSize:11,color:hovered===tabId?C.amber:C.muted,marginBottom:3,letterSpacing:"0.1em",textTransform:"uppercase",transition:"color 0.15s"}}>{name}</div>
             <div style={{fontSize:12,color:C.muted}}>{desc}</div>
           </div>
         ))}
@@ -772,7 +778,7 @@ function App(){
 
       {/* Content */}
       <div style={{maxWidth:900,margin:"0 auto",padding:"28px 20px"}}>
-        <ActiveC/>
+        {active==="index" ? <Index setActive={setActive}/> : <ActiveC/>}
       </div>
     </div>
   );
