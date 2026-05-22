@@ -59,6 +59,7 @@
     <li><a href="#setbonus">Set bonuses</a></li>
     <li><a href="#levelling">Levelling priority and orange vs yellow</a></li>
     <li><a href="#selector">Category selector mechanics</a></li>
+    <li><a href="#rainbow">Rainbow / Crimson Card system</a></li>
   </ol></div>
 
   <!-- COMPOSITIONS -->
@@ -85,8 +86,8 @@
 
   <!-- SOUL -->
   <section class="guide-section" id="soul">
-    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Soul of Attack / Guard / Defense <em>levelling</em></h2><div class="section-tag">Extraction costs · Cap: level 50</div></div>
-    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each Soul requires consuming cards from its own category. 12 purple cards of the category unlocks the first Soul. The effect: example Soul of Attack = +6.5% ATK for the first 10 seconds of battle. Levels 1–14 use purple and yellow cards; from level 15 upward, orange cards are required.</p>
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Soul of Attack / Guard / Defense <em>levelling</em></h2><div class="section-tag">Extraction costs · Levels documented to 141+</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each Soul requires consuming cards from its own category. 12 purple cards of the category unlocks the first Soul. The effect: example Soul of Attack = +6.5% ATK for the first 10 seconds of battle. Levels 1–14 use purple and yellow cards; levels 15–60 introduce orange cards; levels 61–140 increase the orange requirement; level 141+ appears to reintroduce purple cards.</p>
     <div class="card" style="padding:0;margin-bottom:14px">
       <table class="soul-table">
         <thead><tr><th>Level</th><th>Cards consumed</th></tr></thead>
@@ -99,7 +100,11 @@
           <tr><td>6</td><td>1 purple + 2 yellow</td></tr>
           <tr><td>7–14</td><td>3 yellow per level</td></tr>
           <tr class="total-row"><td>Total lv 1–14</td><td>12 purple + 30 yellow</td></tr>
-          <tr class="orange-row"><td>15+</td><td>2 yellow + 1 orange per level</td></tr>
+          <tr class="orange-row"><td>15–60</td><td>2 yellow + 1 orange per level</td></tr>
+          <tr class="total-row"><td>Total lv 15–60</td><td>92 yellow + 46 orange (cumulative)</td></tr>
+          <tr class="orange-row"><td>61–140</td><td>1 yellow + 2 orange per level</td></tr>
+          <tr class="total-row"><td>Total lv 61–140</td><td>80 yellow + 160 orange (cumulative)</td></tr>
+          <tr class="orange-row"><td>141+</td><td>Purple cards required · exact formula unconfirmed</td></tr>
         </tbody>
       </table>
     </div>
@@ -109,8 +114,8 @@
         <p class="lede">Each Soul requires exactly 12 purples from its category. Keep at least 13 in case of errors or future changes. Do not spend purples on other purposes if you have not yet extracted the Soul for that category.</p>
       </div>
       <div class="card">
-        <h3>Level cap and balance rule</h3>
-        <p class="lede">Soul of Attack, Guard, and Defense are each capped at <strong>level 50</strong>. From level 15 onwards, the three Souls may not differ by more than 5 levels. Falling behind on one category prevents further extraction on others.</p>
+        <h3>Balance rule</h3>
+        <p class="lede">From level 15 onwards, the three Souls (Attack, Guard, Defense) may not differ by more than 5 levels. Falling behind on one category prevents further extraction on the others. The level 50 cap documented in 2023 appears to have been extended by subsequent patches — the JP server confirmed costs beyond level 140.</p>
       </div>
     </div>
   </section>
@@ -124,7 +129,7 @@
       <div class="set-card"><div class="set-num">6-set</div><h4>Monster card level scaling</h4><p>For every 20 monster card levels, increase HP/ATK/DEF of all cards in the category by <strong>2%</strong>, up to a maximum of <strong>144%</strong>.</p></div>
       <div class="set-card"><div class="set-num">8-set</div><h4>Soul level scaling</h4><p>For each Soul of [Category] level, increase HP/ATK/DEF of all cards in the category by <strong>2.5%</strong>, up to a maximum of <strong>250%</strong>. The 8-set ceiling is the largest multiplier in the system.</p></div>
     </div>
-    <div class="caveat" style="margin-top:14px"><strong class="lab">Implication for Soul investment</strong>The 8-set bonus scales at 2.5% per Soul level up to 250%. This means a fully-levelled Soul (level 50) contributes 125% of the cap — effectively doubling the bonus for the whole category. Soul levelling has compound returns through the set bonus system.</div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">Implication for Soul investment</strong>The 8-set bonus scales at 2.5% per Soul level up to 250%. Based on 2023 data, a level 50 Soul contributed 125% of that cap. If the cap has since been extended (as JP server data suggests), the ceiling may be reachable at a higher Soul level — the compound return logic holds regardless of where the actual cap sits.</div>
   </section>
 
   <!-- LEVELLING PRIORITY -->
@@ -153,6 +158,32 @@
       </div>
     </div>
     <div class="caveat" style="margin-top:14px"><strong class="lab">License note</strong>The license for unlocking certain card features can be repurchased even after the displayed time limit appears to have expired — check the "Past License" tab in the License section. The time limit is misleading; the license remains available.</div>
+  </section>
+
+  <!-- RAINBOW / CRIMSON CARD SYSTEM -->
+  <section class="guide-section" id="rainbow">
+    <div class="section-head"><div class="section-num">§ 07</div><h2 class="section-title">Rainbow / Crimson <em>Card system</em></h2><div class="section-tag">New tier · Confirmed January 2026</div></div>
+    <div class="skeptic"><span class="label">Source note</span>The following is sourced from the Japanese server Discord (Jan–Apr 2026). The JP server launched late 2024 and has a comparable content timeline to SEA. Mechanic names may differ from the SEA localisation. Verify against the in-game system before investing.</div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The Rainbow Card (also called Crimson Card in some translations) introduces a new tier above orange cards. It is a card enchantment system layered on top of the existing Monster Card structure, not a replacement for it.</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Tier hierarchy</h3>
+        <p class="lede">Red → Yellow → Orange → <strong>Rainbow/Crimson</strong>. Rainbow is the current ceiling tier. It sits above orange and requires a separate enchantment process distinct from standard card levelling.</p>
+      </div>
+      <div class="card">
+        <h3>Set effects require 2+ same-tier cards</h3>
+        <p class="lede">Set bonuses from Rainbow cards only activate when you have <strong>two or more Rainbow-tier cards of the same type</strong> equipped. A single Rainbow card does not trigger the set effect alone.</p>
+      </div>
+      <div class="card">
+        <h3>Reset mechanics</h3>
+        <p class="lede">Resetting a Rainbow card reverts it to <strong>red tier</strong> — not orange. The enchantment materials used are returned unenchanted. Crystal and coin costs from the Rainbow process are refunded on reset.</p>
+      </div>
+      <div class="card">
+        <h3>Cost reference (Lv80)</h3>
+        <p class="lede">Reaching level 80 in the Rainbow system costs approximately <strong>826,600 magic crystals</strong> as reported on the JP server. Treat this figure as directional; exact SEA costs may vary by patch.</p>
+      </div>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">Investment caveat</strong>The reset-to-red behaviour means failed Rainbow attempts are expensive to recover from. Do not commit to this system until you have confirmed the current SEA patch has introduced it and have verified the reset cost against in-game tooltips.</div>
   </section>
 
   <nav class="article-foot-nav">

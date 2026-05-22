@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Dungeons · Whetstone</title>
+<meta name="description" content="Dossier 20: Dungeon unlock levels, regular rewards, main stage drops, difficult mode equipment, and skill manual tiers for MapleStory R: Evolution." />
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.toc{border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:28px}
+.toc h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+.toc ol{margin:0;padding:0 0 0 18px}
+.toc li{font-size:14px;color:var(--ink-soft);margin:5px 0}
+.toc a{color:var(--ink-soft);text-decoration:none}
+.toc a:hover{color:var(--amber)}
+
+/* Dungeon table */
+.dng-table{width:100%;border-collapse:collapse;font-size:13px}
+.dng-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2);white-space:nowrap}
+.dng-table tbody td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-size:13px;vertical-align:top}
+.dng-table tbody tr:last-child td{border-bottom:none}
+.dng-table .dng-num{font-family:'JetBrains Mono',monospace;color:var(--amber);font-weight:600;white-space:nowrap}
+.dng-table .dng-level{font-family:'JetBrains Mono',monospace;color:var(--teal)}
+.dng-table .dng-missing{color:var(--ink-mute);font-style:italic}
+.dng-table .highlight-row td{background:rgba(232,158,61,.04)}
+
+/* Difficulty badge */
+.diff{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor}
+.diff-easy{color:var(--teal)}
+.diff-hard{color:#7eb8e8}
+.diff-advance{color:var(--amber)}
+.diff-nightmare{color:var(--ember)}
+.diff-hell{color:#c44}
+.diff-unknown{color:var(--ink-mute)}
+
+/* Reward list */
+.reward-list{list-style:none;margin:0;padding:0}
+.reward-list li{font-size:12px;color:var(--ink-soft);padding:2px 0;border-bottom:1px solid var(--line-soft)}
+.reward-list li:last-child{border-bottom:none}
+.reward-list li strong{color:var(--paper)}
+
+/* Manual tier grid */
+.manual-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:14px}
+@media(max-width:600px){.manual-grid{grid-template-columns:repeat(3,1fr)}}
+.manual-cell{background:var(--surface);padding:14px 10px;text-align:center}
+.manual-cell .mc-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-mute);margin-bottom:4px}
+.manual-cell .mc-name{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--paper);line-height:1.2;margin-bottom:4px}
+.manual-cell .mc-first{font-size:11px;color:var(--ink-soft)}
+.manual-red .mc-name{color:#c44}
+.manual-blue .mc-name{color:#7eb8e8}
+.manual-purple .mc-name{color:#a97ee8}
+.manual-yellow .mc-name{color:var(--amber)}
+.manual-black .mc-name{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<nav class="site-nav"><div class="wrap nav-inner"><a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a><div class="nav-links"><a href="index.html">Index</a><a href="index.html#catalog" class="active">Guides</a><a href="about.html">About</a></div></div></nav>
+
+<div class="wrap wrap-narrow"><div class="breadcrumb"><a href="index.html">Whetstone</a><span class="sep">/</span><a href="index.html#catalog">Guides</a><span class="sep">/</span><span>Dungeons</span></div></div>
+
+<header class="article-head"><div class="wrap wrap-narrow">
+  <div class="dossier">Dossier No. 20</div>
+  <h1>Dungeon <em>System</em></h1>
+  <p class="deck">Unlock levels, regular run rewards, main stage star drops, difficult mode equipment tables, and the skill manual tier progression across all ten dungeon tiers.</p>
+  <div class="article-meta">
+    <span><strong>Source</strong> Cat ♦ Nancy · US server S004 · Google Sheets guide</span>
+    <span><strong>Server note</strong> US server — SEA names and values may differ</span>
+    <span><strong>Compiled</strong> May 2026</span><span><strong>Filed</strong> 2026</span>
+  </div>
+</div></header>
+
+<article class="wrap wrap-narrow article-body">
+
+  <p>Dungeons are gated behind character level and unlock progressively as you push into new map zones. Each tier offers a regular run for daily resources and a difficult mode for targeted gear drops. The star material system (Star Souls, Star Sources, Star Force) is the primary reason to run dungeons consistently at every stage.</p>
+
+  <div class="skeptic"><span class="label">Source caveat</span>This dossier is compiled from Nancy's US server guide (S004). Dungeon names, unlock levels, and reward quantities may differ on the SEA server. Difficulty mode rewards for tiers VI–X were marked incomplete in the source — those rows are noted as unconfirmed. Verify against your in-game dungeon list before planning gear progression.</div>
+
+  <div class="toc"><h4>Contents</h4><ol>
+    <li><a href="#unlock">Unlock levels and locations</a></li>
+    <li><a href="#regular">Regular run rewards</a></li>
+    <li><a href="#main-stage">Main stage drops (stars and abyss)</a></li>
+    <li><a href="#difficult">Difficult mode equipment rewards</a></li>
+    <li><a href="#manuals">Skill manual tiers</a></li>
+    <li><a href="#difficulty-tiers">Difficulty tier reference</a></li>
+  </ol></div>
+
+  <!-- UNLOCK LEVELS -->
+  <section class="guide-section" id="unlock">
+    <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Unlock levels <em>and locations</em></h2><div class="section-tag">Character level requirements</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each dungeon tier unlocks at a specific character level and is themed around one of the classic MapleStory map zones. Tiers IX and X had no unlock data in the source.</p>
+    <div class="card" style="padding:0">
+      <table class="dng-table">
+        <thead><tr><th>Tier</th><th>Unlock level</th><th>Zone</th><th>Highest confirmed difficulty</th></tr></thead>
+        <tbody>
+          <tr><td class="dng-num">I</td><td class="dng-level">110</td><td>Henesys</td><td><span class="diff diff-easy">Easy</span></td></tr>
+          <tr class="highlight-row"><td class="dng-num">II</td><td class="dng-level">117</td><td>Kerning Swamp</td><td><span class="diff diff-hard">Hard</span></td></tr>
+          <tr><td class="dng-num">III</td><td class="dng-level">128</td><td>Gold Beach</td><td><span class="diff diff-advance">Advance</span></td></tr>
+          <tr class="highlight-row"><td class="dng-num">IV</td><td class="dng-level">147</td><td>Perion</td><td><span class="diff diff-nightmare">Nightmare</span></td></tr>
+          <tr><td class="dng-num">V</td><td class="dng-level">163</td><td>Orbis</td><td><span class="diff diff-hell">Hell</span></td></tr>
+          <tr class="highlight-row"><td class="dng-num">VI</td><td class="dng-level">172</td><td>Verne Mines</td><td><span class="diff diff-unknown">Shura</span></td></tr>
+          <tr><td class="dng-num">VII</td><td class="dng-level">185</td><td>Nihal Desert</td><td><span class="diff diff-unknown">Chaos</span></td></tr>
+          <tr class="highlight-row"><td class="dng-num">VIII</td><td class="dng-level">193</td><td>Aqua Road</td><td><span class="diff diff-unknown">Despair</span></td></tr>
+          <tr><td class="dng-num">IX</td><td class="dng-missing">Unknown</td><td class="dng-missing">Unknown</td><td><span class="diff diff-unknown">Havoc</span></td></tr>
+          <tr class="highlight-row"><td class="dng-num">X</td><td class="dng-missing">Unknown</td><td class="dng-missing">Unknown</td><td><span class="diff diff-unknown">Epic</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- REGULAR REWARDS -->
+  <section class="guide-section" id="regular">
+    <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">Regular run <em>rewards</em></h2><div class="section-tag">Per-run baseline · Crazy mode gives +10% XP</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each dungeon tier gives Light Blue Ore, Gold Coins, XP, and Friend Points per run. Crazy mode increases XP by 10% (120k → 132k). Tier V regular rewards were not documented in the source.</p>
+    <div class="card" style="padding:0">
+      <table class="dng-table">
+        <thead><tr><th>Tier</th><th>Light Blue Ore</th><th>Coins</th><th>XP (normal / crazy)</th><th>Friend Points</th><th>Other</th></tr></thead>
+        <tbody>
+          <tr><td class="dng-num">I</td><td>400</td><td>32,000</td><td>120,000 / 132,000</td><td>50 (100 with friend/guild)</td><td>—</td></tr>
+          <tr class="highlight-row"><td class="dng-num">II</td><td>800</td><td>48,000</td><td>120,000 / 132,000</td><td>50 (100 with friend/guild)</td><td>—</td></tr>
+          <tr><td class="dng-num">III</td><td>1,000</td><td>64,000</td><td>120,000 / 132,000</td><td>50 (100 with friend/guild)</td><td>—</td></tr>
+          <tr class="highlight-row"><td class="dng-num">IV</td><td>1,200</td><td>80,000</td><td>120,000 / 132,000</td><td>50 (100 with friend/guild)</td><td>40 Abyss Days</td></tr>
+          <tr><td class="dng-num">V–X</td><td class="dng-missing" colspan="5">Data incomplete in source</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">Friend and guild multiplier</strong>Inviting a friend or guildmate doubles the Friend Point reward from 50 to 100. This stacks on top of every dungeon tier and costs nothing extra — always run with a friend/guild slot filled if possible.</div>
+  </section>
+
+  <!-- MAIN STAGE DROPS -->
+  <section class="guide-section" id="main-stage">
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Main stage drops <em>— stars and abyss</em></h2><div class="section-tag">Star Souls · Star Sources · Star Force · Abyss Pass</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The main stage of each dungeon drops the three star material types and Abyss Passes. Star Souls (red), Star Sources (yellow), and Star Force (purple) all increase in quantity at higher tiers. The Abyss Pass count is consistent at 30 per run across all documented tiers.</p>
+    <div class="card" style="padding:0">
+      <table class="dng-table">
+        <thead><tr><th>Tier</th><th>Star Souls (red)</th><th>Star Sources (yellow)</th><th>Star Force (purple)</th><th>Abyss Pass</th></tr></thead>
+        <tbody>
+          <tr><td class="dng-num">I</td><td>1</td><td>10</td><td>60</td><td>30 (7-day expiry)</td></tr>
+          <tr class="highlight-row"><td class="dng-num">II</td><td>1</td><td>12</td><td>60</td><td>30 (7-day expiry)</td></tr>
+          <tr><td class="dng-num">III</td><td>2</td><td>12</td><td>60</td><td>30 (7-day expiry)</td></tr>
+          <tr class="highlight-row"><td class="dng-num">IV</td><td>2</td><td>12</td><td>70</td><td>30 (7-day expiry)</td></tr>
+          <tr><td class="dng-num">V</td><td>2</td><td>14</td><td>70</td><td>30 (7-day expiry)</td></tr>
+          <tr class="highlight-row"><td class="dng-num">VI</td><td>3</td><td>14</td><td>70</td><td>30 (7-day expiry)</td></tr>
+          <tr><td class="dng-num">VII</td><td>3</td><td>14</td><td>80</td><td>30 (7-day expiry)</td></tr>
+          <tr class="highlight-row"><td class="dng-num">VIII</td><td>3</td><td>16</td><td>80</td><td>30 (7-day expiry)</td></tr>
+          <tr><td class="dng-num">IX–X</td><td class="dng-missing" colspan="4">Data not available in source</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid-2" style="margin-top:14px">
+      <div class="card">
+        <h3>Star Soul breakpoint at Tier III</h3>
+        <p class="lede">Star Soul yield doubles from 1 to 2 at Dungeon III (character level 128). If Star Souls are your bottleneck, pushing to Tier III is a meaningful progression step independent of gear reward considerations.</p>
+      </div>
+      <div class="card">
+        <h3>Star Force acceleration at Tier IV</h3>
+        <p class="lede">Star Force jumps from 60 to 70 per run at Tier IV (level 147). A further jump to 80 occurs at Tier VII (level 185). Star Force is typically the most abundant of the three — prioritise Star Souls and Star Sources when optimising.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFICULT MODE EQUIPMENT -->
+  <section class="guide-section" id="difficult">
+    <div class="section-head"><div class="section-num">§ 04</div><h2 class="section-title">Difficult mode <em>equipment rewards</em></h2><div class="section-tag">Tiers I–V confirmed · VI–X incomplete</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each dungeon tier has a paired difficult mode that drops equipment and Expedition Badges. Armour (hat and shoes) and accessories (ring and earring) are documented separately. Equipment rarity follows: Purple → Golden → Orange as tiers increase.</p>
+    <div class="card" style="padding:0;margin-bottom:14px">
+      <table class="dng-table">
+        <thead><tr><th>Tier</th><th>Difficulty</th><th>Armour drops</th><th>Accessory drops</th><th>Expedition Badges</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="dng-num">I</td>
+            <td><span class="diff diff-easy">Easy</span></td>
+            <td>Lv2 Purple Hat<br>Lv2 Purple Shoes</td>
+            <td>Lv7 Purple Ring<br>Lv7 Purple Earring<br>Lv6 Purple Ring / Earring</td>
+            <td>60</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="dng-num">II</td>
+            <td><span class="diff diff-hard">Hard</span></td>
+            <td>Lv9 Golden Hat<br>Lv9 Golden Shoes<br>Lv9 Purple Hat / Shoes</td>
+            <td>Lv9 Golden Ring<br>Lv9 Golden Earring<br>Lv9 Purple Ring / Earring</td>
+            <td>85</td>
+          </tr>
+          <tr>
+            <td class="dng-num">III</td>
+            <td><span class="diff diff-advance">Advance</span></td>
+            <td>Lv11 Orange Hat<br>Lv11 Orange Shoes<br>Lv11 Golden Hat / Shoes</td>
+            <td>Lv11 Orange Ring<br>Lv11 Orange Earring<br>Lv10 Golden Ring / Earring</td>
+            <td>120</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="dng-num">IV</td>
+            <td><span class="diff diff-nightmare">Nightmare</span></td>
+            <td>Lv14 Orange Hat<br>Lv14 Orange Shoes<br>Lv13 Orange Hat / Shoes</td>
+            <td>Lv14 Orange Ring<br>Lv14 Orange Earring<br>Lv13 Orange Ring / Earring</td>
+            <td>145</td>
+          </tr>
+          <tr>
+            <td class="dng-num">V</td>
+            <td><span class="diff diff-hell">Hell</span></td>
+            <td>Lv18 Orange Hat<br>Lv18 Orange Shoes<br>Lv17 Orange Hat / Shoes</td>
+            <td>Lv18 Orange Ring<br>Lv18 Orange Earring<br>Lv17 Orange Ring / Earring</td>
+            <td>180</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="dng-num">VI</td>
+            <td><span class="diff diff-unknown">Shura</span></td>
+            <td class="dng-missing" colspan="3">Not documented in source</td>
+          </tr>
+          <tr>
+            <td class="dng-num">VII</td>
+            <td><span class="diff diff-unknown">Chaos</span></td>
+            <td class="dng-missing" colspan="3">Not documented in source</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="dng-num">VIII</td>
+            <td><span class="diff diff-unknown">Despair</span></td>
+            <td class="dng-missing" colspan="3">Not documented in source</td>
+          </tr>
+          <tr>
+            <td class="dng-num">IX–X</td>
+            <td><span class="diff diff-unknown">Havoc / Epic</span></td>
+            <td class="dng-missing" colspan="3">Not documented in source</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat"><strong class="lab">Equipment rarity progression</strong>The clear pattern across tiers I–V: Purple gear at Easy, Golden gear at Hard, Orange gear from Advance onward. Each tier also drops a secondary (lower level) version of the same gear slot. Expedition Badges scale with tier and are used in the Expedition Shop — the Tier V badge yield of 180 per run is more than triple the Tier I yield.</div>
+  </section>
+
+  <!-- SKILL MANUALS -->
+  <section class="guide-section" id="manuals">
+    <div class="section-head"><div class="section-num">§ 05</div><h2 class="section-title">Skill manual <em>tiers</em></h2><div class="section-tag">Rage Skill Breakthrough · 5 colours</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Skill Manuals are used for Rage Skill Breakthrough. They are colour-coded by tier and drop from dungeon runs, with higher tiers unlocking the higher-colour manuals. Each manual corresponds to one Breakthrough level.</p>
+    <div class="manual-grid">
+      <div class="manual-cell manual-red"><div class="mc-num">1st</div><div class="mc-name">Red</div><div class="mc-first">Dungeon I+</div></div>
+      <div class="manual-cell manual-blue"><div class="mc-num">2nd</div><div class="mc-name">Blue</div><div class="mc-first">Dungeon I+</div></div>
+      <div class="manual-cell manual-purple"><div class="mc-num">3rd</div><div class="mc-name">Purple</div><div class="mc-first">Dungeon III+</div></div>
+      <div class="manual-cell manual-yellow"><div class="mc-num">4th</div><div class="mc-name">Yellow</div><div class="mc-first">Dungeon IV+</div></div>
+      <div class="manual-cell manual-black"><div class="mc-num">5th</div><div class="mc-name">Black</div><div class="mc-first">Dungeon V+</div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <table class="dng-table">
+        <thead><tr><th>Dungeon tier</th><th>Manuals available from run</th></tr></thead>
+        <tbody>
+          <tr><td class="dng-num">I</td><td>Blue + Red</td></tr>
+          <tr class="highlight-row"><td class="dng-num">II</td><td>Blue + Red</td></tr>
+          <tr><td class="dng-num">III</td><td>Purple + Blue + Red</td></tr>
+          <tr class="highlight-row"><td class="dng-num">IV</td><td>Yellow + Purple + Blue + Red</td></tr>
+          <tr><td class="dng-num">V</td><td>Black + Yellow + Purple + Blue + Red (full set)</td></tr>
+          <tr class="highlight-row"><td class="dng-num">VI+</td><td class="dng-missing">Not documented — assume full set</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat" style="margin-top:14px"><strong class="lab">Non-combat manual sources</strong>Skill Manuals also drop from attacking monsters and are available in the Adventure Journey, Red Diamond Shop, and Special Packs. The dungeon source is the primary consistent daily source — do not rely on monster drops alone for higher-tier manuals.</div>
+  </section>
+
+  <!-- DIFFICULTY TIERS -->
+  <section class="guide-section" id="difficulty-tiers">
+    <div class="section-head"><div class="section-num">§ 06</div><h2 class="section-title">Difficulty tier <em>reference</em></h2><div class="section-tag">Ten named tiers · I–V confirmed</div></div>
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The game uses named difficulty tiers rather than numbered ones. The sequence is fixed — each dungeon tier unlocks its corresponding named difficulty. Tiers I–V are confirmed in this dossier; VI–X are named but unconfirmed on reward details.</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Confirmed tiers (I–V)</h3>
+        <ol class="steps">
+          <li><strong>Easy</strong> — Dungeon I (Henesys, Lv110)</li>
+          <li><strong>Hard</strong> — Dungeon II (Kerning Swamp, Lv117)</li>
+          <li><strong>Advance</strong> — Dungeon III (Gold Beach, Lv128)</li>
+          <li><strong>Nightmare</strong> — Dungeon IV (Perion, Lv147)</li>
+          <li><strong>Hell</strong> — Dungeon V (Orbis, Lv163)</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Confirmed names only (VI–X)</h3>
+        <ol class="steps" start="6">
+          <li><strong>Shura</strong> — Dungeon VI (Verne Mines, Lv172)</li>
+          <li><strong>Chaos</strong> — Dungeon VII (Nihal Desert, Lv185)</li>
+          <li><strong>Despair</strong> — Dungeon VIII (Aqua Road, Lv193)</li>
+          <li><strong>Havoc</strong> — Dungeon IX (level unknown)</li>
+          <li><strong>Epic</strong> — Dungeon X (level unknown)</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+    <nav class="article-foot-nav">
+    <a class="prev" href="costumes.html"><div class="dir">← Previous</div><div class="title">D-19 · Costumes</div></a>
+    <a class="next disabled" href="#"><div class="dir">Next →</div><div class="title">Coming soon <span style="color:var(--yellow);font-size:11px;">queued</span></div></a>
+  </nav>
+</article>
+
+<footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span><span>Dossier No. 20</span></div></div></footer>
+<script src="whetstone.js" defer></script>
+</body></html>
