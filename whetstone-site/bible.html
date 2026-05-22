@@ -486,35 +486,51 @@ function MonsterCards(){
 
 // ─── PETS ────────────────────────────────────────────────────────────────────
 function Pets(){
-  const [copies,setCopies]=useState(3);
-  // UR pity: 60 pulls, each pull costs 270 moonstones. MS from event: variable.
-  // From D-08: +4 = 3 copies, +6 = 4 copies
-  const cost=useMemo(()=>{
-    const c=parseInt(copies)||1;
-    const pulls=c*60; // worst case: each copy at pity
-    return{copies:c,pulls,ms:pulls};
-  },[copies]);
   return(
     <div>
-      <H1>Pets <em>and Lineups</em></H1>
-      <p style={{color:C.soft,fontSize:14,marginBottom:20}}>Optimal pet lineups and EXR pull copy targets. Full EXR compendium in D-08 of the Whetstone guide.</p>
-      <Label>Optimal lineups — Dec 2023</Label>
-      <Table heads={["Content","Core lineup","Situational"]} rows={[
-        ["PvP","Viking, Bubble Fish, Dyle, Master Death Teddy, Gatekeeper, Bone Fish, Cornian","Hobbi (can replace Bone Fish)"],
-        ["PvE","Viking, Bubble Fish, Master Death Teddy, Gatekeeper, Bone Fish, Cornian, Hobbi","Dyle (struggling to survive), Eliza/Flying Fish (Hex)"],
-        ["Dojo","Viking, Bubble Fish, Bone Fish, Cornian","Master Death Teddy, Skull Commander, Dyle, Eliza (rage reduction), Flying Fish (hex)"],
+      <H1>Pets <em>— Current Roster</em></H1>
+      <p style={{color:C.soft,fontSize:14,marginBottom:8}}>Tiers corrected via msrwiki.com (icon path = ur/ssr/sr). Nancy's US S004 guide misclassified 11 SSR pets as UR — the correct breakdown is below. Source for skills: Nancy's US S004 guide.</p>
+      <Note>EXR tier pets are not yet available on this server. EXR archive is preserved in <strong>Whetstone D-08 § 05</strong> for reference when they arrive.</Note>
+      <Divider/>
+      <Label>UR Pets — Fox God Throne (Pet Summon) · Orange icon · Lv1 EXP = 180</Label>
+      <Table heads={["Pet","Available","Skill Name","Skill Effect"]} rows={[
+        ["Bubble Fish","Day 1","— TBD —","Not documented in Nancy's guide. Evolves → Seruf."],
+        ["Flying Fish Slime","Day 1","Raging Seas","Auto Skill I: 44% chance to trigger Tidal Surge — 77% ATK DMG + brief knock-up."],
+        ["Skull Monster","Day 1","Soul's Breath","Auto Skill II: 44% chance — 132% ATK DMG + poison (25% ATK DMG/s for 3s)."],
+        ["Jr. Necki","Day 1","— TBD —","Not documented in Nancy's guide. Evolves → Dyle."],
+        ["Cellions","Day 1","Thunder Stomp","Rage skill: 100% chance to trigger Thunder Might — 244% ATK DMG to nearby enemies."],
+        ["Bone Fish","Day 1","Raging Torrent","Auto Skill II: 90% ATK DMG to hit enemies + 0.8s stun."],
+        ["Ribbon Pig","Day 1 (?)","Reckless Charge","Initial rage +1. Every 12s: +4.2% Rage Skill DMG to self for 6s. ⚠ Not on msrwiki — tier unconfirmed."],
+        ["Ghost Pirate","Day 36","— TBD —","Not in Nancy's guide. Evolves → Spirit Viking. Skill TBD."],
       ]}/>
       <Divider/>
-      <Label>EXR pull copy targets</Label>
-      <Table heads={["Enhancement","Copies needed","Purpose"]} rows={[
-        ["+4","3 copies","Activates bonds on +7 UR pets — minimum viable pull"],
-        ["+6","4 copies","Unlocks Illustration"],
-        ["+13","All-in","Essential EXR only — maximum enhancement"],
+      <Label>SSR Pets — Fox God Throne (Pet Summon) · Yellow icon · Lv1 EXP = 100 · Also used as UR enhancement fodder</Label>
+      <Table heads={["Pet","Skill Name","Skill Effect","Evolves at +6"]} rows={[
+        ["Jr. Cellion","Magic Arms","Battle start: +2.8% DEF for 20s.","Lucida"],
+        ["Stump","Craze Batmania","Rage skill: restore 11% HP + bat wave dealing 24% ATK DMG.","Stumpy"],
+        ["Goby","Critical Focus","Battle start: +4.6% Crit Bonus for 30s.","Risell Squid"],
+        ["Guard Robot","Energy Resonance","Auto Skill III: 30% chance — +3.5% Auto Skill DMG to self and nearby allies for 4s.","DF Android"],
+        ["Racoco","Inescapable Snare","Auto Skill I: 40% chance — 55% ATK DMG to hit enemies + 1s bound.","Big Spider"],
+        ["Cart Bear","Armored Defense","Battle start: +7.0% Crit Res Bonus for 30s.","Ore Muncher"],
+        ["Bellamoa","Desert Flame","Auto Skill II: 70% chance to call fire from sky — 78% ATK DMG.","Desert Giant"],
+        ["Kiyo","Fury Unleashed","Battle start: +2.8% Rage Skill DMG for 20s.","Dark Sand Dwarf"],
+        ["Seacle","Shadow Stealth","Battle start: +3.5% EVD Bonus for 30s.","Flower Fish"],
+        ["Stirge","Ghost Pursuit","Auto Skill IV: 70% chance to launch tracking ghosts — 79% ATK DMG.","Shade"],
+        ["Jr. Cactus","Secret Language of Focus","Battle start: +7.0% Hit Bonus for 30s.","Deo"],
       ]}/>
-      <Note>Never pull just 1 copy — it cannot replace any slot and does not activate bonds. EXR pity carries between banners. UR and EXR banners do NOT share pity pools.</Note>
       <Divider/>
-      <Label>EXR sequence (F2P priority)</Label>
-      <p style={{fontSize:13,color:C.soft}}>Lizard &gt; Gryphon/Kentaurus &gt; Gatekeeper &gt; Soul Teddy &gt; Hobgoblin &gt; Blue Dragon Turtle &gt; Birk (end-game PvE replacement for Seruf/Viking)</p>
+      <Label>SR Pets — Fox God Throne (Pet Summon) · Purple icon · Lv1 EXP = 50 · No skill</Label>
+      <Table heads={["Pet","Evolves at +6"]} rows={[
+        ["Emerald Clam Slime","Coconut Slime"],["Green Mushroom","Mushmom"],
+        ["Evil Eye","—"],["Seagull Slime","Shrimp Slime"],
+        ["Slime","Royal Fairy"],["Snail","—"],
+        ["Star Pixie","Big Luster Pixie"],["Stone Golem","—"],
+      ]}/>
+      <Divider/>
+      <Label>Event pets</Label>
+      <Table heads={["Pet","Source","Skill Effect"]} rows={[
+        ["Mini Capoo","Capoo's Wonderful Adventure (Day 1)","Auto Skill IV: summons Capoo — 68% ATK DMG to hit targets + −10% DEF for 5s."],
+      ]}/>
     </div>
   );
 }
@@ -733,7 +749,7 @@ function Index({setActive=()=>{}}){
     ["Wings","🪽","Fragment + tinder calculator by tier and target level","wings"],
     ["Stigmata","⚔️","Fragment breakdown and cost comparator by tier","stigmata"],
     ["Monster Cards","🃏","Card compositions, T1/T2 threshold, Soul levelling, set bonuses","cards"],
-    ["Pets","🐾","Optimal lineups and EXR pull copy targets","pets"],
+    ["Pets","🐾","Current pet roster — Fox God Throne + event pets. EXR archive in D-08","pets"],
     ["PvP","🥊","General tips and Victoria Island Rivalry strategy","pvp"],
     ["Homeland","🏠","Interactive furniture tracker — 208 items, 8 factions","homeland"],
     ["Runes","💎","Progression framework and skill tier reference","runes"],

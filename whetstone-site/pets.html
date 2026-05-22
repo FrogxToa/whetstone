@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Pets · Whetstone</title>
-<meta name="description" content="Dossier 08: Full EXR compendium, optimal PvP/PvE/Dojo lineups, bond system, EXR stats progression, pull copy targets, and UR swell table." />
+<meta name="description" content="Dossier 08: Corrected UR/SSR/SR pet tiers verified via msrwiki.com — 6 confirmed Day 1 UR pets, 11 SSR skill pets, 8 SR support pets, event pets, pull guidance, swell table, and enhancement costs from +1 to +13." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -17,15 +17,7 @@
   .toc a{color:var(--ink-soft);text-decoration:none}
   .toc a:hover{color:var(--amber)}
 
-  /* Role badges */
-  .role{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor}
-  .role-pvp{color:var(--ember)}
-  .role-pve{color:var(--teal)}
-  .role-both{color:var(--amber)}
-  .role-essential{color:var(--green)}
-  .role::before{content:'';width:5px;height:5px;background:currentColor;border-radius:50%}
-
-  /* EXR cards */
+  /* Pet cards */
   .exr-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:680px){.exr-grid{grid-template-columns:1fr}}
   .exr-card{border:1px solid var(--line);background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:12px}
@@ -34,24 +26,13 @@
   .exr-card h4{font-family:'Fraunces',serif;font-size:20px;margin:6px 0 0;color:var(--paper);letter-spacing:-.01em;line-height:1.1}
   .exr-card .exr-skill{background:var(--bg-2);border:1px solid var(--line-soft);padding:12px 14px;font-size:13px;color:var(--ink);line-height:1.55}
   .exr-card .exr-skill .sk-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:6px}
-  .exr-card .exr-thresholds{font-size:12px;color:var(--ink-soft)}
-  .exr-card .exr-thresholds strong{color:var(--paper);display:block;margin-bottom:4px;font-size:13px}
   .exr-card .exr-replace{font-size:12px;color:var(--ink-mute);padding-top:10px;border-top:1px dashed var(--line-soft)}
   .exr-card .exr-replace strong{color:var(--ink-soft)}
 
-  /* Lineup display */
-  .lineup{border:1px solid var(--line)}
-  .lineup-header{padding:14px 18px;background:var(--bg-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-  .lineup-header h4{font-family:'Fraunces',serif;font-size:20px;margin:0;color:var(--paper)}
-  .lineup-header .ldate{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mute)}
-  .lineup-pets{padding:14px 18px;display:flex;flex-wrap:wrap;gap:8px}
-  .pet-tag{border:1px solid var(--line);background:var(--surface);padding:7px 12px;font-size:13px;display:flex;flex-direction:column;gap:2px}
-  .pet-tag .pname{color:var(--paper);font-weight:600}
-  .pet-tag .pnote{font-size:11px;color:var(--ink-mute)}
-  .pet-tag.essential{border-color:var(--amber);background:rgba(232,158,61,.05)}
-  .pet-tag.essential .pname{color:var(--amber)}
-  .pet-tag.situational{opacity:.7;border-style:dashed}
-  .lineup-note{padding:10px 18px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--ink-mute);font-style:italic}
+  /* SR grid */
+  .sr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:560px){.sr-grid{grid-template-columns:repeat(2,1fr)}}
+  .sr-cell{border:1px solid var(--line);background:var(--surface);padding:14px 16px;font-size:13px;color:var(--ink-soft)}
 
   /* Stats table */
   .stats-table{width:100%;border-collapse:collapse;font-size:13px}
@@ -70,13 +51,6 @@
   .swell-cell{background:var(--surface);padding:14px 8px;text-align:center}
   .swell-cell .sc-star{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-mute);margin-bottom:4px}
   .swell-cell .sc-ur{font-family:'Fraunces',serif;font-style:italic;font-size:28px;color:var(--amber);line-height:1}
-
-  /* Banner table */
-  .banner-table{width:100%;border-collapse:collapse;font-size:13px}
-  .banner-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)}
-  .banner-table tbody td{padding:9px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-size:13px;vertical-align:top}
-  .banner-table tbody tr:last-child td{border-bottom:none}
-  .banner-table .new-exr{color:var(--amber);font-weight:600}
 </style>
 </head>
 <body>
@@ -104,13 +78,12 @@
     <div class="wrap wrap-narrow">
       <div class="dossier">Dossier No. 08</div>
       <h1>Pet <em>Compendium</em></h1>
-      <p class="deck">All seven EXR pets with exact skills, optimal PvP and PvE lineups at two points in time, the bond system, EXR stats progression from +0 to +13, pull copy targets, and the UR swell table.</p>
-      <div class="article-meta"><span><strong>Source period</strong> Sep 2023–Dec 2023</span>
-        <span><strong>Source</strong> Elian (Top 50), Firefighter Ulam · Discord #pets</span>
-        <span><strong>EXR skills credits</strong> @Kim</span>
-        <span><strong>Stats credits</strong> @xRev, @Elian4245</span>
+      <p class="deck">6 confirmed Day 1 UR pets · 11 SSR skill pets · 8 SR support pets — tiers corrected via msrwiki.com. Event pets, pull guidance, swell table, and enhancement costs from +1 to +13.</p>
+      <div class="article-meta">
+        <span><strong>Source</strong> Nancy's US S004 guide</span>
+        <span><strong>Pet skills</strong> Fox God Throne (Pet Summon) · Day 1</span>
         <span><strong>Swell credits</strong> @the cutest Heet</span>
-        <span><strong>Period</strong> Sep–Dec 2023</span>
+        <span><strong>Enhancement source</strong> JP server Discord (Jan–Apr 2026)</span>
         <span><strong>Filed</strong> 2026</span>
       </div>
     </div>
@@ -119,215 +92,400 @@
 
   <article class="wrap wrap-narrow article-body">
 
-    <p>The pet system in MapleStory R evolves quickly. UR pets dominate early, then EXR pets start replacing specific slots as they release. The question is always the same: which slot does a new pet take, and is the copy investment worth it before the next banner? This dossier compiles the complete EXR skill reference, two lineup snapshots as the meta evolved, and the mechanical rules that govern pulling and progression.</p>
-
-    <div class="skeptic">
-      <span class="label">Caveat before you read</span>
-      Two critical facts to internalize before anything else: <strong>EXR pets still use Moonstones</strong> — not a separate currency. And <strong>UR banners and EXR limited banners do not share pity count</strong>. Both were common points of confusion in the source channel. Lineups are snapshots from Sep 2023 and Dec 2023. The meta will have continued to shift; treat these as a baseline, not current truth.
+    <div class="skeptic" style="border-color:rgba(99,179,237,.4);background:linear-gradient(180deg,rgba(99,179,237,.06),var(--surface) 60%)">
+      <span class="label" style="background:rgba(99,179,237,.12);color:var(--teal)">Current roster · Updated 2026</span>
+      This dossier now reflects the current US server pet roster. EXR tier pets are not yet available — see <a href="#future-tiers" style="color:var(--teal)">§ 05</a> for the EXR and MR tier roadmap. The quick-reference roster is also maintained in the <a href="bible.html" style="color:var(--teal)">Bible → Pets tab</a>.
     </div>
 
+    <p>The pet system in MapleStory R is built around tiers. At launch, Fox God Throne is the source for all UR, SSR, and SR pets. Both UR and SSR pets carry active skills that fire in combat — rage skills, auto skills at various thresholds, or battle-start buffs. SR pets have no skill but contribute stats and serve as secondary enhancement fodder. UR skills are generally stronger; SSR pets also double as the primary enhancement material for pushing UR pets toward +13. As new tiers unlock, this dossier will be updated.</p>
+
     <div class="tldr">
-      <div class="tldr-cell"><span class="n">01</span><span class="t"><strong>Seruf and Viking</strong> are essential UR cores until Birk replaces them at end-game.</span></div>
-      <div class="tldr-cell"><span class="n">02</span><span class="t">Pull EXR to <strong>+4 minimum</strong> (3 copies) to activate bonds. Pull 1 copy = wasted pull.</span></div>
-      <div class="tldr-cell"><span class="n">03</span><span class="t"><strong>EXR pity carries over</strong> between banners. UR and EXR banners do NOT share pity.</span></div>
-      <div class="tldr-cell"><span class="n">04</span><span class="t">Bonds add <strong>directly to pet stats</strong>. +7 UR bonds matter — activate them with +4 EXR.</span></div>
-      <div class="tldr-cell"><span class="n">05</span><span class="t">EXR Swell only activates <strong>from +41 stars onwards</strong>. Do not dump copies early.</span></div>
+      <div class="tldr-cell"><span class="n">01</span><span class="t">All UR, SSR, and SR pets come from <strong>Fox God Throne</strong> (Pet Summon). Currency is Moonstones — shared with other banners.</span></div>
+      <div class="tldr-cell"><span class="n">02</span><span class="t"><strong>UR and SSR pets both have skills.</strong> SR pets do not. Both tiers carry rage, auto, and battle-start skills — UR skills are generally stronger. Nancy's guide misclassified several SSR pets as UR; this dossier uses tiers from msrwiki.com.</span></div>
+      <div class="tldr-cell"><span class="n">03</span><span class="t">Reaching <strong>+13</strong> requires 12 copies of the same UR plus 9 SSR pets. Skill reaches level 14 at +13.</span></div>
+      <div class="tldr-cell"><span class="n">04</span><span class="t">EXR tier is not yet available on this server. MR tier is confirmed on SEA/JP. Both are documented in <a href="#future-tiers" style="color:var(--amber)">§ 05</a> for future reference.</span></div>
     </div>
 
     <div class="toc">
       <h4>Contents</h4>
       <ol>
-        <li><a href="#banners">Banner history</a></li>
-        <li><a href="#exr">EXR compendium</a></li>
-        <li><a href="#lineups">Optimal lineups</a></li>
-        <li><a href="#bonds">Bond system</a></li>
-        <li><a href="#stats">EXR stats progression (+0 to +13)</a></li>
+        <li><a href="#ur">UR pet compendium</a></li>
+        <li><a href="#ssr">SSR pet compendium</a></li>
+        <li><a href="#sr">SR roster</a></li>
+        <li><a href="#event">Event pets</a></li>
+        <li><a href="#future-tiers">Future tiers (EXR → MR)</a></li>
+        <li><a href="#lineups">Lineups</a></li>
         <li><a href="#pulling">Pull guidance and copy targets</a></li>
         <li><a href="#swell">UR swell table</a></li>
         <li><a href="#enhancement-costs">Enhancement material costs (+1 to +13)</a></li>
       </ol>
     </div>
 
-    <!-- SECTION 1: BANNERS -->
-    <section class="guide-section" id="banners">
+    <!-- SECTION 1: UR COMPENDIUM -->
+    <section class="guide-section" id="ur">
       <div class="section-head">
         <div class="section-num">§ 01</div>
-        <h2 class="section-title">Banner <em>history</em></h2>
-        <div class="section-tag">Each banner lasts 1 week</div>
+        <h2 class="section-title">UR pet <em>compendium</em></h2>
+        <div class="section-tag">Confirmed UR · Fox God Throne · msrwiki.com verified</div>
       </div>
-
-      <div class="card" style="padding:0">
-        <table class="banner-table">
-          <thead><tr><th>Run</th><th>UR pets available</th><th>EXR introduced</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Initial</td>
-              <td>Bubble Fish / Seruf, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate / Spirit Viking, Bone Fish</td>
-              <td>None</td>
-            </tr>
-            <tr>
-              <td>1st Rerun</td>
-              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
-              <td><span class="new-exr">EXR Soul Teddy, EXR Deep Buffoon, EXR Green Cornian</span></td>
-            </tr>
-            <tr>
-              <td>2nd Rerun</td>
-              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
-              <td><span class="new-exr">EXR Hobi, EXR Blue Dragon Turtle</span></td>
-            </tr>
-            <tr>
-              <td>3rd Rerun</td>
-              <td>Bubble Fish, Cellion, Skull Monster, Jr. Necki, Flying Fish Slime, Ghost Pirate, Bone Fish</td>
-              <td><span class="new-exr">EXR Red Kentaurus, EXR Birk</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <p style="color:var(--ink-soft);margin:0 0 10px;">True UR pets verified via icon tier on <a href="https://msrwiki.com/pet" target="_blank" style="color:var(--amber)">msrwiki.com</a> (orange icon = UR). Six are available Day 1 via Fox God Throne; Ghost Pirate arrives Day 36. Ribbon Pig is not listed on the wiki — it appears in Nancy's US S004 guide as UR and is included pending confirmation. Skills sourced from Nancy's US S004 guide; Bubble Fish and Jr. Necki were omitted from that guide so their skills are not yet documented.</p>
+      <div class="caveat" style="margin-bottom:18px">
+        <strong class="lab">Tier correction</strong>
+        Nancy's guide labeled 16 pets as "UR." Cross-referencing msrwiki.com reveals only 6–7 are true UR (orange icon, Lv1 base EXP = 180). The remaining skill-bearing pets are SSR — documented in <a href="#ssr">§ 02</a>.
       </div>
-    </section>
-
-    <!-- SECTION 2: EXR COMPENDIUM -->
-    <section class="guide-section" id="exr">
-      <div class="section-head">
-        <div class="section-num">§ 02</div>
-        <h2 class="section-title">EXR <em>compendium</em></h2>
-        <div class="section-tag">All 7 EXR · skills · replacements</div>
-      </div>
-      <p style="color:var(--ink-soft);margin:0 0 18px;">Release order 1–7. Skill descriptions are from Ulam's compiled list (Oct 2023), which is more precise than the original narrative posts.</p>
 
       <div class="exr-grid">
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 01</div>
-              <h4>Soul Teddy</h4>
+              <div class="exr-num">UR 01 · Day 1</div>
+              <h4>Bubble Fish</h4>
             </div>
-            <span class="role role-pvp">PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Skill 2</span>
-            Lower enemy ATK by 35%, reduce enemy petrify/stun/freeze resistance by 50% for 4 seconds. CD 6s.
+            <span class="sk-label">Skill not documented</span>
+            Skill data not included in Nancy's US S004 guide. Evolves to Seruf at +6. Verify skill in-game.
           </div>
-          <div class="exr-replace"><strong>Replaces in PvP:</strong> Skull Commander or Flying Fish. <strong>In PvE:</strong> Dyle (Dyle is defense-stat based; Soul Teddy's debuff is more useful).</div>
         </div>
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 02</div>
-              <h4>Gatekeeper</h4>
+              <div class="exr-num">UR 02 · Day 1</div>
+              <h4>Flying Fish Slime</h4>
             </div>
-            <span class="role role-pvp">PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Passive</span>
-            +30% HP shield at battle start. Recover 3% shield every 3 seconds. Shield cap 30%.
+            <span class="sk-label">Auto Skill I — Raging Seas</span>
+            44% chance to trigger Tidal Surge — 77% ATK DMG + brief knock-up.
           </div>
-          <div class="exr-replace"><strong>Replaces in PvP:</strong> Flying Fish (Flying Fish still usable in rage lock situations). <strong>Warriors:</strong> can replace Bone Fish instead.</div>
         </div>
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 03</div>
-              <h4>Dark Cornian</h4>
+              <div class="exr-num">UR 03 · Day 1</div>
+              <h4>Skull Monster</h4>
             </div>
-            <span class="role role-both">PvE + PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Skill 4</span>
-            100% chance to create a maple leaf zone for 3s. CD 8s. Grants +1 rage per second and +12% ATK while in zone.
+            <span class="sk-label">Auto Skill II — Soul's Breath</span>
+            44% chance — 132% ATK DMG + poison (25% ATK DMG/s for 3s).
           </div>
-          <div class="exr-thresholds">
-            <strong>Leap thresholds (zone duration):</strong>
-            +4 = 1 rage/s for 2s · +9 = 1 rage/s for 3s
-          </div>
-          <div class="exr-replace"><strong>Note:</strong> Thief class has reduced synergy due to dash mechanic. <strong>PvE (non-rage-reduction bosses):</strong> replaces Eliza or Bone Fish. <strong>PvP:</strong> remove Eliza. <strong>Daily PvE:</strong> remove Dyle.</div>
         </div>
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 04</div>
-              <h4>Hobgoblin</h4>
+              <div class="exr-num">UR 04 · Day 1</div>
+              <h4>Jr. Necki</h4>
             </div>
-            <span class="role role-pvp">PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">On Rage Skill</span>
-            Summon 2 ice totems. Each totem: freeze 3.4s, deal 134% ATK damage. CD 10s.
+            <span class="sk-label">Skill not documented</span>
+            Skill data not included in Nancy's US S004 guide. Evolves to Dyle at +6. Verify skill in-game.
           </div>
-          <div class="exr-replace"><strong>Replaces in PvP:</strong> Bone Fish — unless you want both stun (Bone Fish) and freeze (Hobgoblin). Otherwise swap any UR except Seruf or Viking.</div>
         </div>
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 05</div>
-              <h4>Blue Dragon Turtle</h4>
+              <div class="exr-num">UR 05 · Day 1</div>
+              <h4>Cellions</h4>
             </div>
-            <span class="role role-pvp">PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Skill 3</span>
-            400% ATK damage. Reduces target HP shield by 30% (cap: 100× ATK). Reduces self rage by 1. CD 6s.
+            <span class="sk-label">Rage Skill — Thunder Stomp</span>
+            100% chance to trigger Thunder Might — 244% ATK DMG to nearby enemies.
           </div>
-          <div class="exr-replace"><strong>Replaces:</strong> At this stage of the EXR lineup, swap out any other EXR or the weakest remaining UR.</div>
         </div>
 
         <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 06</div>
-              <h4>Gryphon (Red Kentaurus)</h4>
+              <div class="exr-num">UR 06 · Day 1</div>
+              <h4>Bone Fish</h4>
             </div>
-            <span class="role role-essential">Essential PvP</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Passive</span>
-            Start with 6 barrier layers. Each layer: +10% DEF, +1% ATK. Nullifies 1 CC (stun/petrify/freeze) per layer. +1 layer every 20s, cap 6.
+            <span class="sk-label">Auto Skill II — Raging Torrent</span>
+            90% ATK DMG to hit enemies + 0.8s stun.
           </div>
-          <div class="exr-replace"><strong>Replaces:</strong> Dyle — Gryphon's barrier layers make Dyle's resistance contribution redundant immediately.</div>
         </div>
 
-        <div class="exr-card" style="grid-column:1/-1;">
+        <div class="exr-card">
           <div class="exr-header">
             <div>
-              <div class="exr-num">EXR 07</div>
-              <h4>Birk</h4>
+              <div class="exr-num">UR 07 · Unconfirmed</div>
+              <h4>Ribbon Pig</h4>
             </div>
-            <span class="role role-essential">Essential PvE</span>
           </div>
           <div class="exr-skill">
-            <span class="sk-label">Passive + Rampage</span>
-            Activates at battle start. Every 20 seconds: +3 rage, +25% boss damage, auto skill deals +100% ATK as true damage for 10s.
+            <span class="sk-label">Reckless Charge</span>
+            Initial rage +1. Every 12s: +4.2% Rage Skill DMG to self for 6s.
           </div>
-          <div class="exr-thresholds">
-            <strong>Why this replaces Seruf/Viking:</strong> Viking's Skill 4 has a 10s CD — providing +2 rage per 20s. Birk provides +3 rage per 20s at the same interval, plus boss damage and true damage. Once Birk is at max leap, both Seruf and Viking become replaceable.
+          <div class="exr-replace">Listed as UR in Nancy's US S004 guide. <strong>Not found on msrwiki.com</strong> — may be US-exclusive or listed under a different name. Tier unconfirmed.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">UR 08 · Day 36</div>
+              <h4>Ghost Pirate</h4>
+            </div>
           </div>
-          <div class="exr-replace"><strong>Replaces:</strong> Seruf and/or Viking — but only at Birk's maximum leap level.</div>
+          <div class="exr-skill">
+            <span class="sk-label">Skill not documented</span>
+            Not available at server launch — unlocks on Day 36. Evolves to Spirit Viking at +6. Verify skill in-game.
+          </div>
         </div>
 
       </div>
     </section>
 
 
-    <!-- MR TIER (Post-EXR) — sourced from msrwiki.com -->
-    <section class="guide-section" id="mr-tier">
+    <!-- SECTION 2: SSR COMPENDIUM -->
+    <section class="guide-section" id="ssr">
       <div class="section-head">
-        <div class="section-num">§ 02b</div>
-        <h2 class="section-title">Beyond EXR: <em>MR tier</em></h2>
-        <div class="section-tag">Source: msrwiki.com</div>
+        <div class="section-num">§ 02</div>
+        <h2 class="section-title">SSR pet <em>compendium</em></h2>
+        <div class="section-tag">All 11 SSR · Fox God Throne · Day 1 · msrwiki.com verified</div>
       </div>
+      <p style="color:var(--ink-soft);margin:0 0 16px;">SSR pets (yellow icon, Lv1 base EXP = 100) carry active skills and are a significant power source — but they are not UR. Nancy's guide misclassified all of these as UR. Skills sourced from Nancy's US S004 guide. SSR pets also serve as <strong>enhancement fodder</strong> for advancing UR pets — the "SSR ×1" in the enhancement costs table (<a href="#enhancement-costs">§ 09</a>) refers to any of these pets.</p>
+
+      <div class="exr-grid">
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 01</div>
+              <h4>Jr. Cellion</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Magic Arms</span>
+            +2.8% DEF for 20s.
+          </div>
+          <div class="exr-replace">Evolves to Lucida at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 02</div>
+              <h4>Stump</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Rage Skill — Craze Batmania</span>
+            Restore 11% HP + bat wave dealing 24% ATK DMG.
+          </div>
+          <div class="exr-replace">Evolves to Stumpy at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 03</div>
+              <h4>Goby</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Critical Focus</span>
+            +4.6% Crit Bonus for 30s.
+          </div>
+          <div class="exr-replace">Evolves to Risell Squid at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 04</div>
+              <h4>Guard Robot</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Auto Skill III — Energy Resonance</span>
+            30% chance — +3.5% Auto Skill DMG to self and nearby allies for 4s.
+          </div>
+          <div class="exr-replace">Evolves to DF Android at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 05</div>
+              <h4>Racoco</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Auto Skill I — Inescapable Snare</span>
+            40% chance — 55% ATK DMG to hit enemies + 1s bound.
+          </div>
+          <div class="exr-replace">Evolves to Big Spider at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 06</div>
+              <h4>Cart Bear</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Armored Defense</span>
+            +7.0% Crit Res Bonus for 30s.
+          </div>
+          <div class="exr-replace">Evolves to Ore Muncher at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 07</div>
+              <h4>Bellamoa</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Auto Skill II — Desert Flame</span>
+            70% chance to call fire from sky — 78% ATK DMG.
+          </div>
+          <div class="exr-replace">Evolves to Desert Giant at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 08</div>
+              <h4>Kiyo</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Fury Unleashed</span>
+            +2.8% Rage Skill DMG for 20s.
+          </div>
+          <div class="exr-replace">Evolves to Dark Sand Dwarf at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 09</div>
+              <h4>Seacle</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Shadow Stealth</span>
+            +3.5% EVD Bonus for 30s.
+          </div>
+          <div class="exr-replace">Evolves to Flower Fish at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 10</div>
+              <h4>Stirge</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Auto Skill IV — Ghost Pursuit</span>
+            70% chance to launch tracking ghosts — 79% ATK DMG.
+          </div>
+          <div class="exr-replace">Evolves to Shade at +6.</div>
+        </div>
+
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">SSR 11</div>
+              <h4>Jr. Cactus</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Battle Start — Secret Language of Focus</span>
+            +7.0% Hit Bonus for 30s.
+          </div>
+          <div class="exr-replace">Evolves to Deo at +6.</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SECTION 3: SR ROSTER -->
+    <section class="guide-section" id="sr">
+      <div class="section-head">
+        <div class="section-num">§ 03</div>
+        <h2 class="section-title">SR <em>roster</em></h2>
+        <div class="section-tag">Fox God Throne · Day 1 · No skill</div>
+      </div>
+      <p style="color:var(--ink-soft);margin:0 0 16px;">SR pets carry no active skill. They contribute stats when equipped and serve as secondary enhancement fodder. The 11 SSR pets listed in § 02 are the primary "SSR ×1" material referenced in the enhancement cost table.</p>
+
+      <div class="sr-grid">
+        <div class="sr-cell">Emerald Clam Slime</div>
+        <div class="sr-cell">Green Mushroom</div>
+        <div class="sr-cell">Evil Eye</div>
+        <div class="sr-cell">Seagull Slime</div>
+        <div class="sr-cell">Slime</div>
+        <div class="sr-cell">Snail</div>
+        <div class="sr-cell">Star Pixie</div>
+        <div class="sr-cell">Stone Golem</div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 4: EVENT PETS -->
+    <section class="guide-section" id="event">
+      <div class="section-head">
+        <div class="section-num">§ 04</div>
+        <h2 class="section-title">Event <em>pets</em></h2>
+        <div class="section-tag">Limited · obtained via in-game events</div>
+      </div>
+      <p style="color:var(--ink-soft);margin:0 0 16px;">Event pets are obtained through limited-time events and are not available on the Fox God Throne banner.</p>
+
+      <div class="exr-grid">
+        <div class="exr-card">
+          <div class="exr-header">
+            <div>
+              <div class="exr-num">Event</div>
+              <h4>Mini Capoo</h4>
+            </div>
+          </div>
+          <div class="exr-skill">
+            <span class="sk-label">Auto Skill IV</span>
+            Summons Capoo — 68% ATK DMG to hit targets + −10% DEF for 5s.
+          </div>
+          <div class="exr-replace"><strong>Source:</strong> Capoo's Wonderful Adventure (Day 1 event).</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 5: FUTURE TIERS -->
+    <section class="guide-section" id="future-tiers">
+      <div class="section-head">
+        <div class="section-num">§ 05</div>
+        <h2 class="section-title">Future tiers: <em>EXR → MR</em></h2>
+        <div class="section-tag">Not yet available on this server · SEA/JP reference</div>
+      </div>
+
       <div class="caveat" style="margin-bottom:18px">
-        <strong class="lab">What is MR tier?</strong>
-        A rarity tier above EXR that was not yet present when the original Discord notes were written. Six MR pets have been confirmed on the SEA server. Skills and strategic details are not yet documented on Whetstone — refer to <a href="https://msrwiki.com/pet" target="_blank" style="color:var(--amber)">msrwiki.com/pet</a> for raw data and verify skills in-game.
+        <strong class="lab">EXR tier — next up</strong>
+        EXR pets are not yet available on this server. When EXR launches, this section will expand to include the full EXR skill compendium, optimal lineups, bond system mechanics, and stats progression. The SEA Sep 2023 EXR documentation (7 pets: Soul Teddy, Buffoon, Shortblade Lizard, Hobi, Blue Dragon Turtle, Red Kentaurus, Nutty Sheep) is preserved in the project archive and will be promoted here on launch.
       </div>
+
+      <div class="caveat" style="margin-bottom:18px">
+        <strong class="lab">MR tier — far future</strong>
+        A rarity tier above EXR, confirmed on the SEA and JP servers. Six MR pets have been identified. Skills and strategic details are not yet documented on Whetstone — refer to <a href="https://msrwiki.com/pet" target="_blank" style="color:var(--amber)">msrwiki.com/pet</a> for raw data and verify skills in-game.
+      </div>
+
       <div class="card" style="padding:0">
         <table style="width:100%;border-collapse:collapse;font-size:13px">
           <thead><tr>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Pet</th>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Server day available</th>
+            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">MR Pet</th>
+            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">SEA day available</th>
             <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Notes</th>
           </tr></thead>
           <tbody>
@@ -342,235 +500,73 @@
       </div>
     </section>
 
-    <!-- EXR open days & official English names -->
-    <section class="guide-section" id="exr-open-days">
-      <div class="section-head">
-        <div class="section-num">§ 02c</div>
-        <h2 class="section-title">EXR open days <em>and official names</em></h2>
-        <div class="section-tag">Source: msrwiki.com · corrected from Discord source names</div>
-      </div>
-      <div class="card" style="padding:0">
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead><tr>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">#</th>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Official English name</th>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Discord alias</th>
-            <th style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--bg-2)">Open day</th>
-          </tr></thead>
-          <tbody>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 01</td><td style="padding:9px 12px;color:var(--paper)">Soul Teddy</td><td style="padding:9px 12px;color:var(--ink-mute)">Soul Teddy</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">57</td></tr>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 02</td><td style="padding:9px 12px;color:var(--paper)">Buffoon</td><td style="padding:9px 12px;color:var(--ink-mute)">Deep Buffoon / Gatekeeper</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">85</td></tr>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 03</td><td style="padding:9px 12px;color:var(--paper)">Shortblade Lizard</td><td style="padding:9px 12px;color:var(--ink-mute)">Dark Cornian / Lizard Man</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">113</td></tr>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 04</td><td style="padding:9px 12px;color:var(--paper)">Hobi</td><td style="padding:9px 12px;color:var(--ink-mute)">Hobgoblin</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">141</td></tr>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 05</td><td style="padding:9px 12px;color:var(--paper)">Blue Dragon Turtle</td><td style="padding:9px 12px;color:var(--ink-mute)">Blue Dragon Turtle</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">169</td></tr>
-            <tr style="border-bottom:1px solid var(--line-soft)"><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 06</td><td style="padding:9px 12px;color:var(--paper)">Red Kentaurus</td><td style="padding:9px 12px;color:var(--ink-mute)">Gryphon / Red Kentaurus</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">197</td></tr>
-            <tr><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--amber)">EXR 07</td><td style="padding:9px 12px;color:var(--paper)">Nutty Sheep</td><td style="padding:9px 12px;color:var(--ink-mute)">Birk / Birkin Sheep</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;color:var(--teal)">225</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="caveat" style="margin-top:14px">
-        <strong class="lab">Name discrepancy note</strong>
-        The Discord source names (Birkin Sheep, Dark Cornian, Deep Buffoon) are player-given nicknames. Official English names per msrwiki.com are shown above. Both are in common use — the dossier text uses the Discord names for consistency with the original source, but the official names are provided here for cross-reference.
-      </div>
-    </section>
 
-    <!-- SECTION 3: LINEUPS -->
+    <!-- SECTION 6: LINEUPS -->
     <section class="guide-section" id="lineups">
       <div class="section-head">
-        <div class="section-num">§ 03</div>
-        <h2 class="section-title">Optimal <em>lineups</em></h2>
-        <div class="section-tag">Two snapshots · Sep 2023 → Dec 2023</div>
+        <div class="section-num">§ 06</div>
+        <h2 class="section-title">Lineup <em>and swaps</em></h2>
+        <div class="section-tag">All UR equipped · situational swaps</div>
       </div>
 
-      <p style="color:var(--ink-soft);margin:0 0 20px;">Two time-stamped lineup recommendations showing how the meta shifted as EXR pets released. Amber highlight = essential/core slot.</p>
-
-      <!-- Sep 2023 PvP -->
-      <div class="lineup" style="margin-bottom:14px;">
-        <div class="lineup-header">
-          <h4>PvP — Sep 2023</h4>
-          <span class="ldate">Ulam · Sep 22</span>
-        </div>
-        <div class="lineup-pets">
-          <div class="pet-tag essential"><span class="pname">Viking</span></div>
-          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
-          <div class="pet-tag essential"><span class="pname">Dyle</span><span class="pnote">CC resistance</span></div>
-          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
-          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
-          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun · Warriors too</span></div>
-          <div class="pet-tag"><span class="pname">Eliza</span><span class="pnote">Until Cornian</span></div>
-        </div>
-      </div>
-
-      <!-- Sep 2023 PvE -->
-      <div class="lineup" style="margin-bottom:14px;">
-        <div class="lineup-header">
-          <h4>PvE — Sep 2023</h4>
-          <span class="ldate">Ulam · Sep 22</span>
-        </div>
-        <div class="lineup-pets">
-          <div class="pet-tag essential"><span class="pname">Viking</span></div>
-          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
-          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
-          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
-          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun</span></div>
-          <div class="pet-tag situational"><span class="pname">Dyle</span><span class="pnote">If struggling to survive</span></div>
-          <div class="pet-tag situational"><span class="pname">Eliza / Flying Fish / Skull Monster</span><span class="pnote">Hex / Rage Block situations</span></div>
-        </div>
-      </div>
-
-      <!-- Dec 2023 PvP -->
-      <div class="lineup" style="margin-bottom:14px;">
-        <div class="lineup-header">
-          <h4>PvP — Dec 2023</h4>
-          <span class="ldate">Elian · Dec 13</span>
-        </div>
-        <div class="lineup-pets">
-          <div class="pet-tag essential"><span class="pname">Viking</span></div>
-          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
-          <div class="pet-tag essential"><span class="pname">Dyle</span><span class="pnote">CC resistance</span></div>
-          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
-          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
-          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun · Warriors too</span></div>
-          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
-          <div class="pet-tag"><span class="pname">Hobbi</span><span class="pnote">Debatable · can replace Bone Fish</span></div>
-        </div>
-      </div>
-
-      <!-- Dec 2023 PvE -->
-      <div class="lineup" style="margin-bottom:14px;">
-        <div class="lineup-header">
-          <h4>PvE — Dec 2023</h4>
-          <span class="ldate">Elian · Dec 13</span>
-        </div>
-        <div class="lineup-pets">
-          <div class="pet-tag essential"><span class="pname">Viking</span></div>
-          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
-          <div class="pet-tag essential"><span class="pname">Master Death Teddy</span></div>
-          <div class="pet-tag essential"><span class="pname">Gatekeeper</span><span class="pnote">Shields</span></div>
-          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Stun</span></div>
-          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
-          <div class="pet-tag essential"><span class="pname">Hobbi</span></div>
-          <div class="pet-tag situational"><span class="pname">Dyle</span><span class="pnote">Resistance · if struggling</span></div>
-          <div class="pet-tag situational"><span class="pname">Eliza / Flying Fish / Skull Monster</span><span class="pnote">Hex / Rage Block</span></div>
-        </div>
-      </div>
-
-      <!-- Dojo Oct 2023 -->
-      <div class="lineup">
-        <div class="lineup-header">
-          <h4>Dojo — Oct 2023</h4>
-          <span class="ldate">Ulam · Oct 5</span>
-        </div>
-        <div class="lineup-pets">
-          <div class="pet-tag essential"><span class="pname">Viking</span></div>
-          <div class="pet-tag essential"><span class="pname">Bubble Fish</span></div>
-          <div class="pet-tag essential"><span class="pname">Bone Fish</span><span class="pnote">Warriors: extra stun chance</span></div>
-          <div class="pet-tag essential"><span class="pname">Cornian</span></div>
-          <div class="pet-tag"><span class="pname">Master Death Teddy</span></div>
-          <div class="pet-tag"><span class="pname">Skull Commander</span><span class="pnote">Good vs multiple enemies</span></div>
-          <div class="pet-tag"><span class="pname">Dyle</span><span class="pnote">Resistance reduction</span></div>
-          <div class="pet-tag"><span class="pname">Eliza</span><span class="pnote">MUST for rage reduction</span></div>
-          <div class="pet-tag"><span class="pname">Flying Fish</span><span class="pnote">MUST for rage block / hex</span></div>
-        </div>
-        <div class="lineup-note">Notable SRs that punch above their tier: Goby (Squid) at +13 performs on par with a +8 UR. Android.</div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: BONDS -->
-    <section class="guide-section" id="bonds">
-      <div class="section-head">
-        <div class="section-num">§ 04</div>
-        <h2 class="section-title">Bond <em>system</em></h2>
-        <div class="section-tag">Why +7 UR and +4 EXR matter</div>
-      </div>
+      <p style="color:var(--ink-soft);margin:0 0 16px;">All UR pets can be equipped simultaneously — there is no fixed team slot limit forcing you to choose. The lineup question is therefore about <strong>which pets to prioritize enhancing first</strong>, and which to swap to the front depending on content.</p>
 
       <div class="grid-2">
         <div class="card">
-          <h3>What bonds do</h3>
-          <p class="lede">Bond stats are appended <strong>directly to the equipped pet's stats</strong> — automatically. They are not a separate passive; they stack onto the pet's attribute total. This makes UR bonds at +7 a meaningful stat multiplier rather than a cosmetic unlock.</p>
+          <h3>Prioritize for enhancement</h3>
+          <p class="lede">Not all pets are equal investment targets. For URs, focus copies on Bone Fish (stun), Cellions (rage-skill AoE), and Ribbon Pig (+1 initial rage) — broadly useful across modes. SSR battle-start pets (Cart Bear, Jr. Cactus, Goby, etc.) are always live regardless of content and worth enhancing once you have UR copies secured.</p>
         </div>
         <div class="card">
-          <h3>Minimum EXR for bond activation</h3>
-          <p class="lede">To activate the bonds on your +7 UR pets (e.g. Bone Fish, Seruf), you need to pull an EXR to at least <strong>+4</strong>. That requires <strong>3 EXR copies</strong>. Pulling a single copy does not activate bonds — and cannot replace any slot — making a solo pull the worst possible use of Moonstones.</p>
+          <h3>Situational swaps</h3>
+          <p class="lede">Rage skill pets (Cellions [UR], Stump [SSR]) only fire when your character uses a rage skill — less valuable in content where rage skills are infrequent. Auto Skill pets (Bone Fish [UR], Skull Monster [UR], Flying Fish Slime [UR], Stirge [SSR], etc.) fire independently of your actions and are more consistent. Swap based on what the content rewards.</p>
         </div>
       </div>
 
-      <div class="caveat" style="margin-top:14px;">
-        <strong class="lab">Should you pull EXR if you cannot reach +13?</strong>
-        Yes — but target +4 at minimum. +4 activates bonds on your existing +7 UR pets. +6 unlocks Illustration. Only go all-in (toward +13) if the EXR is rated essential for your primary content (PvP or PvE). Budget for the <em>next</em> EXR before spending everything on the current one.
+      <div class="caveat" style="margin-top:14px">
+        <strong class="lab">Specific mode guidance — TBD</strong>
+        Swap recommendations for PvP, PvE boss, and Dojo have not yet been compiled. This section will be updated when meta data from top-ranked players is available for the current US server.
       </div>
     </section>
 
-    <!-- SECTION 5: STATS -->
-    <section class="guide-section" id="stats">
-      <div class="section-head">
-        <div class="section-num">§ 05</div>
-        <h2 class="section-title">EXR stats progression <em>+0 to +13</em></h2>
-        <div class="section-tag">Credits: @xRev, @Elian4245</div>
-      </div>
 
-      <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Two stats shown per enhancement level. The exact stat names were not specified in the source (likely ATK Power % and a secondary stat). Green rows mark the key pull targets: +4 (bond activation + 3 copies), +6 (Illustration + 4 copies), and +13 (maximum).</p>
-
-      <div class="card" style="padding:0">
-        <table class="stats-table">
-          <thead><tr><th>Level</th><th>Stat A</th><th>Stat B</th></tr></thead>
-          <tbody>
-            <tr><td>+0</td><td>9%</td><td>6%</td></tr>
-            <tr><td>+1</td><td>10%</td><td>7.5%</td></tr>
-            <tr><td>+2</td><td>11%</td><td>9%</td></tr>
-            <tr><td>+3</td><td>12%</td><td>10.5%</td></tr>
-            <tr class="milestone"><td>+4 ★ bond</td><td>13%</td><td>12%</td></tr>
-            <tr><td>+5</td><td>14%</td><td>13.5%</td></tr>
-            <tr class="milestone"><td>+6 ★ illus.</td><td>15%</td><td>15%</td></tr>
-            <tr><td>+7</td><td>16.5%</td><td>16%</td></tr>
-            <tr><td>+8</td><td>17.5%</td><td>17.5%</td></tr>
-            <tr><td>+9</td><td>19%</td><td>17.5%</td></tr>
-            <tr><td>+10</td><td>19%</td><td>19%</td></tr>
-            <tr><td>+11</td><td>20.5%</td><td>19%</td></tr>
-            <tr><td>+12</td><td>20.5%</td><td>20.5%</td></tr>
-            <tr class="milestone"><td>+13 ★ max</td><td>22%</td><td>20.5%</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- SECTION 6: PULLING -->
+    <!-- SECTION 7: PULLING -->
     <section class="guide-section" id="pulling">
       <div class="section-head">
-        <div class="section-num">§ 06</div>
+        <div class="section-num">§ 07</div>
         <h2 class="section-title">Pull guidance <em>and copy targets</em></h2>
-        <div class="section-tag">EXR · Pity rules</div>
+        <div class="section-tag">Fox God Throne · UR enhancement</div>
       </div>
 
       <div class="grid-3">
         <div class="card">
-          <h3>Do not pull 1 copy</h3>
-          <p class="lede">One copy cannot reach +1 enhancement and cannot replace any slot. It is a progression gatekeep. Commit to at least 3 copies (+4) or save entirely.</p>
+          <h3>Fox God Throne</h3>
+          <p class="lede">The Pet Summon banner containing all UR and SR pets. Currency is Moonstones — the same pool as other summon banners. There is no separate pet-only currency.</p>
         </div>
         <div class="card">
           <h3>Copy targets</h3>
-          <p class="lede"><strong>+4 = 3 copies</strong> — bonds activate on existing +7 UR pets. Minimum viable pull.<br><br><strong>+6 = 4 copies</strong> — unlocks Illustration. Pull here if you can afford it without compromising the next EXR.<br><br><strong>+13 = all-in</strong> — only for essential EXR.</p>
+          <p class="lede"><strong>+4 = 3 copies</strong> — minimum viable enhancement, activates bond stats.<br><br><strong>+6 = 4 copies</strong> — unlocks Illustration. Pull here if you can afford it without shortchanging the next banner.<br><br><strong>+13 = all-in</strong> — 12 same-UR + 9 SSR. Skill reaches level 14.</p>
         </div>
         <div class="card">
-          <h3>Viking pull target</h3>
-          <p class="lede">Viking is a key UR that remains in lineups until Birk at end-game.<br><br><strong>F2P:</strong> +8 for the stats leap if possible, +6 as a safe minimum.<br><strong>P2W:</strong> +9 minimum, +13 for full effect.</p>
+          <h3>Do not pull 1 copy</h3>
+          <p class="lede">One copy cannot reach +1 enhancement and cannot meaningfully replace any slot. Commit to at least 3 copies (+4) or save entirely. A single orphan copy is the worst spend of Moonstones.</p>
         </div>
       </div>
 
       <div class="card" style="margin-top:14px;">
-        <h3>Pity rules</h3>
+        <h3>Swell and Devour</h3>
         <ol class="steps">
-          <li><strong>EXR pity carries over between EXR banners.</strong> Confirmed in-game — pity count does not reset when a new EXR banner begins.</li>
-          <li><strong>UR banners and EXR limited banners are entirely separate pity pools.</strong> Pulls on a UR banner do not contribute to EXR pity, and vice versa.</li>
-          <li>EXR Swell only becomes useful from <strong>+41 stars onwards</strong>. Do not sacrifice copies for Swell early. Save the copies for enhancement targets first.</li>
+          <li>The <strong>UR Swell</strong> system feeds surplus +13 UR pets into a star progression. See § 08 for the full table.</li>
+          <li><strong>Pet Devour</strong> unlocks at player level 168 and requires the base UR to be at +13 before surplus copies can be fed in.</li>
+          <li>Prioritize enhancement to +13 first. Swell and Devour are late-stage systems that reward having a fully enhanced base.</li>
         </ol>
       </div>
     </section>
 
-    <!-- SECTION 7: SWELL -->
+
+    <!-- SECTION 8: SWELL -->
     <section class="guide-section" id="swell">
       <div class="section-head">
-        <div class="section-num">§ 07</div>
+        <div class="section-num">§ 08</div>
         <h2 class="section-title">UR swell <em>table</em></h2>
         <div class="section-tag">Stars vs UR copies required · Credits: @the cutest Heet</div>
       </div>
@@ -602,15 +598,16 @@
       </div>
     </section>
 
-    <!-- SECTION 8: ENHANCEMENT COSTS -->
+
+    <!-- SECTION 9: ENHANCEMENT COSTS -->
     <section class="guide-section" id="enhancement-costs">
       <div class="section-head">
-        <div class="section-num">§ 08</div>
+        <div class="section-num">§ 09</div>
         <h2 class="section-title">Enhancement material <em>costs</em></h2>
-        <div class="section-tag">+1 to +13 · UR and EXR · JP server source</div>
+        <div class="section-tag">+1 to +13 · UR · SSR fodder from § 02 · JP server source</div>
       </div>
 
-      <div class="skeptic"><span class="label">Source note</span>Material costs below are sourced from the Japanese server Discord (Jan–Apr 2026). EXR pets follow the same pattern as UR pets. SEA localisation names may differ. Verify each step in-game before committing materials.</div>
+      <div class="skeptic"><span class="label">Source note</span>Material costs below are sourced from the Japanese server Discord (Jan–Apr 2026). EXR pets follow the same material pattern as UR when they launch. SEA/US localisation names may differ. Verify each step in-game before committing materials.</div>
 
       <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Each enhancement step consumes a specific combination of pet copies. "Same UR" means another copy of the exact same UR species; "SSR" means any SSR-tier pet. At +13 (maximum), skill level reaches <strong>14</strong>.</p>
 
@@ -637,18 +634,18 @@
 
       <div class="grid-2">
         <div class="card">
-          <h3>EXR enhancement follows the same pattern</h3>
-          <p class="lede">EXR pets use the same material structure as UR. "Same UR" becomes "same EXR copy." The total copy investment to reach +13 EXR is therefore the same as UR: <strong>12 copies of the base pet</strong> plus 9 SSR-tier pets.</p>
+          <h3>EXR will follow the same pattern</h3>
+          <p class="lede">When EXR launches, EXR pets are expected to use the same material structure as UR — "same UR" becomes "same EXR copy." Total investment to reach +13 EXR: <strong>12 copies of the base EXR pet</strong> plus 9 SSR-tier pets.</p>
         </div>
         <div class="card">
           <h3>Skill level at +13</h3>
-          <p class="lede">Reaching +13 (maximum enhancement) unlocks <strong>skill level 14</strong> on the pet's active skill. This is the skill ceiling and is relevant for pets whose skill descriptions scale with skill level (e.g. duration and potency thresholds noted in the EXR compendium above).</p>
+          <p class="lede">Reaching +13 (maximum enhancement) unlocks <strong>skill level 14</strong> on the pet's active skill. This is the skill ceiling and is relevant for pets whose skill effects scale with level — check the compendium entries in § 01 and § 02 for which skills have scaling descriptions.</p>
         </div>
       </div>
 
       <div class="caveat" style="margin-top:14px;">
         <strong class="lab">Copy planning implication</strong>
-        The +7–12 range costs one same-UR and one SSR <em>per level</em>. That is six additional UR copies across six steps, on top of the copies already spent reaching +6. Going from +6 to +13 requires 8 more same-UR copies and 7 SSR copies. Budget both before committing.
+        The +7–12 range costs one same-UR and one SSR <em>per level</em>. That is six additional UR copies across six steps on top of the copies spent reaching +6. Going from +6 to +13 requires 8 more same-UR copies and 7 SSR copies. Budget both before committing.
       </div>
     </section>
 
