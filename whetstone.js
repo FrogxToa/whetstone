@@ -22,6 +22,8 @@ var IDX=[
   {n:'D-17',t:'Soul Orbs',u:'soul-orbs.html',g:'Soul Orbs',x:'ephenia balrog ratio 1.15 fragment ranking event red orb orange orb 1363 1386 1220 soul bloom level stars f2p evil stone magnus cygnus netherworld monk arkarium administrator rousseau von leon holy beast pink bean crimson queen pierre von bon vellum lotus hilla damien day 29 92 148 204 309 365 421 477 533 589 645 701'},
   {n:'D-18',t:'Off-Road Gamblers',u:'off-road.html',g:'Off-Road · Economy',x:'off road gamblers token betting multiplier 5x coins moonstone daily shop 30 moonstones month'},
   {n:'D-19',t:'Costume Guide',u:'costumes.html',g:'Costumes · PvP',x:'costume resistance stun petrify hex time reduction seasonal set no star upgrade hawaiian british prom armor hair'},
+  {n:'D-20',t:'Dungeon Guide',u:'dungeons.html',g:'Dungeons · Progression',x:'dungeon daily sweep ticket keys rewards progression gear upgrade'},
+  {n:'D-21',t:'Gem Cultivation & Events',u:'gem-cultivation.html',g:'Events · W6',x:'gem cultivation ranking pet competition monster battle happy hammer voucher crazy mode fragment synthesis UR points scoring event shop packs red diamond'},
   {n:'Bible',t:'MapleRevolution Bible',u:'bible.html',g:'Interactive · Calculator',x:'levelling calculator exp soul orb wings fragments tinder stigmata monster cards pets homeland tracker question bank 379 translations resources'}
 ];
 
@@ -132,6 +134,34 @@ document.addEventListener('click',function(e){
   var el=e.target.closest('.section-num,.article-head .dossier,.tldr-cell .n,.brand');
   if(el)spark(e.clientX,e.clientY);
 });
+
+// ── FIGURE LIGHTBOX ──────────────────────────────────────────────────────────
+(function(){
+  var lb=null;
+  function buildLB(){
+    lb=document.createElement('div');
+    lb.id='fig-lightbox';
+    lb.innerHTML='<img src="" alt=""/><div class="lb-cap"></div>';
+    document.body.appendChild(lb);
+    lb.addEventListener('click',closeLB);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();});
+  }
+  function openLB(src,alt,cap){
+    if(!lb)buildLB();
+    var img=lb.querySelector('img');
+    img.src=src;img.alt=alt||'';
+    lb.querySelector('.lb-cap').textContent=cap||'';
+    lb.classList.add('open');
+  }
+  function closeLB(){ if(lb)lb.classList.remove('open'); }
+  document.addEventListener('click',function(e){
+    var fig=e.target.closest('.figure.expandable');
+    if(!fig)return;
+    var img=fig.querySelector('img');
+    var cap=fig.querySelector('figcaption');
+    if(img)openLB(img.src,img.alt,cap?cap.textContent.replace(/\s*⊕\s*$/,'').trim():'');
+  });
+})();
 
 // ── SEARCH BUTTON IN NAV ──────────────────────────────────────────────────────
 var nlinks=document.querySelector('.nav-links');

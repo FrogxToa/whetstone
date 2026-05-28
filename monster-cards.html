@@ -58,8 +58,10 @@
     <li><a href="#soul">Soul of Attack / Guard / Defense</a></li>
     <li><a href="#setbonus">Set bonuses</a></li>
     <li><a href="#levelling">Levelling priority and orange vs yellow</a></li>
-    <li><a href="#selector">Category selector mechanics</a></li>
+    <li><a href="#selector">Category selector mechanics and licenses</a></li>
     <li><a href="#rainbow">Rainbow / Crimson Card system</a></li>
+    <li><a href="#barter">Barter system</a></li>
+    <li><a href="#event-packs">Event card packs</a></li>
   </ol></div>
 
   <!-- COMPOSITIONS -->
@@ -82,6 +84,17 @@
       <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0;">Use the Monster Card sheet in the server spreadsheet to confirm exactly at which level the crossover happens for your build — it may be slightly earlier or later than 500 depending on specific card levels. Ulam recommends rechecking every 5 character levels.</p>
     </div>
     <div class="fact" style="margin-top:14px"><div class="num">500</div><div class="txt"><strong>Minimum total MC level to start replacing T2 with T1</strong><span>T1 cards enter the ANE Dust shop gradually. Wait for this threshold before committing to a swap.</span></div></div>
+
+    <div class="figure-pair" style="margin-top:20px;">
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/card-level-low.jpg" alt="Monster Card total level ~155" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Character info → Monster Card</strong> — total MC level ~155 · stats before threshold</figcaption>
+      </figure>
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/card-level-high.jpg" alt="Monster Card total level 500+" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Character info → Monster Card</strong> — total MC level 500+ · T1 replacement point</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- SOUL -->
@@ -118,6 +131,11 @@
         <p class="lede">From level 15 onwards, the three Souls (Attack, Guard, Defense) may not differ by more than 5 levels. Falling behind on one category prevents further extraction on the others. The level 50 cap documented in 2023 appears to have been extended by subsequent patches — the JP server confirmed costs beyond level 140.</p>
       </div>
     </div>
+
+    <figure class="figure expandable" style="margin-top:20px;max-width:480px;">
+      <img src="../img/monster-cards/soul-cap.jpg" alt="Soul of Attack/Guard/Defense cap indicator" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Monster Card stats → Soul of Attack/Guard/Defense</strong> — cap indicator at level 50 · verify in-game if patched</figcaption>
+    </figure>
   </section>
 
   <!-- SET BONUSES -->
@@ -146,18 +164,48 @@
 
   <!-- CATEGORY SELECTOR -->
   <section class="guide-section" id="selector">
-    <div class="section-head"><div class="section-num">§ 06</div><h2 class="section-title">Category selector <em>mechanics</em></h2><div class="section-tag">Pity carries over</div></div>
+    <div class="section-head"><div class="section-num">§ 06</div><h2 class="section-title">Category selector <em>mechanics</em></h2><div class="section-tag">Pity carries over · shared pool</div></div>
+
     <div class="grid-2">
       <div class="card">
         <h3>Pity transfers when you change category</h3>
         <p class="lede">When you change the category on the Monster Card Categorised Summoning banner, your existing pity count carries over to the new category. You do not lose progress by switching. Banners for each category share the pity pool.</p>
       </div>
       <div class="card">
-        <h3>Category selector unlocks</h3>
-        <p class="lede">Categorised Summoning unlocks once you hit the stated requirements, released alongside the choosable Limited Pet Banner. Available pets are based on days since server opening and unlock progressively.</p>
+        <h3>Category selector unlocks progressively</h3>
+        <p class="lede">Categorised Summoning is locked until you meet the stated total card level requirement. Once unlocked, you choose a category — and summoning within that category applies to the shared pity counter. New categories open as server day count increases.</p>
       </div>
     </div>
-    <div class="caveat" style="margin-top:14px"><strong class="lab">License note</strong>The license for unlocking certain card features can be repurchased even after the displayed time limit appears to have expired — check the "Past License" tab in the License section. The time limit is misleading; the license remains available.</div>
+
+    <div class="figure-pair" style="margin-top:20px;">
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/categorised-summon-locked.jpg" alt="Categorised summoning locked state" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Monster Card → Summon</strong> — locked state before threshold is reached</figcaption>
+      </figure>
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/categorised-summon-unlocked.jpg" alt="Categorised summoning unlocked state" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Monster Card → Summon</strong> — unlocked state with category picker active</figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure expandable" style="margin-top:14px;max-width:540px;">
+      <img src="../img/monster-cards/banner-selection.jpg" alt="Banner category selection showing shared pity note" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Categorised summon → category picker</strong> — shared pity counter visible across banners</figcaption>
+    </figure>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:16px;color:var(--paper);margin:28px 0 10px;">Licenses</h3>
+    <p style="color:var(--ink-mute);font-size:13px;margin:0 0 14px;">Certain card features require a license purchase. The displayed expiry is misleading — licenses can be repurchased from the Past License tab even after the active window closes.</p>
+
+    <div class="figure-pair">
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/license-tab.jpg" alt="Monster Card license purchase screen" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Monster Card → License tab</strong> — active license purchase options</figcaption>
+      </figure>
+      <figure class="figure expandable">
+        <img src="../img/monster-cards/past-license-tab.jpg" alt="Past license repurchase screen" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Monster Card → License → Past License</strong> — expired licenses still available to repurchase</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- RAINBOW / CRIMSON CARD SYSTEM -->
@@ -185,6 +233,48 @@
     </div>
     <div class="caveat" style="margin-top:14px"><strong class="lab">Investment caveat</strong>The reset-to-red behaviour means failed Rainbow attempts are expensive to recover from. Do not commit to this system until you have confirmed the current SEA patch has introduced it and have verified the reset cost against in-game tooltips.</div>
   </section>
+
+  <!-- BARTER -->
+  <section class="guide-section" id="barter">
+    <div class="section-head"><div class="section-num">§ 08</div><h2 class="section-title">Barter <em>system</em></h2><div class="section-tag">Card exchange · conversion rates</div></div>
+
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The Barter tab in the Monster Card menu lets you exchange cards you have in excess for cards you need. Exchange rates are not 1:1 — understand the conversion tiers before using it.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Use barter to resolve imbalances</h3>
+        <p class="lede">If you have a surplus of one card type (e.g. too many ATK cards, not enough Guard cards to maintain the balance rule), barter lets you redistribute without waiting for the summon banner. The rate determines how many excess cards you give up per card received.</p>
+      </div>
+      <div class="card">
+        <h3>Do not barter orange cards for yellow</h3>
+        <p class="lede">Barter rates make orange-to-yellow trades an unfavourable conversion. Orange cards are the priority investment tier (§ 05). If you need yellow cards, obtain them from the standard summon pool rather than trading down from orange.</p>
+      </div>
+    </div>
+
+    <figure class="figure expandable" style="margin-top:20px;max-width:560px;">
+      <img src="../img/monster-cards/barter-function.jpg" alt="Monster Card barter interface" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Monster Card → Barter tab</strong> — exchange interface showing card conversion options and rates</figcaption>
+    </figure>
+  </section>
+
+
+  <!-- EVENT CARD PACKS -->
+  <section class="guide-section" id="event-packs">
+    <div class="section-head"><div class="section-num">§ 09</div><h2 class="section-title">Event card <em>packs</em></h2><div class="section-tag">Fragment selector · orange card acquisition</div></div>
+
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">During certain events (typically unlocked at character level 164+), a card fragment selector pack appears in the event shop. This is one of the few reliable ways to target specific orange card fragments rather than relying on random summons.</p>
+
+    <div class="card">
+      <h3>Prioritise the fragment selector over general packs</h3>
+      <p class="lede">The orange card fragment selector lets you choose which card type to reinforce — ATK, Guard, or Defense. If you have an identified weak slot in your current build, the selector pack is the most efficient use of event currency compared to generic card packs that give random types.</p>
+    </div>
+
+    <figure class="figure expandable" style="margin-top:20px;max-width:560px;">
+      <img src="../img/monster-cards/card-packs-164.jpg" alt="Orange card fragment selector pack during level 164 event" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Shop during level 164 event</strong> — orange card fragment selector pack and alternative options</figcaption>
+    </figure>
+  </section>
+
 
   <nav class="article-foot-nav">
     <a class="prev" href="wings-cultivation.html"><div class="dir">← Previous</div><div class="title">D-15 · Wings Cultivation</div></a>

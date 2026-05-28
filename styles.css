@@ -1401,11 +1401,122 @@ body::before{animation:twinkle 4s ease-in-out infinite alternate;}
 }
 
 /* ============================================================
+   FIGURES & SCREENSHOTS
+   Naming convention: img/{guide-slug}/{descriptive-name}.jpg
+   Examples:
+     img/gem-cultivation/task-list-overview.jpg
+     img/class/dawn-warrior-class-card.jpg
+     img/pets/ghost-pirate-rampage.jpg
+   ============================================================ */
+.figure{
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+.figure img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid var(--line);
+}
+figcaption,
+.figure figcaption{
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-mute);
+  line-height: 1.5;
+}
+.figure figcaption strong{ color: var(--ink-soft); }
+
+/* Amber-accent top border */
+.figure.figure-accented{
+  border-top: 2px solid rgba(245,168,32,0.4);
+}
+
+/* 2-up side-by-side */
+.figure-pair{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0;
+}
+.figure-pair .figure{ margin: 0; }
+@media (max-width: 640px){
+  .figure-pair{ grid-template-columns: 1fr; }
+}
+
+/* Inline (floatable in wide viewports) */
+.figure.figure-inline{ max-width: 400px; }
+@media (min-width: 720px){
+  .figure.figure-inline.float-right{
+    float: right;
+    margin: 4px 0 20px 28px;
+  }
+  .figure.figure-inline.float-left{
+    float: left;
+    margin: 4px 28px 20px 0;
+  }
+}
+
+/* Expandable — click triggers lightbox */
+.figure.expandable{ cursor: zoom-in; }
+.figure.expandable img{ transition: opacity 0.15s; }
+.figure.expandable:hover img{ opacity: 0.82; }
+.figure.expandable figcaption::after{
+  content: " ⊕";
+  color: var(--amber);
+  opacity: 0.7;
+}
+
+/* Lightbox overlay */
+#fig-lightbox{
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(7,11,18,0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  cursor: zoom-out;
+}
+#fig-lightbox.open{ display: flex; }
+#fig-lightbox img{
+  max-width: 92vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  border: 1px solid var(--line);
+  box-shadow: 0 0 60px rgba(0,0,0,0.85);
+}
+#fig-lightbox .lb-cap{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-mute);
+  text-align: center;
+  max-width: 640px;
+  pointer-events: none;
+}
+
+/* ============================================================
    PRINT STYLES
    ============================================================ */
 @media print{
   .site-nav,.breadcrumb,.article-foot-nav,.site-footer,
-  #progress-bar,.hero .established,#search-overlay{display:none!important;}
+  #progress-bar,.hero .established,#search-overlay,
+  #fig-lightbox{display:none!important;}
+  .figure{border:1pt solid #ccc!important;background:#fff!important;page-break-inside:avoid;}
+  .figure img{border-bottom:1pt solid #ddd!important;}
+  .figure figcaption{color:#666!important;}
+  .figure.expandable figcaption::after{display:none!important;}
 
   body{
     background:#fff!important;color:#111!important;

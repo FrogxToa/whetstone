@@ -48,7 +48,18 @@
     <div class="tldr-cell"><span class="n">05</span><span class="t">Max a pet to +13 <strong>first</strong>. You cannot devour dupes until the base is maxed.</span></div>
   </div>
 
-  <section class="guide-section">
+  <div class="toc" style="border:1px solid var(--line);background:var(--surface);padding:22px;margin-bottom:28px">
+    <h4 style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 12px">Contents</h4>
+    <ol style="margin:0;padding:0 0 0 18px">
+      <li style="font-size:14px;color:var(--ink-soft);margin:5px 0"><a href="#unlock" style="color:var(--ink-soft);text-decoration:none">Unlock requirements</a></li>
+      <li style="font-size:14px;color:var(--ink-soft);margin:5px 0"><a href="#pets" style="color:var(--ink-soft);text-decoration:none">Pet devour</a></li>
+      <li style="font-size:14px;color:var(--ink-soft);margin:5px 0"><a href="#stigmata" style="color:var(--ink-soft);text-decoration:none">Stigmata devour</a></li>
+      <li style="font-size:14px;color:var(--ink-soft);margin:5px 0"><a href="#orb" style="color:var(--ink-soft);text-decoration:none">Soul orb devour</a></li>
+      <li style="font-size:14px;color:var(--ink-soft);margin:5px 0"><a href="#mask" style="color:var(--ink-soft);text-decoration:none">Mask tracker</a></li>
+    </ol>
+  </div>
+
+  <section class="guide-section" id="unlock">
     <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Unlock <em>requirements</em></h2><div class="section-tag">Level and server day</div></div>
 
     <div class="unlock-list">
@@ -73,9 +84,14 @@
         <div class="ur-detail">The latest unlock gate. Requires both level 172 and server reaching day 99.</div>
       </div>
     </div>
+
+    <figure class="figure expandable" style="margin-top:20px;max-width:520px;">
+      <img src="../img/devour/devour-unlock-levels.jpg" alt="Devour menu showing SR/SSR/UR unlock level requirements" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Devour menu</strong> — SR/SSR/UR unlock level requirements (160/162/172)</figcaption>
+    </figure>
   </section>
 
-  <section class="guide-section">
+  <section class="guide-section" id="pets">
     <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">How pet devour <em>works</em></h2><div class="section-tag">Creature system</div></div>
 
     <div class="card" style="margin-bottom:14px">
@@ -102,6 +118,76 @@
       <strong class="lab">Both pools are distinct</strong>
       SSR/SR EXP and UR skill bonuses do not mix. Feeding a UR into the SSR/SR pool (if even possible) would waste its higher potential value. Keep UR surpluses separate until you can confirm which pool accepts them.
     </div>
+
+    <figure class="figure expandable" style="margin-top:20px;max-width:480px;">
+      <img src="../img/devour/devour-pet-screen.jpg" alt="Devour pet tab showing a +13 pet ready to devour dupes" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Devour → Pet tab</strong> — a pet at +13 with duplicate copies ready to feed in</figcaption>
+    </figure>
+  </section>
+
+  <section class="guide-section" id="stigmata">
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Stigmata <em>devour</em></h2><div class="section-tag">Unlock: Lv 150 · Day 78</div></div>
+
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Stigmata devour (Reconstruct) feeds surplus stigmata fragments for permanent stat gains. Orange stigmata give a higher stat return per piece than yellow. The before/after screenshots below show the gain from feeding a single orange stigmata.</p>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <h3>Orange vs yellow</h3>
+        <p class="lede">Feeding 30 yellow stigmata returns a documented value shown in the devour screen. Orange stigmata yield more per piece — save orange surplus for devour rather than converting to yellow first.</p>
+      </div>
+      <div class="card">
+        <h3>Do not feed before unlock</h3>
+        <p class="lede">Stigmata devour requires level 150 and server day 78. If you are approaching that threshold, hold surplus stigmata rather than discarding them — they have devour value once the gate opens.</p>
+      </div>
+    </div>
+
+    <div class="figure-pair">
+      <figure class="figure expandable">
+        <img src="../img/devour/devour-stigmata-before.jpg" alt="Stigmata stats before devour" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Stigmata stat screen</strong> — base stats before feeding an orange stigmata</figcaption>
+      </figure>
+      <figure class="figure expandable">
+        <img src="../img/devour/devour-stigmata-after.jpg" alt="Stigmata stats after 1 orange devour" onerror="this.closest('.figure').style.display='none'"/>
+        <figcaption><strong>Stigmata stat screen</strong> — stats after one orange devour, showing the gain</figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure expandable" style="margin-top:14px;max-width:480px;">
+      <img src="../img/devour/devour-yellow-stig.jpg" alt="30 yellow stigmata devour value output" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Devour → 30 yellow stigmata</strong> — value output screen showing stat return</figcaption>
+    </figure>
+  </section>
+
+  <section class="guide-section" id="orb">
+    <div class="section-head"><div class="section-num">§ 04</div><h2 class="section-title">Soul orb <em>devour</em></h2><div class="section-tag">Unlock: Lv 172 · Day 99 · Latest gate</div></div>
+
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">Soul orb devour is the last devour type to unlock. Surplus soul orb fragments are fed for stat gains. Because this requires both level 172 <em>and</em> server day 99, it is unlikely to be accessible in the early server period — plan around it rather than waiting for it.</p>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3>Hold orb fragments near the unlock threshold</h3>
+      <p class="lede">Once you are within reach of level 172, stop spending soul orb fragments on minor upgrades if you have a surplus. The devour return may exceed the marginal gain from small incremental investments in lower-priority orbs.</p>
+    </div>
+
+    <figure class="figure expandable" style="max-width:480px;">
+      <img src="../img/devour/devour-orb.jpg" alt="Devour orb tab showing stat gains" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Devour → Orb tab</strong> — orb devour interface showing stat gains per feed</figcaption>
+    </figure>
+  </section>
+
+  <section class="guide-section" id="mask">
+    <div class="section-head"><div class="section-num">§ 05</div><h2 class="section-title">Mask <em>tracker</em></h2><div class="section-tag">Next unlock indicator</div></div>
+
+    <p style="color:var(--ink-soft);margin:0 0 16px;font-size:14px;">The Devour menu includes a Mask section with a top-right indicator showing the next unlockable mask. Masks are unlocked by reaching cumulative devour milestones — the tracker tells you how far you are from the next one.</p>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3>Check the mask tracker before choosing what to devour</h3>
+      <p class="lede">If you are close to a mask unlock threshold, prioritise devour actions that push you over it. Mask bonuses are permanent and apply across all content — the next unlock is often worth targeting deliberately rather than feeding items in arbitrarily.</p>
+    </div>
+
+    <figure class="figure expandable" style="max-width:400px;">
+      <img src="../img/devour/devour-mask-tracker.jpg" alt="Devour mask section showing next unlockable mask indicator" onerror="this.closest('.figure').style.display='none'"/>
+      <figcaption><strong>Devour → Mask section (top right)</strong> — next unlockable mask indicator with progress counter</figcaption>
+    </figure>
   </section>
 
     <nav class="article-foot-nav">
