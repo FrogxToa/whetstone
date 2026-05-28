@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Gem Cultivation &amp; Pet Competition · Whetstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.event-table{width:100%;border-collapse:collapse;font-size:13px}
+.event-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.event-table tbody td{padding:11px 14px;border-bottom:1px solid var(--line-soft);color:var(--ink);vertical-align:top}
+.event-table tbody tr:last-child td{border-bottom:none}
+.pack-table{width:100%;border-collapse:collapse;font-size:13px}
+.pack-table thead th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.pack-table tbody td{padding:11px 14px;border-bottom:1px solid var(--line-soft);color:var(--ink);vertical-align:top}
+.pack-table tbody tr:last-child td{border-bottom:none}
+.rebate-badge{display:inline-block;background:rgba(240,80,60,0.15);color:#f05030;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;padding:1px 6px;border-radius:3px;vertical-align:middle;margin-left:4px}
+.task-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line-soft);align-items:center;font-size:13px}
+.task-row:last-child{border-bottom:none}
+.task-row .task-name{color:var(--paper);font-weight:500}
+.task-row .task-req{font-size:12px;color:var(--ink-mute);margin-top:2px}
+.task-row .task-reward{font-size:12px;color:var(--ink);text-align:right;white-space:nowrap}
+.task-row .task-type{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line)}
+.task-type.social{color:var(--teal);border-color:var(--teal)}
+.task-type.gem{color:var(--amber);border-color:var(--amber)}
+</style>
+</head>
+<body>
+<nav class="site-nav"><div class="wrap nav-inner"><a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="wordmark">Whet<em>stone</em></span></a><div class="nav-links"><a href="index.html">Index</a><a href="index.html#catalog" class="active">Guides</a><a href="about.html">About</a></div></div></nav>
+
+<div class="wrap wrap-narrow"><div class="breadcrumb"><a href="index.html">Whetstone</a><span class="sep">/</span><a href="index.html#catalog">Guides</a><span class="sep">/</span><span>Gem Cultivation &amp; Pet Competition</span></div></div>
+
+<header class="article-head"><div class="wrap wrap-narrow">
+  <div class="dossier">Dossier No. 21</div>
+  <h1>Gem Cultivation <em>&amp; Pet Competition</em></h1>
+  <p class="deck">How both W6 ranking events work, what scores points, which tasks unlock the shop, and what the Monster Battle minigame requires.</p>
+  <div class="article-meta">
+    <span><strong>Source</strong> In-game UI capture</span>
+    <span><strong>Compiled</strong> May 2026</span><span><strong>Filed</strong> 2026</span>
+  </div>
+</div></header>
+
+<article class="wrap wrap-narrow article-body">
+  <p>Week 6 runs three simultaneous cultivation events: the Gem Cultivation Ranking, the Pet Competition (Ghost Pirate featured), and the Monster Battle minigame. All three share a 7-day window. The gem and pet events feed into separate ranking leaderboards; Monster Battle has its own scoring system. This guide covers all three.</p>
+
+  <div class="tldr">
+    <div class="tldr-cell"><span class="n">01</span><span class="t"><strong>Gem Cultivation</strong> scores from your equipped gem overall rating. Continuously upgrading gems during the week raises your score.</span></div>
+    <div class="tldr-cell"><span class="n">02</span><span class="t"><strong>Pet Competition</strong> scores from acquiring UR pets (600 pts) and UR fragments (5 pts each). <strong>Synthesised pets do not count.</strong></span></div>
+    <div class="tldr-cell"><span class="n">03</span><span class="t"><strong>Monster Battle</strong> entries require Happy Hammer Vouchers from the Daily Active Treasure Box. Full frenzy meter = Crazy Mode (2× points).</span></div>
+    <div class="tldr-cell"><span class="n">04</span><span class="t">Complete all Gem Cultivation tasks first — each one unlocks shop access and rewards a mystery box + 50 red diamonds.</span></div>
+  </div>
+
+  <!-- §01 GEM CULTIVATION -->
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 01</div><h2 class="section-title">Gem Cultivation <em>Ranking</em></h2><div class="section-tag">7 days · Score = overall gem rating activated during event</div></div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">How scoring works</h3>
+    <p>Your score is your <strong>overall rating of gems that you have activated (equipped) during the event window</strong>. This is a cumulative metric — upgrading from a Lv.3 gem to a Lv.4 gem raises your overall rating and your score increases accordingly. Ties between players are broken by battle power.</p>
+    <p>Practical implication: embed lower-level advanced gems first (to tick the task requirements), then upgrade them progressively throughout the 7 days to keep climbing the ranking.</p>
+
+    <div class="caveat" style="margin-bottom:20px">
+      <strong class="lab">Shop access is gated by tasks</strong>
+      The event shop only opens after you complete the related task. Finishing all tasks is the priority — do them in order from lowest gem level to highest, and knock out the two free social tasks immediately.
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Tasks</h3>
+    <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;">Each task rewards 1 mystery box + 50 red diamonds. Social tasks cost nothing — do them first.</p>
+    <div class="card" style="padding:0;margin-bottom:20px">
+      <div class="task-row">
+        <div><div class="task-name">Like 1 time</div></div>
+        <div class="task-type social">Social</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Team up with a Guild member or friend in chat</div></div>
+        <div class="task-type social">Social</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Send 1 message in the chat channel</div></div>
+        <div class="task-type social">Social</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 3 Lv.1 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 3 Lv.2 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 2 Lv.3 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 3 Lv.3 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 3 Lv.4 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+      <div class="task-row">
+        <div><div class="task-name">Embed 2 Lv.5 Advanced Gems</div></div>
+        <div class="task-type gem">Gem</div>
+        <div class="task-reward">Mystery box × 1 · 50 🔴</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Event shop</h3>
+    <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;">The shop is described as "limited ranking event shop for everyone" — access is unlocked by completing tasks, not by achieving a specific rank. Items are purchased with red diamonds at a discount versus standard prices.</p>
+    <div class="card" style="padding:0;margin-bottom:20px">
+      <table class="event-table">
+        <thead><tr><th>Item</th><th>Cost (🔴)</th><th>Discount</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr><td>Optional Level-2 Advanced Gem box</td><td>570</td><td>10% off</td><td>1</td></tr>
+          <tr><td>Optional Level-2 Gem box</td><td>570</td><td>10% off</td><td>1</td></tr>
+          <tr><td>Optional Level-3 Advanced Gem box</td><td>860</td><td>10% off</td><td>1</td></tr>
+          <tr><td>Optional Advanced Level-4 Gem box</td><td>1,400</td><td>20% off</td><td>1</td></tr>
+          <tr><td>Random Level-5 Advanced Gem box (red type)</td><td>2,300</td><td>20% off</td><td>1</td></tr>
+          <tr><td>Random Level-5 Advanced Gem box (blue type)</td><td>2,300</td><td>20% off</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Event packs (real money)</h3>
+    <div class="card" style="padding:0;margin-bottom:10px">
+      <table class="pack-table">
+        <thead><tr><th>Pack</th><th>Contents</th><th>Price</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>[Starter pack]</td>
+            <td>Basic gem box + 300 blue diamonds + 6 gem keys + 300 leaf coins</td>
+            <td>$4.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Fine Cultivation Pack <span class="rebate-badge">500% rebate</span></td>
+            <td>Lv.3 advanced gem box + 680 blue diamonds + 10 gem keys + 680 leaf coins</td>
+            <td>$9.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Fancy Cultivation Pack <span class="rebate-badge">450% rebate</span></td>
+            <td>Lv.4 advanced gem box + 128K blue diamonds + 13 gem keys + 128K leaf coins</td>
+            <td>$19.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Premium Cultivation Pack <span class="rebate-badge">400% rebate</span></td>
+            <td>Lv.5 advanced gem box + 198K blue diamonds + 14 gem keys + 198K leaf coins</td>
+            <td>$29.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Cultivation Supply</td>
+            <td>5 red diamonds + 1 Lv.1 green gem</td>
+            <td>Free (Daily)</td>
+            <td>1/day — Sold Out</td>
+          </tr>
+          <tr>
+            <td>Discount Cultivation Pack <span class="rebate-badge">1200% rebate</span></td>
+            <td>60 blue diamonds + 2 gem keys + Lv.3 gem box + 60 leaf coins</td>
+            <td>Sold Out</td>
+            <td>2 total</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat">
+      <strong class="lab">Rebate % explained</strong>
+      The rebate percentage refers to additional in-game currency value returned relative to the pack price. A 500% rebate means the contents are valued at roughly 5× the purchase price in-game equivalent. Higher-tier packs have lower rebate percentages because the gem chest itself is the primary value — the currency bonuses are secondary.
+    </div>
+  </section>
+
+  <!-- §02 PET COMPETITION -->
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 02</div><h2 class="section-title">Pet Competition <em>(Ghost Pirate week)</em></h2><div class="section-tag">7 days · Featured pet: Ghost Pirate (= JP Viking) · Score = overall pet cultivation rating</div></div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">How scoring works</h3>
+    <p>Your score is your <strong>overall rating of pet cultivation</strong> accumulated during the event window. The scoring is determined by two actions:</p>
+
+    <div class="card" style="padding:0;margin-bottom:16px">
+      <table class="event-table">
+        <thead><tr><th>Action</th><th>Points</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Obtain 1 UR Pet (directly)</td>
+            <td><strong style="color:var(--amber);font-size:16px">600</strong></td>
+            <td>Counts whether obtained via summon or any direct acquisition method.</td>
+          </tr>
+          <tr>
+            <td>Obtain 1 UR Pet Fragment</td>
+            <td><strong style="color:var(--green);font-size:16px">5</strong></td>
+            <td>Every fragment of the featured UR pet earns 5 points.</td>
+          </tr>
+          <tr>
+            <td>Synthesise a pet from fragments</td>
+            <td><strong style="color:var(--red, #e05050);font-size:16px">0</strong></td>
+            <td><strong>Pets synthesised from fragments are excluded from the score.</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="skeptic"><span class="label">Critical</span>Do not synthesise the featured UR pet during the event. Synthesising converts your fragment pile (worth 5 pts each) into a synthesised pet worth 0 points. Accumulate fragments throughout the event for maximum score. Synthesise only after the event ends if you want to.</div>
+
+    <p>Ties between players are broken by battle power. The featured pets for this competition are <strong>UR class only</strong> — this week's featured pet is the <strong>Ghost Pirate</strong> (confirmed equivalent to the JP server's "Viking").</p>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Rewards</h3>
+    <div class="card" style="padding:0;margin-bottom:10px">
+      <table class="event-table">
+        <thead><tr><th>Reward type</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Basic ranking rewards</td><td>Chest × 80 for reaching specific ranking positions. Tier thresholds not fully visible from capture.</td></tr>
+          <tr><td>Extra Rewards</td><td>UR pet (Ghost Pirate) × 120 + additional item × 500 for completing specified tasks in addition to ranking. Requires completing event tasks — not ranking alone.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat">
+      <strong class="lab">Extra Reward requires task completion</strong>
+      The Extra Reward line (UR × 120) requires you to complete the specified cultivation tasks, not just achieve a ranking position. Ensure tasks are completed within the 7-day window to claim.
+    </div>
+  </section>
+
+  <!-- §03 MONSTER BATTLE -->
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 03</div><h2 class="section-title">Monster <em>Battle</em></h2><div class="section-tag">7 days · Entry cost: 1 Happy Hammer Voucher per run</div></div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">How to enter</h3>
+    <p>Each Monster Battle run consumes 1 <strong>Happy Hammer Voucher</strong>. These are obtained from the <strong>Active Treasure Box in Daily Task</strong> — meaning voucher supply is gated to your daily activity completion. Stockpile them throughout the week; do not spend packs frivolously before you understand your voucher capacity.</p>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Gameplay mechanics</h3>
+    <div class="card" style="padding:0;margin-bottom:16px">
+      <table class="event-table">
+        <thead><tr><th>Mechanic</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Bonus-point monsters</strong></td>
+            <td>Hitting them earns points and fills the frenzy energy meter.</td>
+          </tr>
+          <tr>
+            <td><strong>Innocent monsters</strong></td>
+            <td>Hitting them deducts points. Avoid deliberately.</td>
+          </tr>
+          <tr>
+            <td><strong>Frenzy Energy → Crazy Mode</strong></td>
+            <td>When the frenzy meter is full, Crazy Mode activates: monsters move faster and all point values <strong>double</strong>. Prioritise hitting bonus-point monsters during Crazy Mode for maximum score.</td>
+          </tr>
+          <tr>
+            <td><strong>Battle Level</strong></td>
+            <td>Participating earns battle experience. Reaching a level threshold raises your combat level, granting an event impact bonus. Combat level resets when the event ends.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Re-claim mechanic (last day)</h3>
+    <p>On the final day of the event, a re-claim ticket window opens. Two recovery options:</p>
+    <div class="card" style="padding:0;margin-bottom:16px">
+      <table class="event-table">
+        <thead><tr><th>Option</th><th>When it applies</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Re-claim unused tickets</td>
+            <td>You have unused Happy Hammer Vouchers at the end of the event</td>
+            <td>Red diamonds (amount not captured)</td>
+          </tr>
+          <tr>
+            <td>Make up Reward Difference Value</td>
+            <td>After each settlement, your rating is below your best recorded rating</td>
+            <td>Red diamonds to bridge the gap between current and best rating</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat" style="margin-bottom:20px">
+      <strong class="lab">Efficiency note</strong>
+      The re-claim system is a red diamond spend to recover value from unused vouchers. F2P players should focus on using vouchers regularly throughout the event rather than relying on last-day recovery, which adds cost. Red diamonds are better used elsewhere if you can maintain consistent daily play.
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif;font-size:20px;margin:0 0 10px;color:var(--paper);">Monster Battle packs</h3>
+    <div class="card" style="padding:0;margin-bottom:10px">
+      <table class="pack-table">
+        <thead><tr><th>Pack</th><th>Contents</th><th>Price</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Mini Monster Pack <span class="rebate-badge">1600% rebate</span></td>
+            <td>60 blue diamonds + 60 hammer tokens + 1 cake + 60 leaf coins</td>
+            <td>Sold Out</td>
+            <td>1 total</td>
+          </tr>
+          <tr>
+            <td>Monster Pack <span class="rebate-badge">800% rebate</span></td>
+            <td>300 blue diamonds + 100 hammer tokens + 3 cakes + 30 leaf coins</td>
+            <td>Sold Out</td>
+            <td>1 total</td>
+          </tr>
+          <tr>
+            <td>Monster Supply</td>
+            <td>5 red diamonds + 10 candy</td>
+            <td>Free (Daily)</td>
+            <td>1/day — Sold Out</td>
+          </tr>
+          <tr>
+            <td>Fine Monster Pack <span class="rebate-badge">500% rebate</span></td>
+            <td>680 blue diamonds + 150 hammer tokens + 6 cakes + 68 leaf coins</td>
+            <td>$9.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Fancy Monster Pack <span class="rebate-badge">450% rebate</span></td>
+            <td>1,280 blue diamonds + 240 hammer tokens + 9 cakes + 1,280 leaf coins</td>
+            <td>$19.99</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Premium Monster Pack <span class="rebate-badge">300% rebate</span></td>
+            <td>3,280 blue diamonds + 500 hammer tokens + 12 cakes + 3,280 leaf coins</td>
+            <td>$49.99</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caveat">
+      <strong class="lab">Hammer tokens vs vouchers</strong>
+      Packs contain "hammer tokens" (the orange coin with hammer icon) which are distinct from Happy Hammer Vouchers. It is not yet confirmed whether hammer tokens directly convert to vouchers or serve a separate function in the Monster Battle system. Treat them as supplementary event currency pending confirmation.
+    </div>
+  </section>
+
+  <!-- §04 QUICK REFERENCE -->
+  <section class="guide-section">
+    <div class="section-head"><div class="section-num">§ 04</div><h2 class="section-title">Priority <em>checklist</em></h2><div class="section-tag">What to do first, day by day</div></div>
+    <div class="tldr">
+      <div class="tldr-cell"><span class="n">Day 1</span><span class="t">Complete the three free social tasks in Gem Cultivation (like, chat, message). Each is 50 🔴 and takes 30 seconds.</span></div>
+      <div class="tldr-cell"><span class="n">Days 1–7</span><span class="t">Collect Daily Active Treasure Box → get Happy Hammer Voucher → use it in Monster Battle. Maintain Battle Level throughout the week.</span></div>
+      <div class="tldr-cell"><span class="n">Days 1–7</span><span class="t">Accumulate Ghost Pirate UR fragments in Pet Competition. Do not synthesise until after the event ends.</span></div>
+      <div class="tldr-cell"><span class="n">Days 1–7</span><span class="t">Progressively embed higher-level advanced gems to keep raising Gem Cultivation overall rating. Claim tasks as you meet requirements.</span></div>
+    </div>
+    <div class="skeptic" style="margin-top:16px"><span class="label">Data gaps</span>Specific ranking thresholds and reward counts for each position tier in both the Gem Cultivation and Pet Competition leaderboards were not visible in the captured data. The ranking reward breakdown (how many players receive each tier) will need a separate capture once the final standings are visible.</div>
+  </section>
+
+  <nav class="article-foot-nav">
+    <a class="prev" href="dungeons.html"><div class="dir">← Previous</div><div class="title">D-20 · Dungeon System</div></a>
+  </nav>
+</article>
+
+<footer class="site-footer"><div class="wrap"><div class="footer-inner"><div class="colophon"><span class="wm">Whet<em>stone</em></span><p>Unofficial field dispatches for MapleStory R: Evolution.</p></div><div class="footer-col"><h5>Sections</h5><ul><li><a href="index.html">Index</a></li><li><a href="index.html#catalog">Catalog</a></li></ul></div></div><div class="footer-base"><span>© Whetstone 2026 · No affiliation with Nexon</span>
+        <a href="https://github.com/Fro-ggy/whetstone" target="_blank" rel="noopener" style="font-size:12px;color:var(--ink-mute);text-decoration:none;letter-spacing:.03em">GitHub ↗</a><span>Dossier No. 21</span></div></div></footer>
+</body></html>
