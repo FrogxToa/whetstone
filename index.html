@@ -68,34 +68,104 @@
   </header>
 
   <!-- ============================ FEATURED ============================ -->
+  <style>
+  .carousel-outer{position:relative;overflow:hidden}
+  .carousel-track{display:flex;transition:transform .52s cubic-bezier(.25,.46,.45,.94)}
+  .carousel-track .featured{flex:0 0 100%;min-width:0;text-decoration:none}
+  .carousel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px}
+  .carousel-btn{background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:13px;padding:5px 14px;cursor:pointer;transition:border-color .2s,color .2s;line-height:1.6}
+  .carousel-btn:hover{border-color:var(--amber);color:var(--amber)}
+  .carousel-dots{display:flex;gap:9px;align-items:center}
+  .cdot{width:6px;height:6px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s,transform .2s}
+  .cdot.active{background:var(--amber);transform:scale(1.5)}
+  .featured .visual[data-num]::after{content:attr(data-num)}
+  </style>
   <section class="s" id="featured">
     <div class="wrap">
       <div class="section-head">
         <div class="section-num">§ 01</div>
-        <h2 class="section-title">Featured <em>dossier</em></h2>
-        <div class="section-tag">Latest</div>
+        <h2 class="section-title">Featured <em>dossiers</em></h2>
+        <div class="section-tag">Recently updated</div>
       </div>
 
-      <a class="featured" href="tower-of-origins.html">
-        <div class="text">
-          <div>
-            <div class="top">
-              <span class="badge">Dossier 01</span>
-              <span>Published · Reviewed</span>
+      <div class="carousel-outer">
+        <div class="carousel-track" id="carouselTrack">
+
+          <a class="featured" href="gem-cultivation.html">
+            <div class="text">
+              <div>
+                <div class="top"><span class="badge">Dossier 21</span><span>Published · W6 Events</span></div>
+                <h3>Gem Cultivation <em>&amp; Pet Competition</em></h3>
+                <p class="desc">How both W6 ranking events score points, the full gem task list, why you must not synthesise UR pet fragments during the event, Monster Battle voucher mechanics, and complete pack reference tables for all three events.</p>
+              </div>
+              <div class="meta"><span>4 sections</span><span>In-game UI sourced</span><span>May 2026 · D36</span></div>
             </div>
-            <h3>Tower of <em>Origins</em></h3>
-            <p class="desc">A consolidated field guide to honing-point allocation, seasonal counters, resource priorities, and the difference between a useful debuff and a self-inflicted one. Sourced from a Top-50 player's Discord notes, audited for shelf life.</p>
+            <div class="visual" data-num="21" aria-hidden="true"><div class="tower">GCR</div></div>
+          </a>
+
+          <a class="featured" href="class.html">
+            <div class="text">
+              <div>
+                <div class="top"><span class="badge">Dossier 14</span><span>Updated · Class Cards added</span></div>
+                <h3>Class <em>Guide</em></h3>
+                <p class="desc">PvE and PvP tier lists, JP Mental Link explained, world boss rankings, and the US Class Cards system — a sub-class overlay live from server day 33 with full Dawn Warrior Enhancement Core data.</p>
+              </div>
+              <div class="meta"><span>4 sections</span><span>Elian (Top 50) + in-game UI</span><span>Updated May 2026</span></div>
+            </div>
+            <div class="visual" data-num="14" aria-hidden="true"><div class="tower">CC</div></div>
+          </a>
+
+          <a class="featured" href="soul-orbs.html">
+            <div class="text">
+              <div>
+                <div class="top"><span class="badge">Dossier 17</span><span>Published · Reviewed</span></div>
+                <h3>Soul <em>Orbs</em></h3>
+                <p class="desc">Fragment ratios, ranking strategy, Ephenia CD path, F2P routing, and the 1363 fragments required to fully max a Red orb. Complete spend math for a Soul Orb cultivation event.</p>
+              </div>
+              <div class="meta"><span>Sourced from #soul-orbs</span><span>Verified math</span><span>Sep 2023</span></div>
+            </div>
+            <div class="visual" data-num="17" aria-hidden="true"><div class="tower">SO</div></div>
+          </a>
+
+          <a class="featured" href="wings-cultivation.html">
+            <div class="text">
+              <div>
+                <div class="top"><span class="badge">Dossier 15</span><span>Published · Reviewed</span></div>
+                <h3>Wings <em>Cultivation</em></h3>
+                <p class="desc">CD spend per Nirvana level, fragment point values, and the full Soul Power upgrade cost table. Covers F2P routing and spend tiers for the wings cultivation ranking event.</p>
+              </div>
+              <div class="meta"><span>Sourced from #wings</span><span>Verified math</span><span>Sep 2023</span></div>
+            </div>
+            <div class="visual" data-num="15" aria-hidden="true"><div class="tower">WC</div></div>
+          </a>
+
+          <a class="featured" href="dungeons.html">
+            <div class="text">
+              <div>
+                <div class="top"><span class="badge">Dossier 20</span><span>Published · Reviewed</span></div>
+                <h3>Dungeon <em>System</em></h3>
+                <p class="desc">Unlock levels, run rewards, main stage drops, difficult-mode gear, skill manuals, and a complete tier breakdown across all 10 difficulty levels.</p>
+              </div>
+              <div class="meta"><span>Sourced from #dungeons</span><span>Jan 2026</span></div>
+            </div>
+            <div class="visual" data-num="20" aria-hidden="true"><div class="tower">DS</div></div>
+          </a>
+
+        </div><!-- /carousel-track -->
+
+        <div class="carousel-nav">
+          <button class="carousel-btn carousel-prev" aria-label="Previous">&#8592;</button>
+          <div class="carousel-dots" id="carouselDots">
+            <span class="cdot active"></span>
+            <span class="cdot"></span>
+            <span class="cdot"></span>
+            <span class="cdot"></span>
+            <span class="cdot"></span>
           </div>
-          <div class="meta">
-            <span>10 min read</span>
-            <span>6 sections</span>
-            <span>Verify before applying</span>
-          </div>
+          <button class="carousel-btn carousel-next" aria-label="Next">&#8594;</button>
         </div>
-        <div class="visual" aria-hidden="true">
-          <div class="tower">TOO</div>
-        </div>
-      </a>
+
+      </div><!-- /carousel-outer -->
     </div>
   </section>
 
@@ -500,9 +570,9 @@
         <div class="footer-col">
           <h5>Latest</h5>
           <ul>
-            <li><a href="tower-of-origins.html">D-01 · Tower of Origins</a></li>
-            <li><a href="faqs-dailies.html">D-02 · FAQs and Dailies</a></li>
-            <li><a href="event-timeline.html">D-03 · Event Timeline</a></li>
+            <li><a href="gem-cultivation.html">D-21 · Gem Cultivation &amp; Pet Competition</a></li>
+            <li><a href="class.html">D-14 · Class Guide</a></li>
+            <li><a href="dungeons.html">D-20 · Dungeon System</a></li>
           </ul>
         </div>
       </div>
@@ -516,6 +586,32 @@
 
 <script>
 (function(){
-  function drop(){
-    var el=document.createElement('span');
-    var size=10+Math.random
+  var track = document.getElementById('carouselTrack');
+  if(!track) return;
+  var slides = track.querySelectorAll('.featured');
+  var dots   = document.querySelectorAll('#carouselDots .cdot');
+  var total  = slides.length;
+  var cur    = 0;
+  var timer;
+
+  function goTo(n){
+    cur = ((n % total) + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===cur); });
+  }
+  function startTimer(){ timer = setInterval(function(){ goTo(cur+1); }, 6000); }
+  function resetTimer(){ clearInterval(timer); startTimer(); }
+
+  document.querySelector('.carousel-next').addEventListener('click', function(){ goTo(cur+1); resetTimer(); });
+  document.querySelector('.carousel-prev').addEventListener('click', function(){ goTo(cur-1); resetTimer(); });
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); resetTimer(); }); });
+
+  var outer = document.querySelector('.carousel-outer');
+  outer.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  outer.addEventListener('mouseleave', startTimer);
+
+  startTimer();
+})();
+</script>
+</body>
+</html>
