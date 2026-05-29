@@ -326,3 +326,87 @@ All targets below remain unshot. These require a fresh in-game session.
 - **Cellions → Elm confirmed**: Cellions (UR 05, Thunder Stomp) and UR Elm (IMG_6836, Thunder Stomp Lv8) share the same skill name — Elm is the evolved form of Cellions.
 - **MC Set data**: Attack set 3-piece = ATK +20%, 5-piece scaling = 3.6%/Soul level up to 144%. Defense set mirrors this for DEF. Guard set HP enhancement scaling: 0.5%/20 enhance levels up to 18% (3-piece). All confirmed from Set Illustration screens.
 - **Summon Replace mechanic**: Attack MC is "Specified" (not switchable), while Overall/Defense/Guard are all "Switch." Implies Attack category has a fixed pool.
+
+---
+
+## Batch review — IMG_6853–6901 remainder + identification pass (May 2026)
+
+Previously unreviewed images from the original upload (6853–6855, 6888–6892, 6895–6901) processed. 7 new crops saved. 5 previously saved but unwired images identified and wired in.
+
+### Corrections to previous batch notes
+
+- **"Elm" = Eliza**: The previous note said "Cellions → Elm." The actual evolved pet name is **Eliza** (visible at +7 stage). File `pets/pet-elm-skill.jpg` is named incorrectly but content is correct — shows Eliza +7, Thunder Stomp Lv8.
+- **Boxing King Panda identification**: `pets/pet-panda-skill.jpg` and `pets/pet-panda-bonds.jpg` were saved but not matched to a guide entry. Both confirmed as **Boxing King Panda +13** — a UR pet NOT previously in pets.html. Added as UR 09 · Day TBD. Soul Telekinesis (Auto IV, 100%, +10% Auto Skill DMG/layer, 3 stacks). Two bonds confirmed active (Skyline and Wildness).
+
+### New images saved this session
+
+| Saved as | Guide | Source | Notes |
+|---|---|---|---|
+| `pets/pet-elm-upgrade.jpg` | D-08 | IMG_6853 | Eliza +7 Lv41 — same skill as pet-elm-skill.jpg at lower level |
+| `runes-abyss/abyss-shop-gameplay.jpg` | D-07 | IMG_6889 | Abyss Shop Gameplay tab — run-count milestone packs (Storm×10, Chase×100, Despair×150) |
+| `runes-abyss/abyss-shop-gameplay2.jpg` | D-07 | IMG_6890 | Gameplay tab continued — Havoc×200, Epic×300 packs |
+| `runes-abyss/rune-equipped-stats.jpg` | D-07 | IMG_6891 | Rune detail panel in-slot: Basic Attrib, Enhanced Attrib, Adamantbound Fire II skill entry |
+| `runes-abyss/rune-equipped-layout.jpg` | D-07 | IMG_6892 | Rune slot circle: 5★ centre + 4★ flanks, Total Attribute Bonus panel |
+| `daily-600-prestige/daily-tasks-list1.jpg` | D-05 | IMG_6895 | Daily tasks screen (6 tasks) — prestige + gold reward per task |
+| `daily-600-prestige/daily-tasks-list2.jpg` | D-05 | IMG_6896 | Daily tasks screen continued — 6 more tasks · total 210 prestige/day |
+
+### Images skipped this session
+
+- **IMG_6854**: Duplicate of 6853 (Eliza +7, Lv42 vs Lv41). No new information.
+- **IMG_6855**: Ghost Pirate summon banner — already covered by `pet-ghost-pirate-banner.jpg`.
+- **IMG_6888**: Abyss Shop Currency tab — already saved as `abyss-shop.jpg` from prior batch.
+- **IMG_6897–6901**: Generic daily reward popups (gems, battle manuals, chests). No guide-relevant information.
+- **ShareX_ehf8vfu1Ha.png**: Screen recording status icon. Discarded.
+
+### Video content — final confirmation
+
+All 36 frames from 3 MP4 recordings re-examined. **No monster card content exists in any video.** If monster card video was recorded, it was not included in the Google Drive upload.
+- v1 (138s): Rune Illustration panels only (5★/4★/3★/2★ across multiple tabs and tiers)
+- v2 (22s): Prestige Privilege screen
+- v3 (47s): Legendary Level progression (Lv1–Lv8)
+
+### Updated status — D-05 Daily 600 Prestige
+
+| Target | Status |
+|---|---|
+| `prestige-timer-pack.jpg` | ❌ still needed |
+| `prestige-weekly-pack.jpg` | ❌ still needed |
+| `prestige-monthly-passes.jpg` | ❌ still needed |
+| `legendary-level-155.jpg` | ❌ still needed (requires reaching Lv155) |
+| `legendary-level-list.jpg` | ✅ saved from video (v3) |
+| `prestige-privilege-list.jpg` | ✅ saved from video (v2) |
+| `prestige-privilege-autobattle.jpg` | ✅ saved from video (v2) |
+| `daily-tasks-list1.jpg` + `daily-tasks-list2.jpg` | ✅ saved this session |
+
+### Updated status — D-07 Runes & Abyss
+
+| Target | Status |
+|---|---|
+| `abyss-hell-entry.jpg` | ❌ still needed |
+| `abyss-hell-rewards.jpg` | ❌ still needed |
+| `abyss-shura-rewards.jpg` | ❌ still needed |
+| `cursed-state.jpg` | ❌ still needed |
+| `cursed-toxin-rune.jpg` | ❌ still needed |
+| `lucky-recast-trigger.jpg` | ❌ still needed |
+| `lucky-recast-cost.jpg` | ❌ still needed |
+| `rune-overview.jpg` | ⚠️ partial — `rune-equipped-layout.jpg` shows 5★/4★ slots; full 6-slot overview still needed |
+| `abyss-shop.jpg` (Currency tab) | ✅ saved prior session |
+| `abyss-shop-gameplay.jpg` + `abyss-shop-gameplay2.jpg` | ✅ saved this session |
+| `rune-5star-arkarium.jpg` + `rune-5star-basic.jpg` | ✅ saved from video (v1) |
+| `rune-4star-pinkbean.jpg` + `rune-3star-mapleleaf.jpg` | ✅ saved from video (v1) |
+| `rune-equipped-stats.jpg` + `rune-equipped-layout.jpg` | ✅ saved this session |
+
+### Updated status — D-08 Pets
+
+| Target | Status |
+|---|---|
+| `exr-bonds-sr.jpg` / `exr-bonds-ssr.jpg` / `exr-bonds-ur.jpg` | ❌ still needed — bond stat tables |
+| `lineup-p2w-pve.jpg` / `lineup-f2p-pve.jpg` / `lineup-pvp.jpg` | ❌ still needed |
+| `bonds-auto-append.jpg` | ❌ still needed |
+| `swell-threshold.jpg` | ❌ still needed |
+| `pity-carryover.jpg` | ❌ still needed |
+| `ur-swell-before.jpg` / `ur-swell-after.jpg` | ❌ still needed |
+| `pet-ghost-pirate-skill.jpg` | ✅ wired in — Gigantic Spirit Viking +10 |
+| `pet-elm-skill.jpg` (Eliza +7) | ✅ wired in — Thunder Stomp Lv8 |
+| `pet-stumpy-skill.jpg` | ✅ wired in — Craze Batmania Lv12 |
+| `pet-panda-skill.jpg` + `pet-panda-bonds.jpg` | ✅ wired in — Boxing King Panda UR 09 (new entry) |
