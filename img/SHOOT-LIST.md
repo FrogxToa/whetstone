@@ -232,3 +232,97 @@ The 86 images in the dojo-tips channel were **all community Q&A** (players posti
 
 *Total: ~80 screenshots needed across 15 guides*  
 *Fastest wins: pets (10), monster-cards (10), runes-abyss (8)*
+
+---
+
+## Batch review — IMG_6829–IMG_6901 (May 2026)
+
+**68 PNGs + 3 MP4s uploaded. 3 files missing from sequence (6887, 6893, 6894).**
+
+### What the batch covered
+
+| Saved as | Guide | Notes |
+|---|---|---|
+| `pets/pet-ghost-pirate-skill.jpg` | D-08 | Confirms Ghost Pirate = Gigantic Spirit Viking. Rampage Engine Lv11, Auto IV, 91% / 213% ATK / +1 Rage |
+| `pets/pet-panda-skill.jpg` | D-08 | Boxing King Panda +13 — Soul Telekinesis Lv14 |
+| `pets/pet-elm-skill.jpg` | D-08 | UR Elm +7 — Thunder Stomp Lv8 (confirms Cellions → Elm evolution) |
+| `pets/pet-stumpy-skill.jpg` | D-08 | SSR Stumpy +11 — Craze Batmania Lv12 |
+| `pets/pet-panda-bonds.jpg` | D-08 | Boxing King Panda bond activation screen |
+| `pets/pet-ghost-pirate-banner.jpg` | D-08 | Fox God Throne banner for Ghost Pirate (0/60 pity) |
+| `monster-cards/mc-attack-set-soul-bonus.jpg` | D-16 | Set Illustration — Attack set soul bonus (3-piece 20%, 5-piece 144% cap) |
+| `monster-cards/mc-defense-set-soul-bonus.jpg` | D-16 | Set Illustration — Defense set soul bonus |
+| `monster-cards/mc-attack-set-active.jpg` | D-16 | Attack set activated in-character (24.8%/32% current/max) |
+| `monster-cards/mc-rules-types.jpg` | D-16 | In-game Rules panel — card types, set bonus, extraction intro |
+| `monster-cards/mc-rules-extraction.jpg` | D-16 | In-game Rules panel — extraction detail + breakthrough intro |
+| `monster-cards/mc-banner-attack.jpg` | D-16 | Fox God Throne Attack MC banner (60-pity gold card) |
+| `monster-cards/mc-summon-replace.jpg` | D-16 | Summon Replace dialog — Pet + MC tabs |
+| `runes-abyss/abyss-shop.jpg` | D-07 | Abyss Shop (Abyss tab) — rune costs, Magic Solvent, Raised Runestone |
+| `build/build-advanced-attrs.jpg` | D-06 | Advanced attributes popup — resistance stack totals |
+| `stigmata/stig-rune-equipped.jpg` | D-10 | Rune/stigmata equipped panel with Adamantbound Fire I skill |
+
+### Additionally from 3 MP4 recordings (May 28, 2026)
+
+| Saved as | Guide | Notes |
+|---|---|---|
+| `runes-abyss/rune-5star-arkarium.jpg` | D-07 | 5★ Vortex Rune Illustration — Arkarium effects tab (Eternity, Thunder, Shadow, Glimmer) |
+| `runes-abyss/rune-5star-basic.jpg` | D-07 | 5★ Vortex Rune — Basic stat passives (DEF/ATK layers, EVD, Hit Bonus) |
+| `runes-abyss/rune-4star-pinkbean.jpg` | D-07 | 4★ Pink Bean Rune Illustration — Advanced Hit Bonus + Basic stats |
+| `runes-abyss/rune-3star-mapleleaf.jpg` | D-07 | 3★ Maple Leaf Rune Illustration — Advanced DEF/ATK stacks + Hit Bonus |
+| `runes-abyss/rune-2star-unnamed.jpg` | D-07 | 2★ Unnamed Rune Illustration — Basic DEF/ATK + Crit Res/Crit Bonus |
+| `daily-600-prestige/prestige-privilege-list.jpg` | D-05 | Prestige Privilege tab — milestones 6k/20k/30k prestige unlocks (all Active) |
+| `daily-600-prestige/prestige-privilege-autobattle.jpg` | D-05 | Auto-Battle Privilege — Auto-Pathfinding + Auto-Loot on 1st top-up |
+| `daily-600-prestige/legendary-level-list.jpg` | D-05 | Legendary Level system — Lv1 privilege list + growth level sidebar (Lv1–Lv5) |
+| `daily-600-prestige/legendary-level-lv4.jpg` | D-05 | Lv4 privilege — Monster Park, Equipment Star-up Pack ×3, Coin drops +12% |
+| `daily-600-prestige/legendary-level-lv6.jpg` | D-05 | Lv6 privilege — Coin drops +16%, Dojo CD –8%, idle rewards 19h |
+| `daily-600-prestige/legendary-level-lv8.jpg` | D-05 | Lv8 privilege — Coin drops +32%, Dojo CD –16%, idle rewards 25h, bag 380 |
+
+**Note on legendary-level-155.jpg**: The placeholder in daily-600-prestige.html requires reaching Legendary Level 155. User is currently at Lv10. This image remains unshot.
+
+### SHOOT-LIST targets still NOT captured
+
+All targets below remain unshot. These require a fresh in-game session.
+
+**D-08 Pets (0/11 shoot-list targets hit — batch covered reference material only)**
+- `exr-bonds-sr/ssr/ur.jpg` — bond stat table (SR / SSR / UR tier)
+- `lineup-p2w-pve.jpg`, `lineup-f2p-pve.jpg`, `lineup-pvp.jpg` — active lineup screenshots
+- `bonds-auto-append.jpg` — stat sheet of +13 pet showing bonds auto-added
+- `swell-threshold.jpg` — EXR swell cost / +41 threshold screen
+- `pity-carryover.jpg` — pity counter before pull
+- `ur-swell-before/after.jpg` — UR pet stat sheet before/after swell
+
+**D-16 Monster Cards (0/10 shoot-list targets hit — batch covered supplemental explainers)**
+- `card-level-low/high.jpg` — total MC level comparison (155 vs 500+)
+- `license-tab.jpg`, `past-license-tab.jpg` — license purchase screens
+- `card-packs-164.jpg` — level 164 event pack selector
+- `categorised-summon-locked/unlocked.jpg` — locked/unlocked summon state
+- `banner-selection.jpg` — category picker with shared pity note
+- `barter-function.jpg` — barter tab
+- `soul-cap.jpg` — Soul of Attack/Defense/Guard cap at 50
+
+**D-07 Runes & Abyss (0/8 shoot-list targets hit — batch covered shop only)**
+- `abyss-hell-entry.jpg` — 550k rating entry gate
+- `abyss-hell-rewards.jpg`, `abyss-shura-rewards.jpg` — reward tabs
+- `cursed-state.jpg`, `cursed-toxin-rune.jpg` — debuff + rune stats
+- `lucky-recast-trigger.jpg`, `lucky-recast-cost.jpg` — lucky recast UI
+- `rune-overview.jpg` — all 6 slots equipped
+
+**D-09 EXR Cultivation (0/7 targets)** — all unshot  
+**D-13 Devour (0/7 targets)** — all unshot  
+**D-05 Daily 600 Prestige (0/5 targets)** — all unshot  
+**D-17 Soul Orbs (0/5 targets)** — all unshot  
+**D-01 Tower of Origins (0/4 targets)** — all unshot  
+**D-15 Wings Cultivation (0/6 targets)** — all unshot  
+**D-14 Class (0/4 targets)** — all unshot  
+**D-10 Stigmata (0/5 targets)** — all unshot  
+**D-12 LOC & Totems (0/5 targets)** — all unshot  
+**D-18 Off-Road (0/3 targets)** — all unshot  
+**D-19 Costumes (0/10 targets)** — all unshot  
+**D-06 Build (0/4 targets)** — all unshot  
+**D-04 Coloured Diamonds (0/1 targets)** — all unshot
+
+### New finds from batch (not on shoot list — worth adding)
+
+- **Ribbon Pig = Primitive Boar evolution candidate**: Ribbon Pig (pets.html UR 07) has "Reckless Charge" with +1 initial rage / +4.2% Rage DMG; IMG_6831 shows "Primitive Boar +13" with the same skill (Recklessly Charge) but at max level (+4 initial rage / +12%). Likely the same evolution chain.
+- **Cellions → Elm confirmed**: Cellions (UR 05, Thunder Stomp) and UR Elm (IMG_6836, Thunder Stomp Lv8) share the same skill name — Elm is the evolved form of Cellions.
+- **MC Set data**: Attack set 3-piece = ATK +20%, 5-piece scaling = 3.6%/Soul level up to 144%. Defense set mirrors this for DEF. Guard set HP enhancement scaling: 0.5%/20 enhance levels up to 18% (3-piece). All confirmed from Set Illustration screens.
+- **Summon Replace mechanic**: Attack MC is "Specified" (not switchable), while Overall/Defense/Guard are all "Switch." Implies Attack category has a fixed pool.
